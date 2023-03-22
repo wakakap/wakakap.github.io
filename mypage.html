@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyhomePage</title>
+	<style>
+		body {
+			background-image: url('https://i.ytimg.com/vi/emrt46SRyYs/maxresdefault.jpg');
+			background-size: cover;
+			filter: blur(2px);
+			padding-top: 50px;
+			padding-bottom: 50px;
+		}
+		
+		h1 {
+			color: white;
+			text-align: center;
+			font-size: 60px;
+		}
+		
+		p {
+			color: white;
+			font-size: 30px;
+			line-height: 1.5;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: rgba(255, 255, 255, 0.8);
+			border-radius: 10px;
+		}
+		
+		ul {
+			display: flex;
+			list-style: none;
+			justify-content: center;
+			padding: 0;
+		}
+		
+		li {
+			margin: 0 10px;
+		}
+		
+		a {
+			color: white;
+			text-decoration: none;
+			font-size: 30px;
+			padding: 10px;
+			background-color: rgba(255, 255, 255, 0.8);
+			border-radius: 10px;
+			transition: all 0.2s ease-in;
+		}
+		
+		a:hover {
+			transform: scale(1.1);
+			background-color: rgba(255, 255, 255, 0.9);
+		}
+		
+		.project-container {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			padding-top: 50px;
+		}
+		
+		.project {
+			margin: 20px;
+			width: 300px;
+			height: 300px;
+			background-size: cover;
+			background-position: center;
+			position: relative;
+			cursor: pointer;
+		}
+		
+		.project:hover .project-overlay {
+			opacity: 1;
+		}
+		
+		.project img {
+			opacity: 0.7;
+			transition: all 0.3s ease-in-out;
+		}
+		
+		.project:hover img {
+			opacity: 1;
+			transform: scale(1.1);
+		}
+		
+		.project-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.6);
+			opacity: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: all 0.2s ease-in-out;
+		}
+		
+		.project-title {
+			color: white;
+			font-size: 30px;
+			text-align: center;
+		}
+		
+	</style>
+</head>
+<body>
+	<h1>个人介绍</h1>
+	<p>在这里写一段关于你自己的介绍。</p>
+	
+	<h1>成果展示</h1>
+	<div class="project-container">
+		<div class="project" style="background-image: url('project-1.jpg')">
+			<div class="project-overlay">
+				<p class="project-title">项目标题</p>
+			</div>
+		</div>
+		<div class="project" style="background-image: url('project-2.jpg')">
+			<div class="project-overlay">
+				<p class="project-title">项目标题</p>
+			</div>
+		</div>
+		<div class="project" style="background-image: url('project-3.jpg')">
+			<div class="project-overlay">
+				<p class="project-title">项目标题</p>
+			</div>
+		</div>
+	</div>
+	
+	<h1>其他社交链接</h1>
+	<ul>
+		<li><a href="#"><img src="social-media-icons/facebook.png" alt="Facebook"></a></li>
+		<li><a href="#"><img src="social-media-icons/twitter.png" alt="Twitter"></a></li>
+		<li><a href="#"><img src="social-media-icons/instagram.png" alt="Instagram"></a></li>
+		<li><a href="#"><img src="social
