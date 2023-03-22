@@ -5,13 +5,40 @@
 	<style>
 		body {
 			background-image: url('https://i.ytimg.com/vi/emrt46SRyYs/maxresdefault.jpg'), url('https://i.ytimg.com/vi/emrt46SRyYs/maxresdefault.jpg');
-			background-size: auto, cover;
+			background-size: 50% 50%, cover;
 			background-position: center, center;
 			background-repeat: no-repeat;
 			background-attachment: fixed, scroll;
-			filter: blur(2px);
 			padding-top: 50px;
 			padding-bottom: 50px;
+			}
+
+			/* 第一张背景图片 */
+			body::before {
+			content: "";
+			display: block;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background-image: url('https://i.ytimg.com/vi/emrt46SRyYs/maxresdefault.jpg');
+			filter: blur(4px); /* 第一张背景图片的滤镜效果 */
+			}
+
+			/* 第二张背景图片 */
+			body::after {
+			content: "";
+			display: block;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -2;
+			background-image: url('https://i.ytimg.com/vi/emrt46SRyYs/maxresdefault.jpg');
+			filter: grayscale(100%); /* 第二张背景图片的滤镜效果 */
 		}
 		
 		h1 {
@@ -113,10 +140,10 @@
 	</style>
 </head>
 <body>
-	<h1>个人介绍</h1>
-	<p>在这里写一段关于你自己的介绍。</p>
+	<h1>MyHomePage</h1>
+	<p>大家好，这里是我的介绍网站，还在和AI对话练习制作中。</p>
 	
-	<h1>成果展示</h1>
+	<h1>展示</h1>
 	<div class="project-container">
 		<div class="project" style="background-image: url('project-1.jpg')">
 			<div class="project-overlay">
