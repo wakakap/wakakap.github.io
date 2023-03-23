@@ -7,6 +7,7 @@
     background-attachment: fixed, scroll; */
         margin: 0;
 		padding: 0;
+        background-color: rgb(40, 40, 40);
     }
     .container {
         position: relative;
@@ -14,8 +15,10 @@
 
     .background {
         background-image: url('../media/00004-3147071911.png');
-        background-size: cover;
-        height: 100vh;
+        background-size: cover;/*充满屏幕*/
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 100vh;/*我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。*/
         background-attachment: fixed;
         z-index: -1; /* 确保背景在文本下面 */
     }
@@ -53,12 +56,16 @@
     text-align: center;
 }
 h1 {
+    margin: 0;
+    padding: 0;
     color: white;
     text-align: center;
     font-size: 60px;
 }
 
 h2 {
+    margin: 0;
+    padding: 0;
     color: rgb(255, 136, 73);
     text-align: center;
     font-size: 40px;
@@ -71,7 +78,7 @@ p {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(5, 5, 5, 0.5);
     border-radius: 10px;
 }
 
@@ -91,14 +98,14 @@ a{
     text-decoration: underline;
     font-size: 30px;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(5, 5, 5, 0.5);
     border-radius: 10px;
     transition: all 0.2s ease-in;
 }
 
 a:hover {
     transform: scale(1.1);
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(5, 5, 5, 0.5);
 }
 
 .project-container {
