@@ -11,7 +11,20 @@
     }
     .container {
         position: relative;
+        /* display: flex;
+		flex-wrap: wrap; */
     }
+
+    .fixed-twitter {
+        opacity: 0.8;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 999;
+    }
+      
 
     .background {
         background-image: url('../media/00004-3147071911.png');
@@ -107,6 +120,13 @@ a{
 a:hover {
     transform: scale(1.1);
     background-color: rgba(5, 5, 5, 0.5);
+}
+
+.father-project-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 300px;
 }
 
 .project-container {
