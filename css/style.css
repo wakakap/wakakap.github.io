@@ -114,7 +114,7 @@ a:hover {
     background-color: rgba(5, 5, 5, 0.5);
 }
 
-.father-project-container {
+.left-father--container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -135,8 +135,8 @@ a:hover {
 .project {
     flex: 0 0 auto; /* prevent items from stretching to fill width */
     margin: 20px;
-    width: 300px;
-    height: 400px;
+    width: 250px;
+    height: 350px;
     background-size: cover;
     background-position: center;
     position: relative;
