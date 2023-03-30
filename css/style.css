@@ -2,7 +2,7 @@
         font-family: 'minzhao';
         src: url('../fonts/MS\ 明朝.ttf');
     }
-    
+
     body {
         margin: 0;
 		padding: 0;
@@ -26,6 +26,7 @@
     }
 
     .background {
+        background-color: transparent;
         background-image: url('../media/00004-3147071911.png');
         background-size: cover;/*充满屏幕*/
         background-repeat: no-repeat;
@@ -44,11 +45,11 @@
         z-index: 0
     }
 
-.center {
-    text-align: center;
-    /* display: flex;
-    justify-content: center; */
-}
+    .center {
+        text-align: center;
+        /* display: flex;
+        justify-content: center; */
+    }
 h1 {
     font-family: 'minzhao', sans-serif;
     margin: 0;
