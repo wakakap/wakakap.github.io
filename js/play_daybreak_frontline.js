@@ -7,14 +7,26 @@ var currentFrame = 0;
 var isPlaying = false
 
 var animationFrames = [
-	'frame_02_delay-0.04s.png',
-	'frame_04_delay-0.04s.png',
-	'frame_06_delay-0.04s.png',
 	'frame_08_delay-0.04s.png',
 	'frame_10_delay-0.04s.png',
 	'frame_12_delay-0.04s.png',
 	'frame_14_delay-0.04s.png',
-	'frame_16_delay-0.04s.png',
+	'frame_15_delay-0.04s.png',
+	'frame_02_delay-0.04s.png',
+	'frame_04_delay-0.04s.png',
+	'frame_06_delay-0.04s.png',
+	'frame_07_delay-0.04s.png',
+	'frame_08_delay-0.04s.png',
+	'frame_10_delay-0.04s.png',
+	'frame_12_delay-0.04s.png',
+	'frame_14_delay-0.04s.png',
+	'frame_15_delay-0.04s.png',
+	'frame_02_delay-0.04s.png',
+	'frame_04_delay-0.04s.png',
+	'frame_06_delay-0.04s.png',
+	'frame_07_delay-0.04s.png',
+
+
 ];
 
 
@@ -23,7 +35,7 @@ function play(){
 		var audio = document.getElementById("myAudio");
 		audio.play();
 		setTimeInfo();
-		intervalId = setInterval(draw, 58);
+		intervalId = setInterval(draw, 40);
 		setInterval(updateTime, 5);
 		isPlaying = true;
 	  }
@@ -37,11 +49,27 @@ function pause(){
 	isPlaying = false;
 }
 
+function reset(){
+	var audio = document.getElementById("myAudio");
+	audio.pause();
+	audio.currentTime = 0;
+	clearInterval(intervalId);
+	clearInterval(updateTime);
+	isPlaying = false;
+	i = 0;
+	context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+
 function updateTime(){
 	songtime = Math.floor(document.getElementById("myAudio").currentTime);
-	if (i < timeInfo.length && songtime >= timeInfo[i]) {
-		currentFrame = 0;
-		i++;
+	if (i < timeInfo.length) {
+		if(songtime >= timeInfo[i]){
+			currentFrame = 0;
+			i++;
+		}
+	}else{
+		reset();
 	}
 }
 
@@ -54,7 +82,7 @@ function setTimeInfo() {
 				console.log(txtFile.status);
 				var allText = txtFile.responseText;
 				timeInfo = allText.trim().split('\n').map(function(x) { return parseInt(x); });
-				document.getElementById("timeInfo").innerHTML = "<pre>" + allText + "</pre><pre>" + JSON.stringify(timeInfo) + "</pre>"; // 输出时间信息到页面中
+				// document.getElementById("timeInfo").innerHTML = "<pre>" + allText + "</pre><pre>" + JSON.stringify(timeInfo) + "</pre>"; // 输出时间信息到页面中
 			}
 		}
 	}
@@ -65,8 +93,7 @@ function draw(){
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
 	if (currentFrame >= animationFrames.length) {
-		
-		// clearInterval(intervalId);
+
 	} else {
 		var image = new Image();
 		image.onload = function(){

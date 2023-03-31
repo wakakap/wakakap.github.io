@@ -1,19 +1,20 @@
-import librosa
-import numpy as np
+import madmom
+# 只能在python3.7版本运行，3.10会报错。搭建虚拟环境受阻，在环境变量中直接改为3.7的pip pyhon路径即可。该路径后要重启vscode或者cmd才生效。
+
+
 
 # 加载音频文件
-audio_file = '../media/daybreak frontline.mp3'
-y, sr = librosa.load(audio_file)
+input_file = '../media/daybreak frontline.mp3'
 
-# 提取音频特征
-tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
+# 定义输入文件路径和输出文件路径
+output_file = 'file.txt'
 
-# 将帧编号转换为时间轴上的时间
-times = librosa.frames_to_time(beats, sr=sr)
+# 使用madmom库计算bpm节拍时间序列
+proc = madmom.features.beats.RNNBeatProcessor()
+act = madmom.features.beats.RNNBeatProcessor()(input_file)
+beats = madmom.features.beats.DBNBeatTrackingProcessor(fps=100)(act)
 
-# 保存节拍时间信息到文本文件
-np.savetxt('beat_times.txt', times, fmt='%.8f')
-
-# 输出节拍数量和时间范围
-print('Number of beats:', len(beats))
-print('Time range:', times[-1] - times[0])
+# 将bpm节拍时间序列写入txt文件中
+with open(output_file, 'w') as f:
+    for beat in beats:
+        f.write(str(beat) + '\n')
