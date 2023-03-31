@@ -2,7 +2,7 @@ import librosa
 import numpy as np
 
 # 加载音频文件
-audio_file = 'DAYBREAK FRONTLINE.aac'
+audio_file = '../media/daybreak frontline.mp3'
 y, sr = librosa.load(audio_file)
 
 # 提取音频特征

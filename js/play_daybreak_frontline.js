@@ -4,6 +4,7 @@ var intervalId;
 var canvas;
 var context;
 var currentFrame = 0;
+var isPlaying = false
 
 var animationFrames = [
 	'frame_02_delay-0.04s.png',
@@ -18,11 +19,14 @@ var animationFrames = [
 
 
 function play(){
-	var audio = document.getElementById("myAudio");
-	audio.play();
-	setTimeInfo();
-	intervalId = setInterval(draw, 58);
-	setInterval(updateTime, 5);
+	if (!isPlaying) {
+		var audio = document.getElementById("myAudio");
+		audio.play();
+		setTimeInfo();
+		intervalId = setInterval(draw, 58);
+		setInterval(updateTime, 5);
+		isPlaying = true;
+	  }
 }
 
 function pause(){
@@ -30,6 +34,7 @@ function pause(){
 	audio.pause();
 	clearInterval(intervalId);
 	clearInterval(updateTime);
+	isPlaying = false;
 }
 
 function updateTime(){
@@ -42,7 +47,7 @@ function updateTime(){
 
 function setTimeInfo() {
 	var txtFile = new XMLHttpRequest();
-	txtFile.open("GET", "../media/daybreak frontline_time_info.txt", true);
+	txtFile.open("GET", "../python/beat_times.txt", true);
 	txtFile.onreadystatechange = function() {
 		if (txtFile.readyState === 4) {  // Makes sure the document is ready to parse.
 			if (txtFile.status === 200) {  // Makes sure it's found the file.
