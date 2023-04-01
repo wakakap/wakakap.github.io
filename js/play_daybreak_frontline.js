@@ -7,9 +7,6 @@ var currentFrame = 0;
 var isPlaying = false
 
 var animationFrames = [
-	'frame_08_delay-0.04s.png',
-	'frame_10_delay-0.04s.png',
-	'frame_12_delay-0.04s.png',
 	'frame_14_delay-0.04s.png',
 	'frame_15_delay-0.04s.png',
 	'frame_02_delay-0.04s.png',
@@ -20,13 +17,6 @@ var animationFrames = [
 	'frame_10_delay-0.04s.png',
 	'frame_12_delay-0.04s.png',
 	'frame_14_delay-0.04s.png',
-	'frame_15_delay-0.04s.png',
-	'frame_02_delay-0.04s.png',
-	'frame_04_delay-0.04s.png',
-	'frame_06_delay-0.04s.png',
-	'frame_07_delay-0.04s.png',
-
-
 ];
 
 
@@ -75,7 +65,7 @@ function updateTime(){
 
 function setTimeInfo() {
 	var txtFile = new XMLHttpRequest();
-	txtFile.open("GET", "../python/beat_times.txt", true);
+	txtFile.open("GET", "../python/output.txt", true);
 	txtFile.onreadystatechange = function() {
 		if (txtFile.readyState === 4) {  // Makes sure the document is ready to parse.
 			if (txtFile.status === 200) {  // Makes sure it's found the file.
