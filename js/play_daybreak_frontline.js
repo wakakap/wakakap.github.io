@@ -3,12 +3,13 @@ var songtime = 0;
 var intervalId;
 var canvas;
 var context;
-var currentFrame = 0;
+var currentFrame = 10000;
 var isPlaying = false
+var songtime = 0
+
 
 var animationFrames = [
 	'frame_14_delay-0.04s.png',
-	'frame_15_delay-0.04s.png',
 	'frame_02_delay-0.04s.png',
 	'frame_04_delay-0.04s.png',
 	'frame_06_delay-0.04s.png',
@@ -17,16 +18,20 @@ var animationFrames = [
 	'frame_10_delay-0.04s.png',
 	'frame_12_delay-0.04s.png',
 	'frame_14_delay-0.04s.png',
+
 ];
+
 
 
 function play(){
 	if (!isPlaying) {
 		var audio = document.getElementById("myAudio");
-		audio.play();
 		setTimeInfo();
-		intervalId = setInterval(draw, 40);
-		setInterval(updateTime, 5);
+		intervalId = setInterval(draw, 20);
+		setInterval(updateTime, 3);
+		setTimeout(function() {
+			audio.play();
+		  }, 500); // 等待时间为 500 毫秒，可以根据需要进行调整
 		isPlaying = true;
 	  }
 }
@@ -52,9 +57,10 @@ function reset(){
 
 
 function updateTime(){
-	songtime = Math.floor(document.getElementById("myAudio").currentTime);
+	songtime = document.getElementById("myAudio").currentTime;
 	if (i < timeInfo.length) {
 		if(songtime >= timeInfo[i]){
+			// console.log(timeInfo[i],songtime);
 			currentFrame = 0;
 			i++;
 		}
@@ -71,7 +77,7 @@ function setTimeInfo() {
 			if (txtFile.status === 200) {  // Makes sure it's found the file.
 				console.log(txtFile.status);
 				var allText = txtFile.responseText;
-				timeInfo = allText.trim().split('\n').map(function(x) { return parseInt(x); });
+				timeInfo = allText.trim().split('\n').map(function(x) { return parseFloat(x); });
 				// document.getElementById("timeInfo").innerHTML = "<pre>" + allText + "</pre><pre>" + JSON.stringify(timeInfo) + "</pre>"; // 输出时间信息到页面中
 			}
 		}
@@ -83,7 +89,6 @@ function draw(){
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
 	if (currentFrame >= animationFrames.length) {
-
 	} else {
 		var image = new Image();
 		image.onload = function(){
@@ -91,6 +96,7 @@ function draw(){
 			context.drawImage(image, 0, 0);
 			currentFrame++;
 		};
+		
 		image.src = `../media/Kirbybeats/`+animationFrames[currentFrame];
 	}
 }

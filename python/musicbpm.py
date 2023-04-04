@@ -4,7 +4,7 @@ import madmom
 
 
 # 加载音频文件
-input_file = '../media/daybreak frontline.mp3'
+input_file = '../media/daybreak frontline_sundary.mp3'
 
 # 定义输入文件路径和输出文件路径
 output_file = 'file.txt'
