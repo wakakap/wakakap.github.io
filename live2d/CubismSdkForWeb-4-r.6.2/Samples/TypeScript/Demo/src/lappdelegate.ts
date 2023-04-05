@@ -61,6 +61,7 @@ export class LAppDelegate {
     //   canvas.height = LAppDefine.CanvasSize.height;
     // }
     canvas = <HTMLCanvasElement>document.getElementById("live2d"); // index.html中的id为live2d的画布
+
     canvas.width = canvas.width;
     canvas.height = canvas.height;
 
@@ -344,13 +345,20 @@ function onMouseMoved(e: MouseEvent): void {
     return;
   }
 
+  // e.clientX和e.clientY获取的坐标点都是以左上角为原点
   const rect = (e.target as Element).getBoundingClientRect();
   // const posX: number = e.clientX - rect.left;
   // const posY: number = e.clientY - rect.top;
-  const posX: number = (e.clientX - rect.left)*1.2;//增加敏感度
-  const posY: number = (e.clientY - rect.top)*1.2;
+  let posX: number = e.clientX;
+  let posY: number = e.clientY - window.innerHeight + canvas.height;
 
+  // 图像在网页的坐下角，简单处理坐标将超过画布边界坐标就等与边界坐标
+  posX = (posX > canvas.width) ? canvas.width : posX;
+  posY = (posY < 0) ? 0 : posY;
+
+  // 转换坐标，调用LAppLive2DManager类重新绘制图像
   LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
+
 }
 
 /**
