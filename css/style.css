@@ -23,11 +23,28 @@
         background-color: rgba(0, 0, 0, 0);
         z-index: 999;
     }
-    /* .live2d_container{
-        margin: 0;
-        overflow: hidden;
+    /* 如果你在使用 position: sticky 后出现了额外的黑块背景，这可能是因为 sticky 定位的特性所导致的。当一个元素使用 sticky 定位时，它会保持在其父元素或滚动容器内的位置，直到它的顶部或底部触及到这个容器的边缘，然后它就会像使用 fixed 定位一样固定在那个位置。
 
-    } */
+    在一些情况下，当元素使用 sticky 定位时，它的宽度可能会被限制在父容器或滚动容器内，这可能会导致额外的黑块背景出现在页面中。
+
+    为了解决这个问题，你可以将你的 #live2d 元素放在一个新的父容器中，并将这个父容器设置为 position: relative;，并且设置其宽度为 100%，以使它填满屏幕宽度。这样可以确保你的 #live2d 元素的宽度可以根据屏幕宽度自动调整，并且不会出现额外的黑块背景。 */
+    .live2d-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        z-index: 1000;
+      }
+      
+    .live2d {
+        position: -webkit-sticky;
+        position: sticky;/* 避免在移动设备上出现固定元素消失的问题 */
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        height: 400px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+      
     #live2d {
         position: fixed;
         bottom: 0;
@@ -37,22 +54,10 @@
         background-color: rgba(0, 0, 0, 0);
         z-index: 1000;
       }
-
-    /* 之前是把live2d的canvas写在.fixed-live2d中，怎么都无法固定，原因未知 */
-    /* .fixed-live2d {
-        opacity: 0.85;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 300px;
-        background-color: rgba(0, 0, 0, 0);
-        z-index: 1000;
-    } */
-
     .background {
         background-image: url('../media/00004-3147071911.png');
         background-size: cover;/*充满屏幕*/
-        /* background-repeat: no-repeat; */
+        background-repeat: no-repeat;
         background-position: center center;
         /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
         /* height: 100vh; */
