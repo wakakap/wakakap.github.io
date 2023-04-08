@@ -28,8 +28,11 @@ window.onbeforeunload = (): void => LAppDelegate.releaseInstance();
 /**
  * Process when changing screen size.
  */
+// window.onresize = () => {
+//   if (LAppDefine.CanvasSize === 'auto') {
+//     LAppDelegate.getInstance().onResize();
+//   }
+// };
 window.onresize = () => {
-  if (LAppDefine.CanvasSize === 'auto') {
     LAppDelegate.getInstance().onResize();
-  }
 };

@@ -54,16 +54,17 @@ export class LAppDelegate {
   public initialize(): boolean {
     // キャンバスの作成
     // canvas = document.createElement('canvas');
-    // if (LAppDefine.CanvasSize === 'auto') {
-    //   this._resizeCanvas();
-    // } else {
-    //   canvas.width = LAppDefine.CanvasSize.width;
-    //   canvas.height = LAppDefine.CanvasSize.height;
-    // }
-    canvas = <HTMLCanvasElement>document.getElementById("live2d"); // index.html中的id为live2d的画布
-
+    canvas = <HTMLCanvasElement> document.getElementById("live2d"); // index.html中的id为live2d的画布
     canvas.width = canvas.width;
     canvas.height = canvas.height;
+    this._resizeCanvas();
+  
+    // if (LAppDefine.CanvasSize === 'auto') {
+    //       this._resizeCanvas();
+    //     } else {
+    //       canvas.width = LAppDefine.CanvasSize.width;
+    //       canvas.height = LAppDefine.CanvasSize.height;
+    //     }
 
     // glコンテキストを初期化
     // @ts-ignore
@@ -119,9 +120,9 @@ export class LAppDelegate {
    * Resize canvas and re-initialize view.
    */
   public onResize(): void {
-    this._resizeCanvas();
-    this._view.initialize();
-    this._view.initializeSprite();
+    this._resizeCanvas();//重新设置canvas的宽高
+    // this._view.initialize();//初始化view
+    // this._view.initializeSprite();
 
     // キャンバスサイズを渡す
     const viewport: number[] = [0, 0, canvas.width, canvas.height];
@@ -298,11 +299,25 @@ export class LAppDelegate {
   /**
    * Resize the canvas to fill the screen.
    */
+  
   private _resizeCanvas(): void {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+    // canvas.width = 300;
+    // canvas.height = 400;
 
+    // 测试得到的容器元素的宽度和高度总有问题，最后发现resize后什么都不做是最好的
+    // let tmpcontainer = canvas.parentElement; // 获取 canvas 的容器元素
+    // if (tmpcontainer) {
+    //   // 设置 canvas 宽度和高度为容器元素的宽度和高度
+    //   canvas.width = tmpcontainer.clientWidth;
+    //   canvas.height = tmpcontainer.clientHeight;
+      console.log(`Canvas height: ${canvas.height}px`);
+      console.log(`Canvas width: ${canvas.width}px`);
+    // }
+  
+    // canvas.width = window.innerWidth;//源代码是整个浏览器屏幕
+    // canvas.height = window.innerHeight;
+  // }
+  }
   _cubismOption: Option; // Cubism SDK Option
   _view: LAppView; // View情報
   _captured: boolean; // クリックしているか

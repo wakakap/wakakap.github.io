@@ -31,7 +31,6 @@ export class LAppView {
     // タッチ関係のイベント管理
     this._touchManager = new TouchManager();
 
-    // 设备坐标 到 屏幕左边的变换
     // デバイス座標からスクリーン座標に変換するための
     this._deviceToScreen = new CubismMatrix44();
 
@@ -64,8 +63,6 @@ export class LAppView {
     }
     this._deviceToScreen.translateRelative(-width * 0.5, -height * 0.5);
 
-    
-
     // 表示範囲の設定
     this._viewMatrix.setMaxScale(LAppDefine.ViewMaxScale); // 限界拡張率
     this._viewMatrix.setMinScale(LAppDefine.ViewMinScale); // 限界縮小率
@@ -77,9 +74,6 @@ export class LAppView {
       LAppDefine.ViewLogicalMaxBottom,
       LAppDefine.ViewLogicalMaxTop
     );
-
-    this._viewMatrix.adjustTranslate(0, -0.35); // 向上。加这个显示上半身，但resize后人物会消失
-
   }
 
   /**
@@ -145,7 +139,6 @@ export class LAppView {
       const fwidth = textureInfo.width * 2.0;
       const fheight = height * 0.95;
       this._back = new LAppSprite(x, y, fwidth, fheight, textureInfo.id);
-
     };
 
     textureManager.createTextureFromPngFile(
@@ -155,20 +148,20 @@ export class LAppView {
     );
 
     // 歯車画像初期化
-    // imageName = LAppDefine.GearImageName;
-    // const initGearTexture = (textureInfo: TextureInfo): void => {
-    //   const x = width - textureInfo.width * 0.5;
-    //   const y = height - textureInfo.height * 0.5;
-    //   const fwidth = textureInfo.width;
-    //   const fheight = textureInfo.height;
-    //   this._gear = new LAppSprite(x, y, fwidth, fheight, textureInfo.id);
-    // };
+    imageName = LAppDefine.GearImageName;
+    const initGearTexture = (textureInfo: TextureInfo): void => {
+      const x = width - textureInfo.width * 0.5;
+      const y = height - textureInfo.height * 0.5;
+      const fwidth = textureInfo.width;
+      const fheight = textureInfo.height;
+      this._gear = new LAppSprite(x, y, fwidth, fheight, textureInfo.id);
+    };
 
-    // textureManager.createTextureFromPngFile(
-    //   resourcesPath + imageName,
-    //   false,
-    //   initGearTexture
-    // );
+    textureManager.createTextureFromPngFile(
+      resourcesPath + imageName,
+      false,
+      initGearTexture
+    );
 
     // シェーダーを作成
     if (this._programId == null) {

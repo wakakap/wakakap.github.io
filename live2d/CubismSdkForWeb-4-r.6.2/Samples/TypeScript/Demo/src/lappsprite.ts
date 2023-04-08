@@ -31,7 +31,7 @@ export class LAppSprite {
     this._rect = new Rect();
     this._rect.left = x - width * 0.5;
     this._rect.right = x + width * 0.5;
-    this._rect.up = y + height * 0.5;
+    this._rect.up = y - height * 0.5;
     this._rect.down = y - height * 0.5;
     this._texture = textureId;
     this._vertexBuffer = null;
