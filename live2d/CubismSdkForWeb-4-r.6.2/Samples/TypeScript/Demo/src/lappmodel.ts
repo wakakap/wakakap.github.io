@@ -378,7 +378,7 @@ export class LAppModel extends CubismUserModel {
     };
   }
 
-  /**
+  /**texture
    * テクスチャユニットにテクスチャをロードする
    */
   private setupTextures(): void {
