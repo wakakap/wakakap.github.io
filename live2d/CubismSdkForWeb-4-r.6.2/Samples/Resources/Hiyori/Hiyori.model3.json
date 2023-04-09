@@ -7,8 +7,8 @@
 			"Hiyori.2048/texture_01.png"
 		],
 		"Physics": "Hiyori.physics3.json",
-		"Pose": "Hiyori.pose3.json",
 		"UserData": "Hiyori.userdata3.json",
+		"Pose": "Hiyori.pose3.json",
 		"DisplayInfo": "Hiyori.cdi3.json",
 		"Motions": {
 			"Idle": [
@@ -29,6 +29,7 @@
 				},
 				{
 					"File": "motions/Hiyori_m05.motion3.json",
+					"Sound": "wav/ohayo.wav",
 					"FadeInTime": 0.5,
 					"FadeOutTime": 0.5
 				},
@@ -56,11 +57,10 @@
 					"File": "motions/Hiyori_m10.motion3.json",
 					"FadeInTime": 0.5,
 					"FadeOutTime": 0.5
-				}
-			],
-			"TapBody": [
+				},
 				{
 					"File": "motions/Hiyori_m04.motion3.json",
+					"Sound": "wav/unn.wav",
 					"FadeInTime": 0.5,
 					"FadeOutTime": 0.5
 				}

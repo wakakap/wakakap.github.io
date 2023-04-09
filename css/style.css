@@ -40,8 +40,8 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        width: 300px;
-        height: 400px;
+        width: 300;
+        height: 400;
         background-color: rgba(0, 0, 0, 0);
         z-index: 1000;
         object-fit: contain;
@@ -56,9 +56,28 @@
         height: 400px;
         background-color: rgba(0, 0, 0, 0);
     } */
-    /* @media screen and (max-width: 400px) {
+
+    /* @media screen {
+        .live2d-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 600;
+            height: 800;
+            background-color: rgba(0, 0, 0, 0);
+            z-index: 1000;
+            object-fit: contain;
+        }
+
         #live2d {
-          width: 100px;
+          position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 600;
+            height: 800; 
+            background-color: rgba(0, 0, 0, 0);
+            z-index: 1000;
+            object-fit: contain;
         }
       }       */
     
@@ -67,8 +86,8 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        width: 300px;
-        height: 400px; 
+        width: 300;
+        height: 400; 
         background-color: rgba(0, 0, 0, 0);
         z-index: 1000;
         object-fit: contain;
