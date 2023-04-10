@@ -59,6 +59,17 @@
         background-attachment: fixed;
         z-index: -100; /* 确保背景在文本下面 */
     }
+    .block{
+        position: relative;
+        height: 100vh;
+    }
+    
+    @media (max-width: 767px) {
+        .block {
+            position: relative;
+            height: 50vh;
+        }
+    }
 
     
     .fixed-twitter {
@@ -127,11 +138,9 @@
         z-index: 1000;
         object-fit: contain;
       }
-    
-    .block{
-        position: relative;
-        height: 100vh;
-    }
+      
+
+
     .content {
         z-index: 0
     }
@@ -141,6 +150,8 @@
         /* display: flex;
         justify-content: center; */
     }
+
+    /* 文字样式定义 */
 h1 {
     font-family: 'minzhao', sans-serif;
     margin: 0;
@@ -157,6 +168,7 @@ h2 {
     text-align: center;
     font-size: 40px;
 }
+  
 
 p {
     color: white;

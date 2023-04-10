@@ -1,0 +1,45 @@
+.container {
+    position: relative;
+    /* display: flex;
+    flex-wrap: wrap; */
+}
+
+.background {
+    background-image: url('../media/00004-3147071911.png');
+    background-size: cover;/*充满屏幕*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
+    /* height: 100vh; */
+    background-attachment: fixed;
+    z-index: -100; /* 确保背景在文本下面 */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+  }
+  
+.autocontainer{
+    min-height: 200px;
+    height: auto;
+}
+
+.subtitle {
+    font-size: smaller;
+    color: rgba(255, 165, 117, 0.804);
+}
+
+h1 {
+    color: white;
+
+}
+
+h2 {
+    color: white;
+}
+  
+
+p {
+    color: white;
+}
