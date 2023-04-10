@@ -52,6 +52,7 @@ function reset(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+//关键判断函数
 function updateTime(){
 	songtime = document.getElementById("myAudio").currentTime;
 	if (i < timeInfo.length) {
@@ -68,7 +69,7 @@ function updateTime(){
 
 function setTimeInfo() {
 	var txtFile = new XMLHttpRequest();
-	txtFile.open("GET", "../python/output22.txt", true);
+	txtFile.open("GET", "../python/output.txt", true);
 	txtFile.onreadystatechange = function() {
 		if (txtFile.readyState === 4) {  // Makes sure the document is ready to parse.
 			if (txtFile.status === 200) {  // Makes sure it's found the file.
@@ -94,5 +95,5 @@ function draw(){
 		};
 		image.src = `../media/Kirbybeats/`+animationFrames[currentFrame];
 	}
-	requestAnimationFrame(draw,50);
+	requestAnimationFrame(draw,80);
 }

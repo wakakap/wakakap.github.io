@@ -3,6 +3,41 @@
         src: url('../fonts/MS\ 明朝.ttf');
     }
 
+    /* 导航栏样式定义 */
+
+    nav ul {
+    position: fixed;
+    top: -68;
+    width: 100%;
+    z-index: 10;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #a95f376e;
+    }
+
+    nav + .placeholder {
+        height: 68px; /* 替换60px为你导航栏的实际高度*/
+    }
+
+    nav li {
+    float: left;
+    }
+
+    nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+
+    nav li a:hover {
+    background-color: #111;
+    }
+
+    /* body部分 */
     body {
         margin: 0;
 		padding: 0;
