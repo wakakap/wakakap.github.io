@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fileNames.sort().reverse();
   
         // 取前三个文件名加载
-        for (let i = 0; i < fileNames.length; i++) {
+        for (let i = 0; i < 3 && i < fileNames.length; i++) {
           loadMarkdown(fileNames[i], converter);
         }
       });
