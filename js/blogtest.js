@@ -1,27 +1,23 @@
-
 $(document).ready(function() {
     // 创建Showdown对象
     var converter = new showdown.Converter();
 
-    // 扫描markdown目录并获取文件列表
+    // 加载最新的一个Markdown文件
     $.ajax({
         url: '../markdown/diary/',
         success: function(data) {
-            var fileNames = [];
+            var newestFile;
             $(data).find('a[href$=".md"]').each(function() {
                 var href = $(this).attr('href');
                 var segments = href.split('/');
                 var filename = segments[segments.length - 1];
-                fileNames.push(filename);
+                if (!newestFile || filename > newestFile) {
+                    newestFile = filename;
+                }
             });
 
-            // 排序文件名，倒序
-            fileNames.sort();
-            fileNames.reverse();
-
-            // 取前三个文件名加载
-            for (var i = 0; i < 3 && i < fileNames.length; i++) {
-                loadMarkdown(fileNames[i], converter);
+            if (newestFile) {
+                loadMarkdown(newestFile, converter);
             }
         }
     });
@@ -44,11 +40,6 @@ $(document).ready(function() {
 
             // 将新的list item元素添加到列表中
             $('#markdown-list').append(listItem);
-
-            // 对列表进行排序，按照标题倒序
-            $('#markdown-list li').sort(function(b, a) {
-                return $(a).find('h2').text().localeCompare($(b).find('h2').text());
-            }).appendTo('#markdown-list');
         });
     }
 });
