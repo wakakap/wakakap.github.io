@@ -9,7 +9,6 @@ function init(){
   var backImageNames = `${backImageName}`;
   var modelDirString = `${modelDir}`;
   var modelDirs = modelDirString.split(',');
-  var canvasSizes = canvasSize ;
 
   initDefine(resourcesPaths, backImageNames, modelDirs);  // lappdefine.ts开放的接口用于初始化常量被编译到bundle.js文件里
 }
