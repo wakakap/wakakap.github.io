@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     // 扫描markdown目录并获取文件列表
     $.ajax({
-        url: '/markdown/diary/',
+        url: '../markdown/diary/',
         success: function(data) {
             var fileNames = [];
             $(data).find('a[href$=".md"]').each(function() {
@@ -42,7 +42,7 @@ $(document).ready(function() {
 
     function loadMarkdown(filename, converter) {
         // 使用jQuery的get方法异步加载Markdown文件
-        $.get('/markdown/diary/' + filename, function(markdownContent) {
+        $.get('../markdown/diary/' + filename, function(markdownContent) {
             // 将Markdown内容转换为HTML
             var htmlContent = converter.makeHtml(markdownContent);
 
