@@ -16,6 +16,7 @@
 }
 
 body, html {
+    color: white; /* 设置所有文本颜色为白色 */
     margin: 0;
     padding: 0;
   }
@@ -40,23 +41,12 @@ button {
   }
   
 button:hover {
-background-color: white;
-color: black;
-cursor: pointer;
+    background-color: white;
+    color: black;
+    cursor: pointer;
 }
 
-  
-
-h1 {
-    color: white;
-
-}
-
-h2 {
-    color: white;
-}
-  
-
-p {
-    color: white;
+.contentback{
+    padding: 1px 10px;
+    background-color: rgba(0, 0, 0, 0.49);
 }

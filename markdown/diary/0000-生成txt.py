@@ -18,5 +18,5 @@ file_names.reverse()
 file_names_str = ",".join(file_names)
 
 # 创建新文件并将文件名写入其中
-with open(f"0000-filenames_{today}.txt", "w") as f:
+with open(f"0000-filenames_{today}.txt", "w",encoding="utf-8") as f:
     f.write(file_names_str)

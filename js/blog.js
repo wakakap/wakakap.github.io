@@ -2,8 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const converter = new showdown.Converter();
   const fileNames = [];
 
-  fetch('../markdown/diary/0000-filenames.txt')
-    .then(response => response.text())
+  fetch('../markdown/diary/0000-filenames.txt', {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8'
+    }
+  }).then(response => response.text())
     .then(data => {
       const names = data.split(',').map(name => name.trim());//也许有空格。但已经修正，可注销
       fileNames.push(...names);
@@ -16,14 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 async function loadMarkdown(filename, converter) {
-  const markdownContent = await fetch(`../markdown/diary/${filename}.md`).then(response => response.text());
+  const markdownContent = await fetch(`../markdown/diary/${filename}.md`, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8'
+    }
+  }).then(response => response.text());
   const htmlContent = converter.makeHtml(markdownContent);
 
   const segments = filename.split('-');
   const date = `${segments[0]}-${segments[1]}-${segments[2]}`;
   const title = segments.slice(3).join('-');
   const li = document.createElement('li');
-  li.innerHTML = `<h2>${title}<span class="subtitle"> date：${date}</span></h2><div>${htmlContent}</div>`;
+  li.innerHTML = `<h2>${title}<span class="subtitle"> date：${date}</span></h2><div class="contentback">${htmlContent}</div>`;
 
   const markdownList = document.querySelector('#markdown-list');
   markdownList.appendChild(li);

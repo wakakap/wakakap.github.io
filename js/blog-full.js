@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const converter = new showdown.Converter();
   const fileNames = [];
 
-  fetch('../markdown/diary/0000-filenames.txt')
+  fetch('../markdown/diary/0000-filenames.txt', {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8'
+    }
+  })
     .then(response => response.text())
     .then(data => {
       const names = data.split(',').map(name => name.trim());//也许有空格。但已经修正，可注销
@@ -16,7 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 async function loadMarkdown(filename, converter) {
-  const markdownContent = await fetch(`../markdown/diary/${filename}.md`).then(response => response.text());
+  const markdownContent = await fetch(`../markdown/diary/${filename}.md`, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8'
+    }
+  }).then(response => response.text());
 
   const segments = filename.split('-');
   const date = `${segments[0]}-${segments[1]}-${segments[2]}`;
@@ -40,6 +48,9 @@ async function loadMarkdown(filename, converter) {
   const div = document.createElement('div');
   div.innerHTML = converter.makeHtml(markdownContent);
   div.hidden = true;//可以将代码中的div.style.display = 'none'改成div.hidden = true。这样在一开始就不会加载所有内容，而是当点击展开按钮时才显示相应的内容。
+
+  // add black background class
+  div.classList.add('contentback');
 
   // append title and button to li element
   const h2 = document.createElement('h2');
