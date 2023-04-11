@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       for (let i = 0; i < fileNames.length; i++) {//限制加载日记数量
         loadMarkdown(fileNames[i], converter);
       }
+      return Promise.all(promises); //等待所有异步操作完成，否则可能后来的先被展示
     });
 });
 
