@@ -21,10 +21,10 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
   var toggleButton = document.querySelector('.togglebutton');
   var twitterbox = document.querySelector('#twitterbox');
 
-  const tweetElement = document.querySelector("#my-tweets");
+  // const tweetElement = document.querySelector("#my-tweets");
 
-  tweetElement.setAttribute("data-width", "100%");
-  tweetElement.setAttribute("data-height", "800");
+  // tweetElement.setAttribute("data-width", "100%");
+  // tweetElement.setAttribute("data-height", "800");
 
   if (twitterbox) {
     // 显示Twitter
@@ -47,9 +47,9 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 
 
   //修改spotify
-  const sptifymusic = document.getElementById('sptifymusic');
-  sptifymusic.style.width = '100%';
-  sptifymusic.style.height = '200px';
+  // const sptifymusic = document.getElementById('spotifymusic');
+  // sptifymusic.style.width = '100%';
+  // sptifymusic.style.height = '200px';
 
 
   //live2d放在live2d.js中

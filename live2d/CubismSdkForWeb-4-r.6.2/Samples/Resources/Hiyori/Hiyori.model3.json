@@ -26,9 +26,7 @@
 			"TapBody": [
 				{
 					"File": "motions/Hiyori_m09.motion3.json",
-					"Sound": "sound/unn.wav",
-					"FadeInTime": 1,
-					"FadeOutTime": 1
+					"Sound": "sound/unn.wav"
 				}
 			]
 		}

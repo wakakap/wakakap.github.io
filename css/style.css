@@ -123,21 +123,14 @@
         object-fit: contain;
     }
 
-    #bubble {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background-color: #fff;
-        border-radius: 6px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        padding: 10px;
+    /* #live2dbubble {
+        position: fixed;
+        bottom: 200px;
+        left: 0;
+        color : white;
         font-size: 16px;
-        line-height: 1.4;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-
+        z-index: 1005;
+    } */
 
     .content {
         z-index: 0

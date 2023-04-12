@@ -24,19 +24,18 @@ function init() {
   initDefine(resourcesPaths, backImageNames, modelDirs, viewscales);  // lappdefine.ts开放的接口用于初始化常量被编译到bundle.js文件里
 }
 
-var canvas = document.getElementById('live2d');
-var bubble = document.getElementById('bubble');
+// var canvas = document.getElementById('live2d');
+// var live2dbubble = document.getElementById('live2dbubble');
 
-canvas.addEventListener('click', function () {
-  // Show the bubble with a message
-  bubble.innerHTML = 'live2d还在建设中~没有更多互动，5秒后消失，注意美工。';
-  bubble.style.opacity = 1;
-
-  // Hide the bubble after 5 seconds
-  setTimeout(function () {
-    bubble.style.opacity = 0;
-  }, 5000);
-});
+// canvas.addEventListener('click', function () {
+//   // Show the bubble with a message
+//   live2dbubble.innerHTML = 'live2d还在建设中~没有更多互动~';
+//   live2dbubble.style.opacity =  1;
+//   // Hide the bubble after 5 seconds
+//   setTimeout(function () {
+//     live2dbubble.style.opacity = 0;
+//   }, 5000);
+// });
 
 
 

@@ -39,7 +39,7 @@ export let ResourcesPath = './live2d/CubismSdkForWeb-4-r.6.2/Samples/Resources/'
 export let BackImageName = '';//'back_class_normal.png';
 
 // 歯車
-export const GearImageName = '';//'icon_gear.png';
+// export const GearImageName = '';//'icon_gear.png';
 
 // 終了ボタン
 export const PowerImageName ='';// 'CloseNormal.png';
