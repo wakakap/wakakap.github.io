@@ -9,12 +9,12 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     console.log("更换meta viewport");
   }
 
-  //更换css
-  var linkElement = document.querySelector('link[href="css/style.css"]');
-  if (linkElement) {
-    linkElement.setAttribute('href', 'css/style_forphone.css');
-    console.log("更换style_forphone.css");
-  }
+  //更换css，放到html中直接改了
+  // var linkElement = document.querySelector('link[href="css/style.css"]');
+  // if (linkElement) {
+  //   linkElement.setAttribute('href', 'css/style_forphone.css');
+  //   console.log("更换style_forphone.css");
+  // }
   
 
   //twitter相关

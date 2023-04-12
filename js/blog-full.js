@@ -55,7 +55,7 @@ async function loadMarkdown(filename, converter) {
 
   // append title and button to li element
   const h2 = document.createElement('h2');
-  h2.innerHTML = `${title}<span class="subtitle"> date：${date} </span>`;
+  h2.innerHTML = `${title}<span class="subtitle"><br>date：${date} </span>`;
   h2.appendChild(button);
   li.appendChild(h2);
 
@@ -64,4 +64,18 @@ async function loadMarkdown(filename, converter) {
 
   const markdownList = document.querySelector('#markdown-list');
   markdownList.appendChild(li);
+}
+
+
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  console.log("手机端");
+
+  //更换meta viewport
+  var metaViewport = document.querySelector('meta[name="viewport"]');
+  if (metaViewport) {
+    metaViewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0");
+    console.log("更换meta viewport");
+  }
+
+  //这个就不更换css了
 }
