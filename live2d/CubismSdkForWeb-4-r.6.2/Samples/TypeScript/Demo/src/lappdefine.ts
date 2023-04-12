@@ -83,10 +83,11 @@ export const RenderTargetHeight = 1000;
 
 export const win: any = window
 
-win.initDefine=function(resourcesPath: string, backImageName: string, modelDir: string[]){
+win.initDefine=function(resourcesPath: string, backImageName: string, modelDir: string[], viewScale: number){
     ResourcesPath = resourcesPath;
     BackImageName = backImageName;
     ModelDir = modelDir;
     ModelDirSize = modelDir.length;
+    ViewScale = viewScale;
 }
 

@@ -63,13 +63,6 @@
         position: relative;
         height: 100vh;
     }
-    
-    @media (max-width: 767px) {
-        .block {
-            position: relative;
-            height: 60vh;
-        }
-    }
 
     
     .fixed-twitter {
@@ -82,6 +75,26 @@
         background-color: rgba(0, 0, 0, 0);
         z-index: 999;
     }
+
+    .fixed-twitter .togglebutton {
+        border: 1px solid white;
+        border-radius: 20px;
+        background-color: #7d4437;
+        color: white;
+        font-size: larger;
+        padding: 0px 10px;
+        transition: all 0.3s ease;
+        position: absolute;
+        width: 300px;
+        height: 50px;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .fixed-twitter .togglebutton:hover {
+        background-color: #111;
+    }
+
     .live2d-container {
         position: fixed;
         bottom: 0;
@@ -92,48 +105,13 @@
         z-index: 1000;
         object-fit: contain;
     }
-      
-    /* .live2d {
-        position: -webkit-sticky;
-        position: sticky;
-        bottom: 0;
-        left: 0;
-        width: 300px;
-        height: 400px;
-        background-color: rgba(0, 0, 0, 0);
-    } */
-
-    /* @media screen {
-        .live2d-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 600;
-            height: 800;
-            background-color: rgba(0, 0, 0, 0);
-            z-index: 1000;
-            object-fit: contain;
-        }
-
-        #live2d {
-          position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 600;
-            height: 800; 
-            background-color: rgba(0, 0, 0, 0);
-            z-index: 1000;
-            object-fit: contain;
-        }
-      }       */
-    
 
     #live2d {
         position: fixed;
         bottom: 0;
         left: 0;
-        width: 300;
-        height: 400; 
+        /* width: 600;
+        height: 800; */
         background-color: rgba(0, 0, 0, 0);
         z-index: 1000;
         object-fit: contain;
@@ -185,11 +163,11 @@ p {
     text-align: center;
     color: white;
     font-size: 7px;
-    line-height: 1;
+    line-height: 2;
     max-width: 800px;
     margin: 0 auto;
-    padding: 10px;
-    background-color: rgba(5, 5, 5, 0.7);
+    padding: 5px;
+    background-color: rgba(5, 5, 5, 0.618);
     border-radius: 10px;
 }
 

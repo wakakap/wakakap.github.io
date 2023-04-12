@@ -1,6 +1,17 @@
 var resourcesPath = 'live2d/CubismSdkForWeb-4-r.6.2/Samples/Resources/';  // 模型保存的路径
 var backImageName = ''; // 背景图片
 var modelDir = 'Hiyori';  // 需要加载的模型
+var viewscale = 2;
+
+//手机端
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+viewscale = 1;
+var canvas = document.getElementById("live2d");
+  canvas.width = 160;
+  canvas.height = 500;
+
+}
+
 init();  // 初始化模型，属于message.js文件
 
 // 初始化
@@ -9,8 +20,8 @@ function init(){
   var backImageNames = `${backImageName}`;
   var modelDirString = `${modelDir}`;
   var modelDirs = modelDirString.split(',');
-
-  initDefine(resourcesPaths, backImageNames, modelDirs);  // lappdefine.ts开放的接口用于初始化常量被编译到bundle.js文件里
+  var viewscales = `${viewscale}`;
+  initDefine(resourcesPaths, backImageNames, modelDirs, viewscales);  // lappdefine.ts开放的接口用于初始化常量被编译到bundle.js文件里
 }
 
 // window.addEventListener('resize', () => {

@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=1900">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script src="./js/script.js"></script>
 	<title>MyhomePage</title>
 </head>
 
@@ -13,9 +12,6 @@
 	
 	<div class="container">
 		<div class="background">
-
-			
-
 			<div class="left-father--container"> 	
 				<header>
 					<nav>
@@ -24,7 +20,7 @@
 							<li><a href="#Works"  onclick="smoothScroll('#Works')">Works</a></li>
 							<li><a href="#OVERDOSE"  onclick="smoothScroll('#OVERDOSE')">Overdose</a></li>
 							<li><a href="#Diary"  onclick="smoothScroll('#Diary')">Diary</a></li>
-							<li><a href="#Aboutme" onclick="smoothScroll('#Aboutme')">About me</a></li>
+							<li><a href="#Aboutme" onclick="smoothScroll('#Aboutme')">Aboutme</a></li>
 						</ul>
 					</nav>
 					<div class="placeholder"></div>
@@ -81,7 +77,7 @@
 				<section id = "Diary" class="block">
 					<h2>夜に何を聞いてる、何を考えてる</h2>
 					<div class="center">
-						<iframe style="border-radius:12px;opacity:0.7" src="https://open.spotify.com/embed/playlist/4gSiuVzsk6vJ0m4uOfmELO?utm_source=generator&theme=0" width="50%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+						<iframe id = "sptifymusic" style="border-radius:12px;opacity:0.7" src="https://open.spotify.com/embed/playlist/4gSiuVzsk6vJ0m4uOfmELO?utm_source=generator&theme=0" width="50%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 					</div>
 
 					
@@ -94,6 +90,8 @@
 				
 				<section id="Aboutme" class="block">
 					<h2>About me</h2>
+
+						<div class="pxiao">大家好，我是wakaka，正在琢磨着利用ChatGPT学习js和css，在GitHub pages做个人主页。喜欢体验新鲜开源技术，喜欢新颖让人吃惊的东西，看了很多动画片，经常泡互联网，看YouTube刷twitter。哲学专业研究生在读中，未干出名堂，无自我实现，急需并正在苦思并还是不知道自己该做什么。</div>
 						<ul>
 							<li><a href="https://twitter.com/wakakap"><img src="media/social-media-icons/twitter.png" alt="Twitter"></a></li>
 							<li><a href="https://www.youtube.com/@wakakap7799/videos"><img src="media/social-media-icons/youtube.png" alt="Youtube"></a></li>
@@ -102,19 +100,20 @@
 						</ul>
 				</section>
 			</div>
-
-			<canvas id="live2d" width="300" height="400" class="live2d-container"></canvas>
-			  
+			<div class="live2d-container">
+				<canvas id="live2d" height="400" width="300"></canvas>
+			</div>
 			<div class="fixed-twitter">
-				<div style="width: 300px;">
-					<a class="twitter-timeline" data-width="300" data-height="400" href="https://twitter.com/wakakap?ref_src=twsrc%5Etfw" data-theme="dark">My Tweets</a> 
+				<div id = "twitterbox" >
+					<a id="my-tweets" class="twitter-timeline" data-width="300" data-height="600" href="https://twitter.com/wakakap?ref_src=twsrc%5Etfw" data-theme="dark">My Tweets</a> 
 					<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 				</div>
+				<button class="togglebutton">Show/Hide tweets</button>
 			</div>
-				
 		</div>
 	</div>
 </body>
+<script src="./js/script.js"></script>
 <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
 <!-- Live2DCubismCore script -->
 <script src = "./live2d/CubismSdkForWeb-4-r.6.2/Core/live2dcubismcore.js"></script>

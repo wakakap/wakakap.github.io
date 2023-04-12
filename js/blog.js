@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetch('../markdown/diary/0000-filenames.txt', {
     headers: {
-      'Content-Type': 'text/plain; charset=utf-8'
+      'Content-Type': 'text/plain; charset=utf-8'//防止乱码，但其实重点是预处理中python里写入txt要声明utf-8
     }
   }).then(response => response.text())
     .then(data => {
@@ -39,5 +39,11 @@ async function loadMarkdown(filename, converter) {
   const segments = filename.split('-');
   const date = `${segments[0]}-${segments[1]}-${segments[2]}`;
   const title = segments.slice(3).join('-');
-  return `<h2>${title}<span class="subtitle"> date：${date}</span></h2><div class="contentback">${htmlContent}</div>`;
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    return `<h2>${title}<span class="subtitle"><br>date：${date}</span></h2><div class="contentback">${htmlContent}</div>`;//移动样式
+  }else{
+    return `<h2>${title}<span class="subtitle"> date：${date}</span></h2><div class="contentback">${htmlContent}</div>`;//PC样式
+  }
+  
 }
