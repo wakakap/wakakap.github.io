@@ -10,19 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const names = data.split(',').map(name => name.trim());//也许有空格。但已经修正，可注销
             fileNames.push(...names);
-            // fileNames.sort().reverse();//倒序排列 前期处理已经排序，这里不需要再写了，也许可以加快速度
-            return Promise.all(fileNames.map(async (filename) => {
-                const response = await fetch(`../markdown/tech/${filename}.md`);
-                const lastModified = response.headers.get('last-modified');//获取文件最后修改日期
-                return { filename, lastModified };
-            }));
-        })
-        .then(files => {
-            files.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));//按照日期从新到旧排序
             const promises = [];
+            // return Promise.all(fileNames.map(async (filename) => {
+            //     const response = await fetch(`../markdown/tech/${filename}.md`);
+            //     const lastModified = response.headers.get('last-modified');//获取文件最后修改日期
+            //     return { filename, lastModified };
+            // }));
+        // })
+        // .then(files => {
+            // files.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));//按照日期从新到旧排序
+            // const promises = [];
             for (let i = 0; i < 3 && i < fileNames.length; i++) {//限制加载日记数量
-                const { filename } = files[i];
-                promises.push(loadMarkdown(filename, converter));
+                promises.push(loadMarkdown(fileNames[i], converter));
             }
             return Promise.all(promises); //等待所有异步操作完成，否则可能后来的先被展示
         })
