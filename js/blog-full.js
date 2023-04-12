@@ -1,3 +1,16 @@
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  console.log("手机端");
+
+  //更换meta viewport
+  var metaViewport = document.querySelector('meta[name="viewport"]');
+  if (metaViewport) {
+    metaViewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0");
+    console.log("更换meta viewport");
+  }
+
+  //这个就不更换css了
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const converter = new showdown.Converter();
   const fileNames = [];
@@ -64,18 +77,4 @@ async function loadMarkdown(filename, converter) {
 
   const markdownList = document.querySelector('#markdown-list');
   markdownList.appendChild(li);
-}
-
-
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-  console.log("手机端");
-
-  //更换meta viewport
-  var metaViewport = document.querySelector('meta[name="viewport"]');
-  if (metaViewport) {
-    metaViewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0");
-    console.log("更换meta viewport");
-  }
-
-  //这个就不更换css了
 }
