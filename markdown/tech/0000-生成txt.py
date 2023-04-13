@@ -22,5 +22,5 @@ sorted_file_data = sorted(file_data, key=lambda x: x[1], reverse=True)
 file_names_str = ",".join([f[0] for f in sorted_file_data])
 
 # 创建新文件并将文件名写入其中
-with open(f"0000-filenames_{today}.txt", "w",encoding="utf-8") as f:
+with open(f"0000-filenames.txt", "w",encoding="utf-8") as f:
     f.write(file_names_str)
