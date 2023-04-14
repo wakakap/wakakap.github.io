@@ -54,11 +54,11 @@ export class LAppDelegate {
   public initialize(): boolean {
     // キャンバスの作成
     // canvas = document.createElement('canvas');
-    canvas = <HTMLCanvasElement> document.getElementById("live2d"); // index.html中的id为live2d的画布
+    canvas = <HTMLCanvasElement>document.getElementById("live2d"); // index.html中的id为live2d的画布
     canvas.width = canvas.width;
     canvas.height = canvas.height;
     this._resizeCanvas();
-  
+
     // if (LAppDefine.CanvasSize === 'auto') {
     //       this._resizeCanvas();
     //     } else {
@@ -299,7 +299,7 @@ export class LAppDelegate {
   /**
    * Resize the canvas to fill the screen.
    */
-  
+
   private _resizeCanvas(): void {
     // canvas.width = 300;
     // canvas.height = 400;
@@ -310,13 +310,13 @@ export class LAppDelegate {
     //   // 设置 canvas 宽度和高度为容器元素的宽度和高度
     //   canvas.width = tmpcontainer.clientWidth;
     //   canvas.height = tmpcontainer.clientHeight;
-      console.log(`Canvas height: ${canvas.height}px`);
-      console.log(`Canvas width: ${canvas.width}px`);
+    console.log(`Canvas height: ${canvas.height}px`);
+    console.log(`Canvas width: ${canvas.width}px`);
     // }
-  
+
     // canvas.width = window.innerWidth;//源代码是整个浏览器屏幕
     // canvas.height = window.innerHeight;
-  // }
+    // }
   }
   _cubismOption: Option; // Cubism SDK Option
   _view: LAppView; // View情報
@@ -328,51 +328,76 @@ export class LAppDelegate {
 }
 
 /**
- * クリックしたときに呼ばれる。
+ * クリックしたときに呼ばれる。原版只有鼠标检测，我自己加上触摸检测
  */
-function onClickBegan(e: MouseEvent): void {
+function onClickBegan(e: MouseEvent | TouchEvent): void {
   if (!LAppDelegate.getInstance()._view) {
     LAppPal.printMessage('view notfound');
     return;
   }
-  LAppDelegate.getInstance()._captured = true;
+  //
+  if (e instanceof TouchEvent) {
+    // 获取第一触摸点信息
+    LAppDelegate.getInstance()._captured = true;
+    const posX: number = e.touches[0].pageX;
+    const posY: number = e.touches[0].pageY;
+    LAppDelegate.getInstance()._view.onTouchesBegan(posX, posY);
+  } else if (e instanceof MouseEvent) {
+    LAppDelegate.getInstance()._captured = true;
+    const posX: number = e.pageX;
+    const posY: number = e.pageY;
+    LAppDelegate.getInstance()._view.onTouchesBegan(posX, posY);
+  }
 
-  const posX: number = e.pageX;
-  const posY: number = e.pageY;
 
-  LAppDelegate.getInstance()._view.onTouchesBegan(posX, posY);
 }
 
 /**
- * マウスポインタが動いたら呼ばれる。
+ * マウスポインタが動いたら呼ばれる。也增加触摸屏的检测
  */
 
 document.addEventListener('mousemove', onMouseMoved);
 
-function onMouseMoved(e: MouseEvent): void {
+function onMouseMoved(e: MouseEvent | TouchEvent): void {
   // 注释掉使得鼠标不用点击也能继续往下运行
   // if (!LAppDelegate.getInstance()._captured) {
   //   return;
   // }
+  if (e instanceof TouchEvent) {
+    if (!LAppDelegate.getInstance()._captured) {
+      return;
+    }
+    if (!LAppDelegate.getInstance()._view) {
+      LAppPal.printMessage('view notfound');
+      return;
+    }
+    const rect = (e.target as Element).getBoundingClientRect();
+    let posX: number = e.touches[0].clientX - rect.left;
+    let posY: number = e.touches[0].clientY - rect.top;
+    posX = (posX > canvas.width) ? canvas.width : posX;
+    posY = (posY < 0) ? 0 : posY;
+    LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
 
-  if (!LAppDelegate.getInstance()._view) {
-    LAppPal.printMessage('view notfound');
-    return;
+  } else {
+    if (!LAppDelegate.getInstance()._view) {
+      LAppPal.printMessage('view notfound');
+      return;
+    }
+    // e.clientX和e.clientY获取的坐标点都是以左上角为原点
+    const rect = (e.target as Element).getBoundingClientRect();
+    // const posX: number = e.clientX - rect.left;
+    // const posY: number = e.clientY - rect.top;
+    let posX: number = e.clientX;
+    let posY: number = e.clientY - (window.innerHeight - canvas.height);
+
+    // 图像在网页的坐下角，简单处理坐标将超过画布边界坐标就等与边界坐标
+    posX = (posX > canvas.width) ? canvas.width : posX;
+    posY = (posY < 0) ? 0 : posY;
+
+    // 转换坐标，调用LAppLive2DManager类重新绘制图像
+    LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
   }
 
-  // e.clientX和e.clientY获取的坐标点都是以左上角为原点
-  const rect = (e.target as Element).getBoundingClientRect();
-  // const posX: number = e.clientX - rect.left;
-  // const posY: number = e.clientY - rect.top;
-  let posX: number = e.clientX;
-  let posY: number = e.clientY - (window.innerHeight - canvas.height);
-
-  // 图像在网页的坐下角，简单处理坐标将超过画布边界坐标就等与边界坐标
-  posX = (posX > canvas.width) ? canvas.width : posX;
-  posY = (posY < 0) ? 0 : posY;
-
-  // 转换坐标，调用LAppLive2DManager类重新绘制图像
-  LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
 
 }
 
