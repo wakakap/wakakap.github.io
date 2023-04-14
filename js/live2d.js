@@ -5,9 +5,9 @@ var viewscale = 2;
 
 //手机端
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-  viewscale = 1;
+  viewscale = 1.3;
   var canvas = document.getElementById("live2d");
-  canvas.width = 160;
+  canvas.width = 200;
   canvas.height = 500;
 
 }
