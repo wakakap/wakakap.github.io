@@ -4,18 +4,16 @@
     flex-wrap: wrap; */
 }
 
-.background-img {
-    height: auto;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    position: fixed;
-    z-index: -100;
+.background {
+    background-image: url('../media/00004-3147071911.png');
+    background-size: cover;/*充满屏幕*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
+    /* height: 100vh; */
+    background-attachment: fixed;
+    z-index: -100; /* 确保背景在文本下面 */
 }
-
 
 body, html {
     color: white; /* 设置所有文本颜色为白色 */
