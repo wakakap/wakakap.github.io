@@ -1,15 +1,33 @@
 var i = 0;
 var songtime = 0;
+// var animationFrames = [	
+// 	'frame_14_delay-0.04s.png',
+// 	'frame_02_delay-0.04s.png',
+// 	'frame_04_delay-0.04s.png',
+// 	'frame_06_delay-0.04s.png',
+// 	'frame_07_delay-0.04s.png',
+// 	'frame_08_delay-0.04s.png',
+// 	'frame_10_delay-0.04s.png',
+// 	'frame_12_delay-0.04s.png',
+// 	'frame_14_delay-0.04s.png'
+// ];
 var animationFrames = [	
-	'frame_14_delay-0.04s.png',
-	'frame_02_delay-0.04s.png',
-	'frame_04_delay-0.04s.png',
-	'frame_06_delay-0.04s.png',
-	'frame_07_delay-0.04s.png',
-	'frame_08_delay-0.04s.png',
-	'frame_10_delay-0.04s.png',
-	'frame_12_delay-0.04s.png',
-	'frame_14_delay-0.04s.png'
+	'frame_00_delay-0.06s.png',
+	'frame_01_delay-0.06s.png',
+	'frame_02_delay-0.06s.png',
+	'frame_03_delay-0.06s.png',
+	'frame_04_delay-0.06s.png',
+	'frame_05_delay-0.06s.png',
+	'frame_06_delay-0.06s.png',
+	'frame_07_delay-0.06s.png',
+	'frame_08_delay-0.06s.png',
+	'frame_09_delay-0.06s.png',
+	'frame_10_delay-0.06s.png',
+	'frame_11_delay-0.06s.png',
+	'frame_12_delay-0.06s.png',
+	'frame_13_delay-0.06s.png',
+	'frame_14_delay-0.06s.png',
+	'frame_15_delay-0.06s.png'
 ];
 
 var currentFrame = 10000;
@@ -56,7 +74,7 @@ function reset(){
 function updateTime(){
 	songtime = document.getElementById("myAudio").currentTime;
 	if (i < timeInfo.length) {
-		if(songtime >= timeInfo[i]){
+		if(songtime+0.3 >= timeInfo[i]){
 			// console.log(timeInfo[i],songtime);
 			currentFrame = 0;
 			i++;
@@ -93,7 +111,7 @@ function draw(){
 			context.drawImage(image, 0, 0);
 			currentFrame++;
 		};
-		image.src = `../media/Kirbybeats/`+animationFrames[currentFrame];
+		image.src = `../media/happi/`+animationFrames[currentFrame];
 	}
-	requestAnimationFrame(draw,80);
+	requestAnimationFrame(draw,60);
 }
