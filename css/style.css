@@ -1,0 +1,314 @@
+    @font-face {
+        font-family: 'minzhao';
+        src: url('../fonts/MS\ 明朝.ttf');
+    }
+
+    /* 导航栏样式定义 */
+
+    nav ul {
+        position: fixed;
+        top: -68;
+        width: 100%;
+        z-index: 10;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #a95f376e;
+    }
+
+    nav+.placeholder {
+        height: 68px;
+        /* 替换60px为你导航栏的实际高度*/
+    }
+
+    nav li {
+        float: left;
+    }
+
+    nav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    nav li a:hover {
+        background-color: #111;
+    }
+
+    /* body部分 */
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: rgb(40, 40, 40);
+    }
+
+    .container {
+        position: relative;
+        /* display: flex;
+		flex-wrap: wrap; */
+    }
+
+    .background {
+        background-image: url('../media/00004-3147071911.png');
+        background-size: cover;
+        /*充满屏幕*/
+        background-repeat: no-repeat;
+        background-position: center center;
+        /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
+        /* height: 100vh; */
+        background-attachment: fixed;
+        z-index: -100;
+        /* 确保背景在文本下面 */
+    }
+
+    .block {
+        position: relative;
+        height: 100vh;
+    }
+
+
+    .fixed-twitter {
+        background-color: black;
+        opacity: 0.85;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 999;
+    }
+
+    .fixed-twitter .togglebutton {
+        border: 1px solid white;
+        border-radius: 20px;
+        background-color: #7d4437;
+        color: white;
+        font-size: larger;
+        padding: 0px 10px;
+        transition: all 0.3s ease;
+        position: absolute;
+        width: 300px;
+        height: 50px;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .fixed-twitter .togglebutton:hover {
+        background-color: #111;
+    }
+
+    .live2d-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 300;
+        height: 400;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 1000;
+        object-fit: contain;
+    }
+
+    #live2d {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        /* width: 600;
+        height: 800; */
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 1000;
+        object-fit: contain;
+    }
+
+    /* #live2dbubble {
+        position: fixed;
+        bottom: 200px;
+        left: 0;
+        color : white;
+        font-size: 16px;
+        z-index: 1005;
+    } */
+
+    .content {
+        z-index: 0
+    }
+
+    .center {
+        text-align: center;
+        /* display: flex;
+        justify-content: center; */
+    }
+
+    /* 文字样式定义 */
+    h1 {
+        font-family: 'minzhao', sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: white;
+        text-align: center;
+        font-size: 60px;
+    }
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        color: rgb(255, 136, 73);
+        text-align: center;
+        font-size: 40px;
+    }
+
+
+    p {
+        color: white;
+        font-size: 30px;
+        line-height: 1.5;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 8px;
+        background-color: rgba(5, 5, 5, 0.5);
+        border-radius: 15px;
+    }
+
+    .pxiao {
+        text-align: center;
+        color: white;
+        font-size: 7px;
+        line-height: 2;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 5px;
+        background-color: rgba(5, 5, 5, 0.618);
+        border-radius: 10px;
+    }
+
+    div.pxiao a {
+        font-size: inherit;
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+        justify-content: center;
+        padding: 0;
+    }
+
+    li {
+        margin: 0 10px;
+    }
+
+    a {
+        color: white;
+        text-decoration: underline;
+        font-size: 30px;
+    }
+
+    a:hover {
+        transform: scale(1.1);
+        background-color: rgba(5, 5, 5, 0.5);
+    }
+
+    .left-father--container {
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        margin-left: 300px;
+    }
+
+    .project-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        /* 让project第一个完全显示向右排开，如果改为center，则左边超出也会被隐藏 */
+        align-items: center;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* for smooth scrolling on iOS */
+
+    }
+
+    .project {
+        flex: 0 0 auto;
+        /* prevent items from stretching to fill width */
+        margin: 20px;
+        width: 250px;
+        height: 350px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        cursor: pointer;
+        /* overflow: hidden; */
+
+    }
+
+    .project::before {
+        content: attr(data-text);
+        position: absolute;
+        color: white;
+        font-size: 24px;
+        bottom: 0;
+        left: 0;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+        /* 背景颜色带透明度 */
+        display: flex;
+        width: 300px;
+
+        transform: translate(0, 0);
+        /* 向左上方移动一半宽度和高度的距离 */
+    }
+
+
+    .project:hover .project-overlay {
+        opacity: 1;
+    }
+
+    .project img {
+        opacity: 0.7;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .project:hover img {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .project-title {
+        color: white;
+        font-size: 10px;
+    }
+
+
+
+    /* 按钮 */
+    .roundbutton {
+        background: transparent;
+        color: white;
+        padding: 5px 20px;
+        border: 2px solid white;
+        border-radius: 50px;
+        font-size: 16px;
+        transition: all 0.2s ease-in-out;
+    }
+
+
+    .roundbutton:hover {
+        background-color: #111;
+    }

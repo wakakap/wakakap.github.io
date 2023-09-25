@@ -1,0 +1,282 @@
+@font-face {
+    font-family: 'minzhao';
+    src: url('../fonts/MS\ 明朝.ttf');
+}
+
+/* 导航栏样式定义 */
+    nav ul {
+        font-size: small;
+        position: fixed;
+        top: 30px;
+        left: 0; /* 新增left */
+        width: 100%; 
+        z-index: 10;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #a95f3727;
+    }
+    
+    nav + .placeholder {
+    height: 130px; /* 可以根据需要调整，不知道什么意思用检查查看 */
+    }
+    
+    nav li {
+    display: inline-block; /* 修改为inline-block */
+    width: 20%; /* 设置每个导航项宽度为25% */
+    text-align: center;
+    vertical-align: middle;
+    }
+    
+    nav li a {
+    display: block;
+    color: white;
+    padding: 14px 0; /* 修改水平padding为0，垂直padding为14px */
+    text-decoration: none;
+    font-size: 16px; /* 根据需要调整字体大小 */
+    }
+    
+    nav li a:hover {
+    background-color: #111;
+    }
+
+/* body部分 */
+body {
+    /* width: 100%; */
+    /* overflow-x: hidden; */
+    margin: 0;
+    padding: 0;
+    background-color: rgb(40, 40, 40);
+}
+.container {
+    position: relative;
+    max-width: 100%
+    /* display: flex;
+    flex-wrap: wrap; */
+}
+
+.background {
+    background-image: url('../media/00004-3147071911.png');
+    background-size: cover;/* 充满屏幕 */
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
+    /* height: 100vh; */
+    background-attachment: fixed;
+    z-index: -100; /* 确保背景在文本下面 */
+}
+.block{
+    position: relative;
+    height: 100vh;
+}
+
+
+.fixed-twitter {
+    background-color: black;
+    opacity: 0.85;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 99;
+}
+
+.fixed-twitter .togglebutton {
+    border: 1px solid white;
+    border-radius: 20px;
+    background-color: #472720;
+    color: white;
+    font-size: larger;
+    padding: 0px 0px;
+    transition: all 0.3s ease;
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+}
+
+.live2d-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 300;
+    height: 400;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    object-fit: contain;
+}
+
+#live2d {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /* width: 300;
+    height: 400;  */
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    object-fit: contain;
+  }
+  
+
+
+.content {
+    z-index: 0
+}
+
+.center {
+    text-align: center;
+    /* display: flex;
+    justify-content: center; */
+}
+
+/* 文字样式定义 */
+h1 {
+font-family: 'minzhao', sans-serif;
+font-size: 45px;
+margin: 0;
+padding: 20px;
+color: white;
+text-align: center;
+
+}
+
+h2 {
+margin: 0;
+padding: 0;
+color: rgb(255, 136, 73);
+text-align: center;
+
+}
+
+
+p {
+color: white;
+
+line-height: 1.5;
+max-width: 800px;
+margin: 0 auto;
+padding: 8px;
+background-color: rgba(5, 5, 5, 0.5);
+border-radius: 15px;
+}
+
+.pxiao {
+text-align: center;
+color: white;
+
+line-height: 2;
+max-width: 800px;
+margin: 0 auto;
+padding: 5px;
+background-color: rgba(5, 5, 5, 0.618);
+border-radius: 10px;
+}
+
+div.pxiao a {
+font-size: inherit;
+}
+
+ul {
+display: flex;
+list-style: none;
+justify-content: center;
+padding: 0;
+}
+
+li {
+margin: 0 0px;
+}
+
+a{
+color: white;
+text-decoration: underline;
+
+}
+
+a:hover {
+transform: scale(1.1);
+background-color: rgba(5, 5, 5, 0.5);
+}
+
+.left-father--container {
+/* display: flex; */
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+}
+
+.project-container {
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: flex-start;/* 让project第一个完全显示向右排开，如果改为center，则左边超出也会被隐藏 */
+align-items: center;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch; /* for smooth scrolling on iOS */
+
+}
+
+.project {
+flex: 0 0 auto; /* prevent items from stretching to fill width */
+margin: 20px;
+width: 250px;
+height: 300px;
+background-size: cover;
+background-position: center;
+position: relative;
+cursor: pointer;
+/* overflow: hidden; */
+
+}
+.project::before {
+content: attr(data-text);
+position: absolute;
+color: white;
+
+bottom: 0;
+left: 0;
+padding: 20px;
+background-color: rgba(0, 0, 0, 0.5); /* 背景颜色带透明度 */
+display: flex;
+width: 300px;
+
+transform: translate(0, 0); /* 向左上方移动一半宽度和高度的距离 */
+}
+
+
+.project:hover .project-overlay {
+opacity: 1;
+}
+
+.project img {
+opacity: 0.7;
+transition: all 0.3s ease-in-out;
+}
+
+.project:hover img {
+opacity: 1;
+transform: scale(1.1);
+}
+
+.project-overlay {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.6);
+opacity: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+transition: all 0.2s ease-in-out;
+}
+
+.project-title {
+color: white;
+
+}
