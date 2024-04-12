@@ -1,0 +1,1 @@
+因为附件太多，就单独放一个[项目](https://github.com/wakakap/using_AI_diary)。大约是2023年2、3月，很痴迷这个玩了很久，SD-web，vits等东西。
