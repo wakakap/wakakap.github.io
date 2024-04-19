@@ -36,6 +36,7 @@
 
     nav li a:hover {
         background-color: #111;
+        border: 2px solid orange;
     }
 
     /* body部分 */
@@ -175,7 +176,7 @@
     .pxiao {
         text-align: center;
         color: white;
-        font-size: 7px;
+        font-size: 17px;
         line-height: 2;
         max-width: 800px;
         margin: 0 auto;
@@ -218,16 +219,11 @@
     }
 
     .project-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        /* 让project第一个完全显示向右排开，如果改为center，则左边超出也会被隐藏 */
-        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 每行最多四个项目 */
+        grid-gap: 0px; /* 设置项目之间的间距 */
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        /* for smooth scrolling on iOS */
-
     }
 
     .project {
@@ -240,7 +236,7 @@
         background-position: center;
         position: relative;
         cursor: pointer;
-        /* overflow: hidden; */
+        border: 2px solid rgb(255, 221, 159);
 
     }
 

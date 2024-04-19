@@ -10,7 +10,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
-    /* height: 100vh; */
+    height: 100vh;
     background-attachment: fixed;
     z-index: -100; /* 确保背景在文本下面 */
 }
