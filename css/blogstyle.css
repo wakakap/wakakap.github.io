@@ -1,16 +1,12 @@
 .container {
     position: relative;
-    /* display: flex;
-    flex-wrap: wrap; */
 }
 
 .background {
     background-image: url('../media/00004-3147071911.png');
     background-size: cover;/*充满屏幕*/
-    background-repeat: no-repeat;
-    background-position: center center;
-    /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
-    height: 100vh;
+    min-height: 100vh; /* 最小高度为视窗高度 */
+    /* height: auto; /*展开超过100vh时可以补全 */
     background-attachment: fixed;
     z-index: -100; /* 确保背景在文本下面 */
 }

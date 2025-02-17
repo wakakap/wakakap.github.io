@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1900">
+    <script src = "./js/viewport.js"></script>
+    <title>アニソンRAN1K</title>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
         #chart {
-            width: 80%;
+            width: 70%;
             height: 600px;
             margin: auto;
+            display: flex;
+            justify-content: center; /* 水平居中 */
         }
         .info-box {
             position: absolute;
@@ -22,12 +26,17 @@
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
+        p{
+            color: rgb(255, 255, 255);
+        }
+        .hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
-    <div id="chart"></div>
+    <div id="chart" class="hover"></div>
     <div class="info-box" id="info-box"></div>
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script>
         // Load JSON data
@@ -89,28 +98,34 @@
                     infoBox.style('display', 'none');
                 }
             });
-
+            
             // Add axes
             svg.append('g')
                .attr('transform', 'translate(0,' + yCenter + ')')
-               .call(d3.axisBottom(xScale));
+               .call(d3.axisBottom(xScale))
+               .selectAll('path, line')
+               .style('stroke', 'white');  // 设置轴线和刻度线的颜色
 
             svg.append('g')
                .attr('transform', 'translate(' + xCenter + ',0)')
-               .call(d3.axisLeft(yScale));
+               .call(d3.axisLeft(yScale))
+               .selectAll('path, line')
+               .style('stroke', 'white');  // 设置轴线和刻度线的颜色
 
             // Add labels for axes
             svg.append('text')
                .attr('transform', 'translate(' + (width / 2) + ' ,' + -5 + ')')
                .style('text-anchor', 'middle')
-               .text('First Image');
+               .text('First Image')
+               .style('fill', 'white');  // 
 
             svg.append('text')
                .attr('transform', 'rotate(-90)')
                .attr('y', 15 + width)
                .attr('x', 0 - (height / 2))
                .style('text-anchor', 'middle')
-               .text('Longtime Image');
+               .text('Longtime Image')
+               .style('fill', 'white');  //
         });
     </script>
 </body>

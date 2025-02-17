@@ -1,6 +1,10 @@
     @font-face {
+        font-family: 'LXGWWenKai';
+        src: url('../fonts/LXGWWenKai-Light.ttf');
+    }
+    @font-face {
         font-family: 'minzhao';
-        src: url('../fonts/MS\ 明朝.ttf');
+        src: url('../fonts/MS明朝.ttf');
     }
 
     /* 导航栏样式定义 */
@@ -8,7 +12,8 @@
     nav ul {
         position: fixed;
         top: -68;
-        width: 100%;
+        right: 0;
+        width: 85%;
         z-index: 10;
         list-style: none;
         margin: 0;
@@ -23,7 +28,9 @@
     }
 
     nav li {
-        float: left;
+        /* float: left; */
+        flex: 0 0 17%; /* 每个项目占据20%的宽度 */
+        text-align: center; /* 文字居中 */
     }
 
     nav li a {
@@ -48,6 +55,7 @@
 
     .container {
         position: relative;
+        height: auto;
         /* display: flex;
 		flex-wrap: wrap; */
     }
@@ -59,7 +67,7 @@
         background-repeat: no-repeat;
         background-position: center center;
         /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
-        /* height: 100vh; */
+        height: auto;
         background-attachment: fixed;
         z-index: -100;
         /* 确保背景在文本下面 */
@@ -67,7 +75,8 @@
 
     .block {
         position: relative;
-        height: 100vh;
+        /* height: 100vh; */
+        height: auto;
     }
 
 
@@ -154,6 +163,7 @@
     }
 
     h2 {
+        font-family: 'LXGWWenKai', sans-serif;
         margin: 0;
         padding: 0;
         color: rgb(255, 136, 73);
@@ -163,6 +173,7 @@
 
 
     p {
+        font-family: 'LXGWWenKai', sans-serif;
         color: white;
         font-size: 30px;
         line-height: 1.5;
@@ -174,6 +185,7 @@
     }
 
     .pxiao {
+        font-family: 'LXGWWenKai', sans-serif;
         text-align: center;
         color: white;
         font-size: 17px;
@@ -211,11 +223,12 @@
         background-color: rgba(5, 5, 5, 0.5);
     }
 
-    .left-father--container {
+    .right-father--container {
         /* display: flex; */
         justify-content: center;
         align-items: center;
         margin-left: 300px;
+        height: auto;
     }
 
     .project-container {
