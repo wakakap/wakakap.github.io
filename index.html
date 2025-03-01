@@ -3,10 +3,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=1900">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src = "js/viewport.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" media="(max-width: 768px)" href="css/style_forphone.css">
+	<link rel="stylesheet" media="screen and (max-width: 768px)" href="css/mobile.css">
 	<title>MyhomePage</title>
 </head>
 
@@ -31,7 +31,7 @@
 					<h1>--暁の前線--</h1>
 					<div class="pxiao">标题和背景灵感来源于 <a href="https://www.youtube.com/watch?v=emrt46SRyYs">Orangestar的作品</a><br>自己觉得最自由的时候就是凌晨无比寂静的夜里，带上耳机听这首歌曲，在赛博的世界追逐黎明</div>
 					
-					<div class="pxiao">本网页是ChatGPT刚流行时慢慢做的，自己不怎么会编程</div>
+					<div class="pxiao">special thanks: ChatGPT 3.5, Grok</div>
 					<div class="center">
 							<button class="roundbutton" onclick="window.location.href='musicbpm.html'">musicbeats页面</button><br> 
 					</div>
@@ -89,7 +89,7 @@
 
 				<section  id = "OVERDOSE" class="block">
 					<h2>アニメを観よ 音楽を聞こう</h2>	
-					<iframe allowtransparency="true" frameborder="0" scrolling="no" style="border: none; height:500px; width: 90%;"  src="animesongrank.html"></iframe><br>
+					<iframe allowtransparency="true" frameborder="0" scrolling="no" style="border: none; height:90%; width: 90%;"  src="animesongrank.html"></iframe><br>
 					<button class="roundbutton" style="float: right; margin-right: 150px;" onclick="window.location.href='animesongrank-full.html'">完整页面</button><br>
 					<div class="center">
 						<iframe id = "spotifymusic" style="border-radius:12px;opacity:0.7" src="https://open.spotify.com/embed/playlist/4gSiuVzsk6vJ0m4uOfmELO?utm_source=generator&theme=0" width="auto" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -107,23 +107,23 @@
 				<section id="Aboutme" class="block">
 					<h2>About me</h2>
 						<div class="pxiao">大家好，我是wakaka，最后我放弃了自我介绍。</div>
-						<ul>
-							<li><a href="https://twitter.com/wakakap"><img src="media/social-media-icons/twitter.png" alt="Twitter"></a></li>
-							<li><a href="https://www.youtube.com/@wakakap7799/videos"><img src="media/social-media-icons/youtube.png" alt="Youtube"></a></li>
-							<li><a href="https://space.bilibili.com/12695346"><img src="media/social-media-icons/bilibili.png" alt="Bilibili"></a></li>
-							<li><a href="https://bgm.tv/user/wakakap"><img src="media/social-media-icons/bangumi.png" alt="Bangumi"></a></li>
-						</ul>
+						<ul><li class="social-links">
+							<a href="https://twitter.com/wakakap"><img src="media/social-media-icons/twitter.png" alt="Twitter"></a>
+							<a href="https://www.youtube.com/@wakakap7799/videos"><img src="media/social-media-icons/youtube.png" alt="Youtube"></a>
+							<a href="https://space.bilibili.com/12695346"><img src="media/social-media-icons/bilibili.png" alt="Bilibili"></a>
+							<a href="https://bgm.tv/user/wakakap"><img src="media/social-media-icons/bangumi.png" alt="Bangumi"></a>
+						</li></ul>
 				</section><br><br>
 			</div>
 			<div class="live2d-container">
 				<canvas id="live2d" height="400" width="300"></canvas>
 			</div>
 			<div class="fixed-twitter">
+				<button class="togglebutton">tweets</button><br>
 				<div id = "twitterbox" >
 					<a class="twitter-timeline" data-width="300" data-height="600" href="https://twitter.com/wakakap?ref_src=twsrc%5Etfw" data-theme="dark">My Tweets</a> 
 					<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 				</div>
-				<button class="togglebutton">Show/Hide tweets</button><br>
 			</div>
 		</div>
 	</div>

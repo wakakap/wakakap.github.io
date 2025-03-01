@@ -1,0 +1,230 @@
+/* mobile.css - 适用于屏幕宽度小于等于768px */
+@font-face {
+    font-family: 'LXGWWenKai';
+    src: url('../fonts/LXGWWenKai-Light.ttf');
+}
+@font-face {
+    font-family: 'minzhao';
+    src: url('../fonts/MS明朝.ttf');
+}
+
+/* 导航栏样式保持不变 */
+nav ul {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #a95f37cc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    z-index: 10;
+}
+
+nav li {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+}
+
+nav li a {
+    padding: 15px 5px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    line-height: 20px;
+}
+
+nav li a:hover {
+    background-color: #111;
+    border: 1px solid orange;
+}
+
+nav+.placeholder {
+    height: 50px;
+}
+
+/* body和背景调整 */
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.background {
+    background-attachment: scroll;
+    height: auto;
+    min-height: 100vh;
+}
+
+/* fixed-twitter 调整 */
+.fixed-twitter {
+    position: fixed;
+    top: 60px; /* 在导航栏下方 */
+    left: 0;
+    width: 60px; /* 默认宽度仅容纳按钮 */
+    height: 40px; /* 默认高度仅容纳按钮 */
+    background-color: transparent; /* 移除默认黑色背景 */
+    transition: all 0.3s ease;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.fixed-twitter.expanded {
+    width: 90%; /* 展开时接近全屏 */
+    height: 80vh; /* 大部分屏幕高度 */
+    top: 60px;
+    left: 5%;
+    background-color: rgba(0, 0, 0, 0.8); /* 展开时才显示黑色背景 */
+}
+
+.fixed-twitter .togglebutton {
+    width: 50px;
+    height: 30px;
+    font-size: 14px;
+    padding: 0 5px;
+    border-radius: 15px;
+    background-color: #7d4437; /* 按钮自身的背景色 */
+    color: white;
+    border: 1px solid white;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fixed-twitter .togglebutton:hover {
+    background-color: #111;
+}
+
+/* 假设 fixed-twitter 内有内容区域 */
+.fixed-twitter .content {
+    display: none; /* 默认隐藏内容 */
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.fixed-twitter.expanded .content {
+    display: block; /* 展开时显示内容 */
+}
+
+/* 其他元素调整 */
+.live2d-container, #live2d {
+    width: 150px;
+    height: 200px;
+    bottom: 50px;
+}
+
+h1 {
+    font-size: 36px;
+    padding: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    padding: 5px;
+}
+
+p {
+    font-size: 20px;
+    max-width: 90%;
+    padding: 5px;
+}
+
+.pxiao {
+    font-size: 14px;
+    max-width: 90%;
+    padding: 5px;
+}
+
+ul {
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    margin: 5px 0;
+}
+
+a {
+    font-size: 20px;
+}
+
+.right-father--container {
+    margin-left: 0;
+}
+
+.project-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.project {
+    width: 80%;
+    max-width: 300px;
+    height: 250px;
+    margin: 10px 0;
+}
+
+.project::before {
+    font-size: 18px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.project-overlay {
+    font-size: 12px;
+}
+
+.roundbutton {
+    padding: 5px 15px;
+    font-size: 14px;
+}
+
+/* 针对 #Aboutme 的 ul 和 social-links */
+#Aboutme ul {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 10px 0; /* 移动端稍紧凑 */
+}
+
+#Aboutme li.social-links {
+    display: flex; /* 横向排列 */
+    gap: 10px; /* 移动端减小间距 */
+    margin: 0;
+}
+
+#Aboutme li.social-links a {
+    display: block;
+}
+
+#Aboutme li.social-links img {
+    width: 40px; /* 移动端缩小图标 */
+    height: 40px;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+#Aboutme li.social-links a:hover img {
+    transform: scale(1.1); /* 保留hover效果 */
+}
+
+/* 其他 #Aboutme 相关样式 */
+#Aboutme h2 {
+    font-size: 24px;
+    padding: 5px;
+}
+
+#Aboutme .pxiao {
+    font-size: 14px;
+    max-width: 90%;
+    padding: 5px;
+}

@@ -1,323 +1,366 @@
-    @font-face {
-        font-family: 'LXGWWenKai';
-        src: url('../fonts/LXGWWenKai-Light.ttf');
-    }
-    @font-face {
-        font-family: 'minzhao';
-        src: url('../fonts/MS明朝.ttf');
-    }
+@font-face {
+    font-family: 'LXGWWenKai';
+    src: url('../fonts/LXGWWenKai-Light.ttf');
+}
 
-    /* 导航栏样式定义 */
+@font-face {
+    font-family: 'minzhao';
+    src: url('../fonts/MS明朝.ttf');
+}
 
-    nav ul {
-        position: fixed;
-        top: -68;
-        right: 0;
-        width: 85%;
-        z-index: 10;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #a95f376e;
-    }
+/* 导航栏样式定义 */
 
-    nav+.placeholder {
-        height: 68px;
-        /* 替换60px为你导航栏的实际高度*/
-    }
+nav ul {
+    position: fixed;
+    top: -68;
+    right: 0;
+    width: 85%;
+    z-index: 10;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #a95f376e;
+}
 
-    nav li {
-        /* float: left; */
-        flex: 0 0 17%; /* 每个项目占据20%的宽度 */
-        text-align: center; /* 文字居中 */
-    }
+nav+.placeholder {
+    height: 68px;
+    /* 替换60px为你导航栏的实际高度*/
+}
 
-    nav li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
+nav li {
+    /* float: left; */
+    flex: 0 0 17%;
+    /* 每个项目占据20%的宽度 */
+    text-align: center;
+    /* 文字居中 */
+}
 
-    nav li a:hover {
-        background-color: #111;
-        border: 2px solid orange;
-    }
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
-    /* body部分 */
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: rgb(40, 40, 40);
-    }
+nav li a:hover {
+    background-color: #111;
+    border: 2px solid orange;
+}
 
-    .container {
-        position: relative;
-        height: auto;
-        /* display: flex;
-		flex-wrap: wrap; */
-    }
+/* body部分 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(40, 40, 40);
+}
 
-    .background {
-        background-image: url('../media/00004-3147071911.png');
-        background-size: cover;
-        /*充满屏幕*/
-        background-repeat: no-repeat;
-        background-position: center center;
-        /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
-        height: auto;
-        background-attachment: fixed;
-        z-index: -100;
-        /* 确保背景在文本下面 */
-    }
+.container {
+    position: relative;
+    height: auto;
+    /* display: flex;
+    flex-wrap: wrap; */
+}
 
-    .block {
-        position: relative;
-        /* height: 100vh; */
-        height: auto;
-    }
+.background {
+    background-image: url('../media/00004-3147071911.png');
+    background-size: cover;
+    /*充满屏幕*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* 我们使用了"vh"（视口高度）单位来设置背景的高度，确保它始终充满整个屏幕。 */
+    height: auto;
+    background-attachment: fixed;
+    z-index: -100;
+    /* 确保背景在文本下面 */
+}
 
-
-    .fixed-twitter {
-        background-color: black;
-        opacity: 0.85;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 300px;
-        background-color: rgba(0, 0, 0, 0);
-        z-index: 999;
-    }
-
-    .fixed-twitter .togglebutton {
-        border: 1px solid white;
-        border-radius: 20px;
-        background-color: #7d4437;
-        color: white;
-        font-size: larger;
-        padding: 0px 10px;
-        transition: all 0.3s ease;
-        position: absolute;
-        width: 300px;
-        height: 50px;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .fixed-twitter .togglebutton:hover {
-        background-color: #111;
-    }
-
-    .live2d-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 300;
-        height: 400;
-        background-color: rgba(0, 0, 0, 0);
-        z-index: 1000;
-        object-fit: contain;
-    }
-
-    #live2d {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        /* width: 600;
-        height: 800; */
-        background-color: rgba(0, 0, 0, 0);
-        z-index: 1000;
-        object-fit: contain;
-    }
-
-    /* #live2dbubble {
-        position: fixed;
-        bottom: 200px;
-        left: 0;
-        color : white;
-        font-size: 16px;
-        z-index: 1005;
-    } */
-
-    .content {
-        z-index: 0
-    }
-
-    .center {
-        text-align: center;
-        /* display: flex;
-        justify-content: center; */
-    }
-
-    /* 文字样式定义 */
-    h1 {
-        font-family: 'minzhao', sans-serif;
-        margin: 0;
-        padding: 20px;
-        color: white;
-        text-align: center;
-        font-size: 60px;
-    }
-
-    h2 {
-        font-family: 'LXGWWenKai', sans-serif;
-        margin: 0;
-        padding: 0;
-        color: rgb(255, 136, 73);
-        text-align: center;
-        font-size: 40px;
-    }
+.block {
+    position: relative;
+    /* height: 100vh; */
+    height: auto;
+}
 
 
-    p {
-        font-family: 'LXGWWenKai', sans-serif;
-        color: white;
-        font-size: 30px;
-        line-height: 1.5;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 8px;
-        background-color: rgba(5, 5, 5, 0.5);
-        border-radius: 15px;
-    }
+.fixed-twitter {
+    background-color: black;
+    opacity: 0.85;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 999;
+}
 
-    .pxiao {
-        font-family: 'LXGWWenKai', sans-serif;
-        text-align: center;
-        color: white;
-        font-size: 17px;
-        line-height: 2;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 5px;
-        background-color: rgba(5, 5, 5, 0.618);
-        border-radius: 10px;
-    }
+.fixed-twitter .togglebutton {
+    border: 1px solid white;
+    border-radius: 20px;
+    background-color: #7d4437;
+    color: white;
+    font-size: larger;
+    padding: 0px 10px;
+    transition: all 0.3s ease;
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-    div.pxiao a {
-        font-size: inherit;
-    }
+.fixed-twitter .togglebutton:hover {
+    background-color: #111;
+}
 
-    ul {
-        display: flex;
-        list-style: none;
-        justify-content: center;
-        padding: 0;
-    }
+.live2d-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 300;
+    height: 400;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    object-fit: contain;
+}
 
-    li {
-        margin: 0 10px;
-    }
+#live2d {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /* width: 600;
+    height: 800; */
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    object-fit: contain;
+}
 
-    a {
-        color: white;
-        text-decoration: underline;
-        font-size: 30px;
-    }
+/* #live2dbubble {
+    position: fixed;
+    bottom: 200px;
+    left: 0;
+    color : white;
+    font-size: 16px;
+    z-index: 1005;
+} */
 
-    a:hover {
-        transform: scale(1.1);
-        background-color: rgba(5, 5, 5, 0.5);
-    }
+.content {
+    z-index: 0
+}
 
-    .right-father--container {
-        /* display: flex; */
-        justify-content: center;
-        align-items: center;
-        margin-left: 300px;
-        height: auto;
-    }
+.center {
+    text-align: center;
+    /* display: flex;
+    justify-content: center; */
+}
 
-    .project-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 每行最多四个项目 */
-        grid-gap: 0px; /* 设置项目之间的间距 */
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+/* 文字样式定义 */
+h1 {
+    font-family: 'minzhao', sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    font-size: 60px;
+}
 
-    .project {
-        flex: 0 0 auto;
-        /* prevent items from stretching to fill width */
-        margin: 20px;
-        width: 250px;
-        height: 350px;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        cursor: pointer;
-        border: 2px solid rgb(255, 221, 159);
-
-    }
-
-    .project::before {
-        content: attr(data-text);
-        position: absolute;
-        color: white;
-        font-size: 24px;
-        bottom: 0;
-        left: 0;
-        padding: 20px;
-        background-color: rgba(0, 0, 0, 0.5);
-        /* 背景颜色带透明度 */
-        display: flex;
-        width: 300px;
-
-        transform: translate(0, 0);
-        /* 向左上方移动一半宽度和高度的距离 */
-    }
+h2 {
+    font-family: 'LXGWWenKai', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 136, 73);
+    text-align: center;
+    font-size: 40px;
+}
 
 
-    .project:hover .project-overlay {
-        opacity: 1;
-    }
+p {
+    font-family: 'LXGWWenKai', sans-serif;
+    color: white;
+    font-size: 30px;
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 8px;
+    background-color: rgba(5, 5, 5, 0.5);
+    border-radius: 15px;
+}
 
-    .project img {
-        opacity: 0.7;
-        transition: all 0.3s ease-in-out;
-    }
+.pxiao {
+    font-family: 'LXGWWenKai', sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 17px;
+    line-height: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 5px;
+    background-color: rgba(5, 5, 5, 0.618);
+    border-radius: 10px;
+}
 
-    .project:hover img {
-        opacity: 1;
-        transform: scale(1.1);
-    }
+div.pxiao a {
+    font-size: inherit;
+}
 
-    .project-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.6);
-        opacity: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: all 0.2s ease-in-out;
-    }
+ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+}
 
-    .project-title {
-        color: white;
-        font-size: 10px;
-    }
+li {
+    margin: 0 10px;
+}
+
+a {
+    color: white;
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+a:hover {
+    transform: scale(1.1);
+    background-color: rgba(5, 5, 5, 0.5);
+}
+
+.right-father--container {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    margin-left: 300px;
+    height: auto;
+}
+
+.project-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 每行最多四个项目 */
+    grid-gap: 0px;
+    /* 设置项目之间的间距 */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.project {
+    flex: 0 0 auto;
+    /* prevent items from stretching to fill width */
+    margin: 20px;
+    width: 250px;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    cursor: pointer;
+    border: 2px solid rgb(255, 221, 159);
+
+}
+
+.project::before {
+    content: attr(data-text);
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 背景颜色带透明度 */
+    display: flex;
+    width: 300px;
+
+    transform: translate(0, 0);
+    /* 向左上方移动一半宽度和高度的距离 */
+}
+
+
+.project:hover .project-overlay {
+    opacity: 1;
+}
+
+.project img {
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+}
+
+.project:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.project-title {
+    color: white;
+    font-size: 10px;
+}
 
 
 
-    /* 按钮 */
-    .roundbutton {
-        background: transparent;
-        color: white;
-        padding: 5px 20px;
-        border: 2px solid white;
-        border-radius: 50px;
-        font-size: 16px;
-        transition: all 0.2s ease-in-out;
-    }
+/* 按钮 */
+.roundbutton {
+    background: transparent;
+    color: white;
+    padding: 5px 20px;
+    border: 2px solid white;
+    border-radius: 50px;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+}
 
 
-    .roundbutton:hover {
-        background-color: #111;
-    }
+.roundbutton:hover {
+    background-color: #111;
+}
+
+/* 针对 #Aboutme 的 ul 和 social-links */
+#Aboutme ul {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 20px 0;
+    /* 与PC端其他样式一致 */
+}
+
+#Aboutme li.social-links {
+    display: flex;
+    /* 横向排列链接 */
+    gap: 20px;
+    /* 图标之间的间隔 */
+    margin: 0;
+}
+
+#Aboutme li.social-links a {
+    display: block;
+    /* 确保图片可以缩放 */
+    text-decoration: none;
+    /* 去掉下划线，与PC端一致 */
+}
+
+#Aboutme li.social-links img {
+    width: 50px;
+    /* PC端图标大小 */
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    /* hover放大效果 */
+}
+
+#Aboutme li.social-links a:hover img {
+    transform: scale(1.1);
+    /* hover时放大 */
+}
