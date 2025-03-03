@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>动漫年份网状图</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body, html {
+            color: white; /* 设置所有文本颜色为白色 */
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .background {
+            background-image: url('../media/00004-3147071911.png');
+            background-size: cover;/*充满屏幕*/
+            min-height: 100vh; /* 最小高度为视窗高度 */
+            /* height: auto; 展开超过100vh时可以补全 */
+            background-attachment: fixed;
+            z-index: -100; /* 确保背景在文本下面 */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: row;
+        }
+        .embedded .background {/* 嵌入时清除背景 */
+            background: transparent;
+        }
+        #chart {
+            flex: 3;
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+        #info {
+            flex: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.7); 
+        }
+        .year-node {
+            fill: #69b3a2;
+        }
+        .anime-node {
+            fill: #ff9999;
+            cursor: pointer;
+        }
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+        #info img {
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div id="chart"></div>
+        <div id="info">
+            <h2>动漫信息</h2>
+            <p>鼠标悬浮在动画节点上查看详情</p>
+        </div>
+        <script src="js/network.js"></script>
+    </div>
+</body>
+</html>

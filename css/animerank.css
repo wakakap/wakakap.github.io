@@ -23,14 +23,15 @@ body {
     width: 70%;
     height: 600px;
     margin: auto;
+    padding: 20px;
     display: flex;
     justify-content: center; /* 水平居中 */
 }
 .info-box {
     position: absolute;
-    background: white;
+    background: rgb(223, 238, 255);
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 7px;
     display: none;
     pointer-events: none;
     border-radius: 5px;
