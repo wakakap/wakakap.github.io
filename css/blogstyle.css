@@ -30,8 +30,14 @@ button:hover {
     cursor: pointer;
 }
 #markdown-list {
-    margin: 0px;
-    padding: 30px; /* 这里只要不是零就能解决浏览器上方白边地问题  */
+    margin: 0; /* 移除 auto，避免与偏移冲突 */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px; /* 容器最大宽度 */
+    width: 100%; /* 自适应父容器 */
+    position: relative; /* 为偏移提供定位上下文 */
+    left: calc(30%); /* 从左 30% 处偏移，使中心对齐 */
 }
 h1 {
     font-family: 'minzhao', sans-serif;
