@@ -2,7 +2,7 @@ name: Update Anime Data
 
 on:
   schedule:
-    - cron: '0 19 * * *'  # 即北京时间 3:00
+    - cron: '0 19 * * *'  # 每天 UTC 19 点（北京时间次日 3 点）
   workflow_dispatch:      # 支持手动触发
 
 permissions:
