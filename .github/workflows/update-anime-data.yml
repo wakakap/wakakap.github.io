@@ -1,0 +1,40 @@
+name: Update Anime Data
+
+on:
+  schedule:
+    - cron: '0 19 * * *'  # 即北京时间 3:00
+  workflow_dispatch:      # 支持手动触发
+
+permissions:
+  contents: write        # 需要写权限来提交文件更改
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Fetch and Process Anime Data
+        env:
+          BANGUMI_API_KEY: ${{ secrets.BANGUMI_API_KEY }}
+        run: |
+          python update_data.py
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add data/sorted_anime_by_year.json
+          git commit -m "Update sorted_anime_by_year.json with latest data" || echo "No changes to commit"
+          git push
