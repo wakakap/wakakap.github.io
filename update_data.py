@@ -3,6 +3,8 @@ import json
 from collections import defaultdict
 import os
 import tempfile
+import re
+from pathlib import Path
 
 # API 基础配置
 BASE_URL = "https://api.bgm.tv"
@@ -84,6 +86,68 @@ def save_sorted_anime(sorted_anime_by_year, save_path):
         json.dump(sorted_anime_by_year, f, ensure_ascii=False, indent=4)
     print(f"Sorted anime data saved to {save_path}")
 
+# 过滤函数：判断是否跳过某个作品
+def should_skip(item, filter_list, min_rate):
+    rate = item.get("rate")
+    if rate is None or rate < min_rate:
+        return True
+    tags = item.get("tags", [])
+    return bool(filter_list and set(tags) & set(filter_list))
+
+# 下载图片的函数
+def download_image(url, filename):
+    try:
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+        with open(filename, "wb") as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+    except requests.RequestException:
+        pass  # 忽略下载失败的图片
+
+# 下载图片
+def download_anime_images(data, output_dir="media/image"):
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    illegal_chars = r'[<>:"/\\|?*]'
+    for year, items in data.items():
+        for item in items:
+            if should_skip(item, {"里番", "肉番", "短片"}, 6):
+                continue
+            subject = item["subject"]
+            name = re.sub(illegal_chars, "", subject["name"])
+            subject_id = subject["id"]
+            image_url = subject["images"]["common"]
+            filename = f"{name}_{subject_id}_common.jpg"
+            filepath = os.path.join(output_dir, filename)
+            if not os.path.exists(filepath):
+                download_image(image_url, filepath)
+
+# 删除不符合的图片
+def delete_image(sorted_anime, image_dir="media/image"):
+    if not os.path.exists(image_dir):
+        print(f"目录 {image_dir} 不存在，跳过清理")
+        return
+    
+    valid_filenames = set()
+    illegal_chars = r'[<>:"/\\|?*]'
+    
+    for year, items in sorted_anime.items():
+        for item in items:
+            subject = item["subject"]
+            name = re.sub(illegal_chars, "", subject["name"])
+            subject_id = subject["id"]
+            filename = f"{name}_{subject_id}_common.jpg"
+            valid_filenames.add(filename)
+    
+    # 遍历文件夹，删除不在 valid_filenames 集合中的图片
+    for file in os.listdir(image_dir):
+        file_path = os.path.join(image_dir, file)
+        if os.path.isfile(file_path) and file not in valid_filenames:
+            os.remove(file_path)
+            print(f"删除了无效图片: {file_path}")
+
+
+
 # 主流程
 if __name__ == "__main__":
     # 获取数据并保存到临时文件
@@ -94,6 +158,12 @@ if __name__ == "__main__":
     sorted_anime = sort_anime_by_year(temp_file_path, filter_list=animetag_filterlist)
     save_path = 'data/sorted_anime_by_year.json'
     save_sorted_anime(sorted_anime, save_path)
+
+    # 下载图片
+    download_anime_images(sorted_anime)
+
+    # 清理图片
+    delete_image(sorted_anime)
     
     # 删除临时文件
     os.unlink(temp_file_path)
