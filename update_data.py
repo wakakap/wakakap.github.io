@@ -6,7 +6,7 @@ import tempfile
 
 # API 基础配置
 BASE_URL = "https://api.bgm.tv"
-API_KEY = os.getenv("BANGUMI_API_KEY", "")  # 从环境变量获取 API 密钥
+BANGUMI_API_KEY = os.getenv("BANGUMI_API_KEY", "")  # 从环境变量获取 API 密钥
 HEADERS = {
     "User-Agent": "wakakap/my-private-project",
     "Authorization": f"Bearer {BANGUMI_API_KEY}"
