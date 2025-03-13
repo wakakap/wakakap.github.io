@@ -166,7 +166,7 @@ def update_md(folder):
 # 主流程
 if __name__ == "__main__":
     # 获取数据并保存到临时文件
-    temp_file_path = save_collections_to_temp() + save_collections_to_temp(type=3, limit=50, offsetmax=1251)
+    temp_file_path = save_collections_to_temp(type=2) + save_collections_to_temp(type=3)
     # 条目类型
     # 1 = book
     # 2 = anime
@@ -182,7 +182,7 @@ if __name__ == "__main__":
     
     # 处理数据并保存最终结果
     animetag_filterlist = {'里番', '肉番', '短片', '国产','欧美'}
-    sorted_anime = sort_anime_by_year(watched_temp_file_path, filter_list=animetag_filterlist)
+    sorted_anime = sort_anime_by_year(temp_file_path, filter_list=animetag_filterlist)
     save_path = 'data/sorted_anime_by_year.json'
     save_sorted_anime(sorted_anime, save_path)
 
