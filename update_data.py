@@ -43,8 +43,8 @@ def get_all_collections(username= 'wakakap', subject_type=2, type=2, limit=50, o
         if data and isinstance(data, dict) and 'data' in data:
             all_data.extend(data['data'])
         else:
-            print(f"偏移量 {offset} 未获取到有效数据")
-            break
+            print(f"偏移量 {offset} 中断")
+            return all_data
     print(f"总数据量: {len(all_data)}")
     return all_data
 
