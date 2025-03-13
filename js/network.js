@@ -24,8 +24,8 @@ async function loadData() {
         const nodes = [];
         const links = [];
         
-        // 检查 data 是否有内容
-        if (!data || Object.keys(data).length === 0) {
+        // 检查是否有内容
+        if (!data || Object.keys(data).length === 0 ) {
             console.error("数据为空或格式不正确");
             return;
         }
@@ -41,6 +41,7 @@ async function loadData() {
                 nodes.push({ 
                     id: anime.subject_id, 
                     type: 'anime', 
+                    collection_type: anime.type,
                     data: anime,
                     radius: Math.max(3, -15 + anime.rate * 3) // 评分影响大小
                 });
@@ -80,7 +81,13 @@ async function loadData() {
         // 添加圆点
         node.append("circle")
             .attr("r", d => d.type === 'year' ? 20 : d.radius) // 年份固定20，动画基于评分
-            .attr("class", d => d.type === 'year' ? 'year-node' : 'anime-node');
+            .attr("class", d => // 判断采用的class
+                d.type === 'year' 
+                    ? 'year-node' 
+                    : d.collection_type === 2 
+                        ? 'anime-node' 
+                        : 'anime-watching-node'
+            );            
 
         // 年份节点添加文本
         node.filter(d => d.type === 'year')
@@ -103,10 +110,11 @@ async function loadData() {
                 infoDiv.html(`
                     <img src="${imagePath}" alt="${safeName}">
                     <h3>${subject.name}</h3>
+                    <p>中文名: ${subject.name_cn}</p>
                     <p>年份: ${year}</p>
                     <p>评分: ${subject.score}</p>
                     <p>我的评分: ${anime.rate}</p>
-                    <p>我的评价: ${anime.comment || '我没有评价'}</p>
+                    <p>我的评价: ${anime.comment || '我没有写评价'}</p>
                     <p>（右键清除信息）</p>
                 `);
             });
