@@ -48,22 +48,9 @@ def get_all_collections(username= 'wakakap', subject_type=2, type=2, limit=50, o
     print(f"总数据量: {len(all_data)}")
     return all_data
 
-# 获取数据并返回临时文件
-def save_collections_to_temp(username = 'wakakap', subject_type=2, type=2, limit=50, offsetmax=1251):
-    data = get_all_collections(username, subject_type, type, limit, offsetmax)
-    if not data:
-        raise ValueError("未能获取到收藏数据")
-    # # 使用临时文件保存中间数据
-    # with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False) as temp_file:
-    #     json.dump(data, temp_file, ensure_ascii=False, indent=4)
-    #     temp_file_path = temp_file.name
-    return data
-
 # 数据处理
-def sort_anime_by_year(file_path, filter_list=None, min_rate=6):
+def sort_anime_by_year(data, filter_list=None, min_rate=6):
     anime_by_year = defaultdict(list)
-    with open(file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
     for entry in data:
         subject = entry.get('subject', {})
         date = subject.get('date', '')
@@ -166,7 +153,7 @@ def update_md(folder):
 # 主流程
 if __name__ == "__main__":
     # 获取数据并保存到临时文件
-    data = save_collections_to_temp(type=2) + save_collections_to_temp(type=3)
+    data = get_all_collections(type=2) + get_all_collections(type=3)
     # 条目类型
     # 1 = book
     # 2 = anime
@@ -195,6 +182,3 @@ if __name__ == "__main__":
     folders = ['tech','diary']
     for i in folders:
         update_md(i)
-    
-    # 删除临时文件
-    os.unlink(temp_file_path)
