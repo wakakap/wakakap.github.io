@@ -8,6 +8,11 @@ import tempfile
 import re
 from pathlib import Path
 
+from dotenv import load_dotenv
+# 加载 .env 文件
+load_dotenv()
+
+
 # API 基础配置
 BASE_URL = "https://api.bgm.tv"
 BANGUMI_API_KEY = os.getenv("BANGUMI_API_KEY", "")  # 从环境变量获取 API 密钥
@@ -30,7 +35,7 @@ def get_collections(username= 'wakakap', subject_type=2, type=2, limit=50, offse
         if response.status_code == 200:
             return response.json()
         else:
-            print(f"请求失败，状态码: {response.status_code}, 错误信息: {response.text}")
+            print(f"请求失败，状态码: {response.status_code}, 错误信息: {response.text}")# 当offset大于收藏总量时会报错400
             return None
     except requests.RequestException as e:
         print(f"请求时发生错误: {e}")
@@ -38,12 +43,12 @@ def get_collections(username= 'wakakap', subject_type=2, type=2, limit=50, offse
 
 def get_all_collections(username= 'wakakap', subject_type=2, type=2, limit=50, offsetmax=1251):
     all_data = []
-    for offset in range(0, offsetmax, 50):
+    for offset in range(0, offsetmax, 50):# offset = 0, 50, ..., 1250
         data = get_collections(username, subject_type, type, limit, offset)
         if data and isinstance(data, dict) and 'data' in data:
             all_data.extend(data['data'])
         else:
-            print(f"偏移量 {offset} 中断")
+            print(f"偏移量 {offset} 中断 总数据量: {len(all_data)}")
             return all_data
     print(f"总数据量: {len(all_data)}")
     return all_data
@@ -58,9 +63,10 @@ def sort_anime_by_year(data, filter_list=None, min_rate=6):
             date = "0000-00-00"
         year = str(date).split('-')[0]
         tags = entry.get('tags', 'N/A')
-        rate = entry.get('rate', 0)
-
-        if (filter_list is not None and set(tags) & set(filter_list)) or rate < min_rate:
+        rate = entry.get('rate', 'N/A')
+        co_type = entry.get('type', 0)
+        # 如果是过滤词，或者是看过的动画里有评分，且评分低于多少的
+        if (filter_list is not None and set(tags) & set(filter_list)) or (rate != 'N/A' and rate < min_rate and co_type ==2):
             continue  
 
         anime_by_year[year].append(entry)
@@ -102,8 +108,6 @@ def download_anime_images(data, output_dir="media/image"):
     illegal_chars = r'[<>:"/\\|?*]'
     for year, items in data.items():
         for item in items:
-            if should_skip(item, {'里番', '肉番', '短片', '国产','欧美'}, 6):
-                continue
             subject = item["subject"]
             name = re.sub(illegal_chars, "", subject["name"])
             subject_id = subject["id"]
@@ -137,15 +141,20 @@ def delete_image(sorted_anime, image_dir="media/image"):
 def update_md(folder):
     today = datetime.datetime.now().strftime("%Y-%m-%d")
     files = glob.glob(f"markdown/{folder}/*.md")
+    # 存储文件名和修改时间
     file_data = []
-    for f in files:# 去掉文件名中的扩展名，并获取最近修改时间
-        name = os.path.splitext(f)[0]
-        mod_time = os.path.getmtime(f)
+    for f in files:
+        name = os.path.splitext(os.path.basename(f))[0]  # 获取不带扩展名的文件名
+        mod_time = os.path.getmtime(f)  # 获取文件的修改时间
         file_data.append((name, mod_time))
-    sorted_file_data = sorted(file_data, key=lambda x: x[1], reverse=True)# 按照修改日期倒序排列
+    # 按修改时间倒序排列
+    sorted_file_data = sorted(file_data, key=lambda x: x[1], reverse=True)
+    # 获取排序后的文件名并以逗号连接
     file_names_str = ",".join([f[0] for f in sorted_file_data])
-    with open(f"markdown/{folder}/0000-filenames.txt", "w",encoding="utf-8") as f:
+    # 写入文件
+    with open(f"markdown/{folder}/0000-filenames.txt", "w", encoding="utf-8") as f:
         f.write(file_names_str)
+    print("更新markdown文本")
 
 
 

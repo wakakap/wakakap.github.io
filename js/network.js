@@ -43,7 +43,7 @@ async function loadData() {
                     type: 'anime', 
                     collection_type: anime.type,
                     data: anime,
-                    radius: Math.max(3, -15 + anime.rate * 3) // 评分影响大小
+                    radius: anime.type === 3? 11 : Math.max(3, -15 + anime.rate * 3) // 评分影响大小，但如果是正在看的 赋予11
                 });
                 links.push({ source: year, target: anime.subject_id });
             });
