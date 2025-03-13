@@ -48,16 +48,16 @@ def get_all_collections(username= 'wakakap', subject_type=2, type=2, limit=50, o
     print(f"总数据量: {len(all_data)}")
     return all_data
 
-# 获取数据并返回临时文件路径
+# 获取数据并返回临时文件
 def save_collections_to_temp(username = 'wakakap', subject_type=2, type=2, limit=50, offsetmax=1251):
     data = get_all_collections(username, subject_type, type, limit, offsetmax)
     if not data:
         raise ValueError("未能获取到收藏数据")
-    # 使用临时文件保存中间数据
-    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False) as temp_file:
-        json.dump(data, temp_file, ensure_ascii=False, indent=4)
-        temp_file_path = temp_file.name
-    return temp_file_path
+    # # 使用临时文件保存中间数据
+    # with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False) as temp_file:
+    #     json.dump(data, temp_file, ensure_ascii=False, indent=4)
+    #     temp_file_path = temp_file.name
+    return data
 
 # 数据处理
 def sort_anime_by_year(file_path, filter_list=None, min_rate=6):
@@ -166,14 +166,7 @@ def update_md(folder):
 # 主流程
 if __name__ == "__main__":
     # 获取数据并保存到临时文件
-    temp_file_2 = save_collections_to_temp(type=2)
-    temp_file_3 = save_collections_to_temp(type=3)
-    # 读取两个文件的内容
-    content_2 = temp_file_2.read()
-    content_3 = temp_file_3.read()
-    # 拼接内容
-    merged_content = content_2 + content_3
-
+    data = save_collections_to_temp(type=2) + save_collections_to_temp(type=3)
     # 条目类型
     # 1 = book
     # 2 = anime
@@ -189,7 +182,7 @@ if __name__ == "__main__":
     
     # 处理数据并保存最终结果
     animetag_filterlist = {'里番', '肉番', '短片', '国产','欧美'}
-    sorted_anime = sort_anime_by_year(merged_content, filter_list=animetag_filterlist)
+    sorted_anime = sort_anime_by_year(data, filter_list=animetag_filterlist)
     save_path = 'data/sorted_anime_by_year.json'
     save_sorted_anime(sorted_anime, save_path)
 
