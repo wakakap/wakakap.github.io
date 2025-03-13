@@ -29,16 +29,7 @@ button:hover {
     color: black;
     cursor: pointer;
 }
-#markdown-list {
-    margin: 0; /* 移除 auto，避免与偏移冲突 */
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px; /* 容器最大宽度 */
-    width: 100%; /* 自适应父容器 */
-    position: relative; /* 为偏移提供定位上下文 */
-    left: calc(30%); /* 从左 30% 处偏移，使中心对齐 */
-}
+
 h1 {
     font-family: 'minzhao', sans-serif;
     margin: 0;
@@ -53,6 +44,16 @@ h1 {
 
 /* -----分开设置的-------- */
 
+#markdown-list {
+    margin: 0; /* 移除 auto，避免与偏移冲突 */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px; /* 容器最大宽度 */
+    width: 100%; /* 自适应父容器 */
+    position: relative; /* 为偏移提供定位上下文 */
+    left: calc(30%); /* 从左 30% 处偏移，使中心对齐 */
+}
 
 .container {
     position: relative;
@@ -94,9 +95,18 @@ button {
     }
     .contentback {
         margin: 1px;
-        padding: 5px 12px; /* Reduce padding */
-        background-color: rgba(0, 0, 0, 0.49);
-        font-size: 18px; /* 设置字体大小 */
-        line-height: 1.3; /* 设置行间距（1.5 倍行高） */
+        padding: 5px 12px;
+        font-size: 18px;
+        line-height: 1.3;
+        width: 100%; /* 确保内容宽度占满容器 */
+        box-sizing: border-box; /* 防止 padding 导致溢出 */
+    }
+    #markdown-list {
+        margin: 0;
+        padding: 20px; /* 保留你设置的 padding */
+        width: 100%; /* 确保宽度占满 */
+        max-width: 100%; /* 移除 1200px 的限制，占满屏幕 */
+        left: 0; /* 移除偏移，让内容靠左对齐 */
+        box-sizing: border-box; /* 确保 padding 不撑大宽度 */
     }
 }

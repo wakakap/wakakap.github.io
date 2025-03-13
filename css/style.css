@@ -318,8 +318,10 @@ a:hover {
     padding: 5px 20px;
     border: 2px solid white;
     border-radius: 50px;
-    font-size: 16px;
+    font-size: 13px;
     transition: all 0.2s ease-in-out;
+    display: block; /* 使按钮成为块级元素 */
+    margin: 0 auto; /* 水平居中 */
 }
 
 
@@ -363,6 +365,12 @@ a:hover {
 #Aboutme li.social-links a:hover img {
     transform: scale(1.1);
     /* hover时放大 */
+}
+
+.divider {
+    border: none; /* 移除默认边框 */
+    border-top: 2px dashed #bbbbbb; /* 设置虚线样式，黑色，2px 粗细 */
+    margin: 20px 0; /* 上下间距 */
 }
 
 /* 移动端 (max-width: 768px) */
