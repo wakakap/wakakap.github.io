@@ -28,10 +28,14 @@
         }
         #chart {
             flex: 3;
-            background-color: rgba(0, 0, 0, 0.5); 
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex; /* 添加 flex 布局 */
+            justify-content: flex-end; /* SVG 靠右对齐 */
+            align-items: flex-start; /* 可选：顶部对齐 */
         }
         #info {
-            flex: 1;
+            /* flex: 1; */
+            width: 200px;
             padding: 20px;
             border-left: 3px solid #ccc;
             background-color: rgba(0, 0, 0, 0.7); 

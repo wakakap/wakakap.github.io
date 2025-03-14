@@ -45,19 +45,20 @@ h1 {
 /* -----分开设置的-------- */
 
 #markdown-list {
-    margin: 0; /* 移除 auto，避免与偏移冲突 */
+    margin: 0 auto; /* 居中 */
     padding: 30px;
     display: flex;
     flex-direction: column;
-    max-width: 1200px; /* 容器最大宽度 */
-    width: 100%; /* 自适应父容器 */
-    position: relative; /* 为偏移提供定位上下文 */
-    left: calc(30%); /* 从左 30% 处偏移，使中心对齐 */
+    max-width: min(90vw, 1200px); /* 让最大宽度适应屏幕 */
+    width: 100%; /* 避免过宽 */
+    box-sizing: border-box; /* 避免 padding 影响布局 */
 }
+
 
 .container {
     position: relative;
     min-height: 100vh;
+    width: 100%;
 }
 .subtitle {
     font-size: 15px;
@@ -75,8 +76,10 @@ button {
     padding: 2px 50px;
     background-color: rgba(0, 0, 0, 0.49);
     font-family: 'LXGWWenKai', sans-serif; /* 设置字体 */
-    font-size: 20px; /* 设置字体大小 */
-    line-height: 1.5; /* 设置行间距（1.5 倍行高） */
+    max-width: 100%; /* 确保不会超出父容器 */
+    overflow-wrap: break-word; /* 现代浏览器 */
+    word-wrap: break-word; /* 兼容性 */
+    box-sizing: border-box; /* 避免 padding 导致溢出 */
 }
 
 

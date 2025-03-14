@@ -5,12 +5,86 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="css/animerank.css">
       <title>アニソンRAN1K</title>
+      <style>
+        body, html {
+            color: white; /* 设置所有文本颜色为白色 */
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .background {
+            background-image: url('../media/00004-3147071911.png');
+            background-size: cover;/*充满屏幕*/
+            min-height: 100vh; /* 最小高度为视窗高度 */
+            /* height: auto; 展开超过100vh时可以补全 */
+            background-attachment: fixed;
+            z-index: -100; /* 确保背景在文本下面 */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: row;
+        }
+        .embedded .background {/* 嵌入时清除背景 */
+            background: transparent;
+        }
+        #chart {
+            flex: 3;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex; /* 添加 flex 布局 */
+            justify-content: flex-end; /* SVG 靠右对齐 */
+            align-items: flex-start; /* 可选：顶部对齐 */
+        }
+        .info-box {
+            position: absolute;
+            background: rgb(223, 238, 255);
+            border: 1px solid #ccc;
+            padding: 7px;
+            display: none;
+            pointer-events: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1{
+            text-align: center;
+            color: rgb(231, 27, 197);
+            font-size: 30px;
+            font-family: 'Comic Sans MS';
+        }
+        .embedded h1 {
+            display: none;
+        }
+        p{
+            color: rgb(255, 255, 255);
+        }
+        .hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #musicbar{
+            flex: 1;
+            /* width: 200px; */
+            height: auto;
+            /* width: 300px; */
+            padding: 20px;
+            border-left: 3px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.7); 
+        }
+        iframe{
+            width: 100%;  /* 让 iframe 的宽度适应父容器 */
+            max-width: 100%; /* 防止溢出 */
+            height: 100vh;  /* 让 iframe 充满视口高度（可根据需要调整） */
+            border: none; /* 移除边框 */
+            overflow: hidden; /* 隐藏滚动条（仅限 iframe 自身） */
+        }
+      </style>
     </head>
     <body>
         <div class="container">
             <div class="background">
-                <h1>アニソンRAN1K</h1>
-                <div id="chart" class="hover"></div>
+                <div id="chart" class="hover">
+                </div>
+                <div id="musicbar">
+                    <iframe id = "spotifymusic" style="border-radius:12px;opacity:0.7" src="https://open.spotify.com/embed/playlist/4gSiuVzsk6vJ0m4uOfmELO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" loading="lazy"></iframe>
+                </div>
                 <div class="info-box" id="info-box"></div> 
             </div>
         </div>

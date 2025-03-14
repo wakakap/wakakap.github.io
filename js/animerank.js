@@ -6,10 +6,13 @@ if (urlParams.get('embedded') === 'true') {
 
 // Load JSON data
 d3.json('./media/anime_song_rank.json').then(function(data) {
+    const chartWidth = document.getElementById('chart').clientWidth;
+    const w1 = Math.min(chartWidth, 1800); 
+    const h1 = 900;
     // Set up SVG and margins
     const margin = {top: 20, right: 20, bottom: 40, left: 40};
-    const width = 800 - margin.left - margin.right;
-    const height = 600 - margin.top - margin.bottom;
+    const width = w1 - margin.left - margin.right;
+    const height = h1 - margin.top - margin.bottom;
 
     const svg = d3.select('#chart')
                 .append('svg')

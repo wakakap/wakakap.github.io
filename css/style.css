@@ -56,9 +56,18 @@ body {
     background-color: rgb(40, 40, 40);
 }
 
+iframe{
+    max-width: 100%; /* 防止溢出 */
+    /* height: 100vh;  */
+    border: none; /* 移除边框 */
+    overflow: hidden; /* 隐藏滚动条（仅限 iframe 自身） */
+}
+
 .container {
     position: relative;
     height: auto;
+    max-width: 100%;
+    /* margin: 0 auto; */
     /* display: flex;
     flex-wrap: wrap; */
 }
@@ -269,8 +278,7 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.5);
     /* 背景颜色带透明度 */
     display: flex;
-    width: 300px;
-
+    width: auto;
     transform: translate(0, 0);
     /* 向左上方移动一半宽度和高度的距离 */
 }

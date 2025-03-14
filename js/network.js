@@ -6,8 +6,8 @@ if (urlParams.get('embedded') === 'true') {
 
 // 当前显示的信息节点
 let currentInfoNode = null;
-// SVG设置
-const width = 1600;
+const chartWidth = document.getElementById('chart').clientWidth;
+const width = Math.min(chartWidth, 1800); 
 const height = 900;
 const svg = d3.select("#chart")
     .append("svg")
@@ -79,15 +79,18 @@ async function loadData() {
             .append("g");
 
         // 添加圆点
-        node.append("circle")
-            .attr("r", d => d.type === 'year' ? 20 : d.radius) // 年份固定20，动画基于评分
-            .attr("class", d => // 判断采用的class
-                d.type === 'year' 
-                    ? 'year-node' 
-                    : d.collection_type === 2 
-                        ? 'anime-node' 
-                        : 'anime-watching-node'
-            );            
+        const circles = node.append("circle")
+        .attr("r", d => d.type === 'year' ? 20 : d.radius)
+        .attr("class", d => 
+            d.type === 'year' 
+                ? 'year-node' 
+                : d.collection_type === 2 
+                    ? 'anime-node' 
+                    : 'anime-watching-node'
+        )
+        .each(function(d) { 
+            d.originalColor = d3.select(this).style("fill"); 
+        });      
 
         // 年份节点添加文本
         node.filter(d => d.type === 'year')
@@ -97,15 +100,45 @@ async function loadData() {
             .attr("dy", 5)
             .attr("fill", "white");
 
-        // 鼠标交互
-        node.filter(d => d.type === 'anime')
+        // 添加缓冲区
+        const bufferCircles = node.append("circle")
+            .attr("r", d => Math.min(d.radius * 2, 16)) // 缓冲区半径为原半径2倍
+            .attr("fill", "none") // 无填充
+            .attr("pointer-events", "all") // 接收鼠标事件
+            .attr("opacity", 0) // 不可见
+            .attr("class", 'anime-node' );
+
+        // 将交互绑定到缓冲区，但是改变的是circles的属性
+        bufferCircles.filter(d => d.type === 'anime')
             .on("mouseover", (event, d) => {
+                const currentCircle = circles.filter(circleData => circleData === d);
+                const parentG = d3.select(event.currentTarget.parentNode);
                 const anime = d.data;
                 const subject = anime.subject;
                 const year = subject.date.split('-')[0];
                 const safeName = subject.name.replace(/[\/\\:*?"<>|]/g, ''); // 将非法字符替换为
                 const imagePath = `media/image/${safeName}_${subject.id}_common.jpg`;
-                // console.log("鼠标悬浮，图片路径:", imagePath); // 调试输出5：检查图片路径
+                currentCircle
+                    .transition()
+                    .duration(150)
+                    .attr("r", d.radius * 1.7)
+                    .style("fill", "#ff6b6b");
+
+                const ripple1 = parentG.append("circle")
+                    .attr("r", d.radius)
+                    .attr("fill", "none")
+                    .attr("stroke", "#ff6b6b")
+                    .attr("stroke-width", 2)
+                    .attr("opacity", 0.8);
+
+                ripple1.transition()
+                    .duration(3000)
+                    .ease(d3.easeCubicOut)
+                    .attr("r", d.radius * 30)
+                    .attr("stroke-width", 0)
+                    .attr("opacity", 0)
+                    .on("end", () => ripple1.remove());
+
                 const infoDiv = d3.select("#info");
                 infoDiv.html(`
                     <img src="${imagePath}" alt="${safeName}">
@@ -117,6 +150,14 @@ async function loadData() {
                     <p>我的评价: ${anime.comment || '我没有写评价'}</p>
                     <p>（右键清除信息）</p>
                 `);
+            })
+            .on("mouseout", (event, d) => {
+                const currentCircle = d3.select(event.currentTarget.parentNode).select("circle:not([opacity='0'])");
+                currentCircle
+                    .transition()
+                    .duration(200)
+                    .attr("r", d.radius)
+                    .style("fill", d.originalColor);
             });
 
         // 全局右键清除信息
