@@ -43,7 +43,7 @@ async function loadData() {
                     type: 'anime', 
                     collection_type: anime.type,
                     data: anime,
-                    radius: anime.type === 3? 11 : Math.max(3, -15 + anime.rate * 3) // 评分影响大小，但如果是正在看的 赋予11
+                    radius: anime.type === 3? 11 : Math.max(5, -15 + anime.rate * 3) // 评分影响大小，但如果是正在看的 赋予11
                 });
                 links.push({ source: year, target: anime.subject_id });
             });
@@ -101,28 +101,38 @@ async function loadData() {
             .attr("fill", "white");
 
         // 添加缓冲区
-        const bufferCircles = node.append("circle")
-            .attr("r", d => Math.min(d.radius * 2, 16)) // 缓冲区半径为原半径2倍
-            .attr("fill", "none") // 无填充
-            .attr("pointer-events", "all") // 接收鼠标事件
-            .attr("opacity", 0) // 不可见
-            .attr("class", 'anime-node' );
+        // const bufferCircles = node.append("circle")
+        //     .attr("r", d => Math.min(d.radius * 2, 15)) // 缓冲区半径为原半径2倍
+        //     .attr("fill", "none") // 无填充
+        //     .attr("pointer-events", "all") // 接收鼠标事件
+        //     .attr("opacity", 0) // 不可见
+        //     .attr("class", 'anime-node' 
+        //     )
+        //     .each(function(d) { 
+        //     d.originalr = d3.select(this).attr("r"); 
+        // });      
 
-        // 将交互绑定到缓冲区，但是改变的是circles的属性
-        bufferCircles.filter(d => d.type === 'anime')
+        // 将交互绑定到circles
+        circles.filter(d => d.type === 'anime')
             .on("mouseover", (event, d) => {
-                const currentCircle = circles.filter(circleData => circleData === d);
+                const currentCircle = d3.select(event.currentTarget);
                 const parentG = d3.select(event.currentTarget.parentNode);
                 const anime = d.data;
                 const subject = anime.subject;
                 const year = subject.date.split('-')[0];
                 const safeName = subject.name.replace(/[\/\\:*?"<>|]/g, ''); // 将非法字符替换为
                 const imagePath = `media/image/${safeName}_${subject.id}_common.jpg`;
+
                 currentCircle
                     .transition()
                     .duration(150)
                     .attr("r", d.radius * 1.7)
                     .style("fill", "#ff6b6b");
+
+                // bufferCircles
+                //     .transition()
+                //     .duration(1)
+                //     .attr("r", d.radius * 1.7)
 
                 const ripple1 = parentG.append("circle")
                     .attr("r", d.radius)
@@ -152,7 +162,7 @@ async function loadData() {
                 `);
             })
             .on("mouseout", (event, d) => {
-                const currentCircle = d3.select(event.currentTarget.parentNode).select("circle:not([opacity='0'])");
+                const currentCircle = d3.select(event.currentTarget);
                 currentCircle
                     .transition()
                     .duration(200)
