@@ -28,6 +28,8 @@ jobs:
       - name: Fetch and Process Anime Data
         env:
           BANGUMI_API_KEY: ${{ secrets.BANGUMI_API_KEY }}
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
         run: |
           python update_data.py
 
@@ -38,5 +40,6 @@ jobs:
           git add data/sorted_anime_by_year.json
           git add markdown/diary/0000-filenames.txt
           git add markdown/tech/0000-filenames.txt
+          git add data/spotify_list.json
           git commit -m "AUTO Update" || echo "No changes to commit"
           git push
