@@ -114,7 +114,7 @@ async function loadData() {
 
         // 将交互绑定到circles
         circles.filter(d => d.type === 'anime')
-            .on("mouseover", (event, d) => {
+            .on("mouseenter", (event, d) => {
                 const currentCircle = d3.select(event.currentTarget);
                 const parentG = d3.select(event.currentTarget.parentNode);
                 const anime = d.data;
@@ -161,7 +161,7 @@ async function loadData() {
                     <p>（右键清除信息）</p>
                 `);
             })
-            .on("mouseout", (event, d) => {
+            .on("mouseleave", (event, d) => {
                 const currentCircle = d3.select(event.currentTarget);
                 currentCircle
                     .transition()
