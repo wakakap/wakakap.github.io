@@ -9,8 +9,8 @@ import json
 # load_dotenv()
 
 # 获取环境变量
-SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', 'your_client_id_here')
-SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', 'your_client_secret_here')
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', '')
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', '')
 
 # 公开播放列表 URL（这里可以用你确认可用的个人公开歌单）
 playlist_urls = [
