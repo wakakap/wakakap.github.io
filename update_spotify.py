@@ -4,9 +4,9 @@ import base64
 import json
 
 # 本地测试时取消注释
-from dotenv import load_dotenv
-# 加载 .env 文件
-load_dotenv()
+# from dotenv import load_dotenv
+# # 加载 .env 文件
+# load_dotenv()
 
 # 获取环境变量
 SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', 'your_client_id_here')
