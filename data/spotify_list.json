@@ -1,0 +1,604 @@
+[
+    {
+        "name": "my juicy music 1",
+        "id": "4gSiuVzsk6vJ0m4uOfmELO",
+        "tracks": [
+            {
+                "title": "花になって - Be a flower",
+                "artists": "Ryokuoushoku Shakai",
+                "album": "花になって - Be a flower",
+                "release_year": "2023",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273429f3c0081fd674ba9365997",
+                "track_id": "2EmkTBTh964LQen4Vz0svg"
+            },
+            {
+                "title": "フーアーユーなんて言わないで",
+                "artists": "Kotone",
+                "album": "RESIST",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273c35ef67ba5825c7535acf41e",
+                "track_id": "6QSV6RBq0tnJKLsbTplpRY"
+            },
+            {
+                "title": "大河よ共に泣いてくれ",
+                "artists": "フランシュシュ",
+                "album": "ゾンビランドサガ リベンジ　フランシュシュ　The Best Revenge",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2738716a6ef0fd6db7f6eafc356",
+                "track_id": "5b3ZVhL5PrvMZIFJk3Tpt5"
+            },
+            {
+                "title": "No title",
+                "artists": "Reol",
+                "album": "No title-",
+                "release_year": "2016",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27348cbdef454b5636ee5ebeb34",
+                "track_id": "5pZVsZ8TOGly1KnYFmZ61B"
+            },
+            {
+                "title": "秒針を噛む",
+                "artists": "ZUTOMAYO",
+                "album": "潜潜話",
+                "release_year": "2019",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273ced490e566f828ee9ca8d263",
+                "track_id": "4HgsPAX3MmMgIT60hJ4W4U"
+            },
+            {
+                "title": "Take Me to Church",
+                "artists": "Hozier",
+                "album": "Hozier (Expanded Edition)",
+                "release_year": "2014",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734ca68d59a4a29c856a4a39c2",
+                "track_id": "1CS7Sd1u5tWkstBhpssyjP"
+            },
+            {
+                "title": "あいつら全員同窓会",
+                "artists": "ZUTOMAYO",
+                "album": "あいつら全員同窓会",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273f2358d74de95c2de78d9a7d4",
+                "track_id": "2VIK6jaaKghS4QPHr6sAkv"
+            },
+            {
+                "title": "もしも命が描けたら",
+                "artists": "YOASOBI",
+                "album": "THE BOOK 2",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273e897f4915425f0a48484e3f9",
+                "track_id": "5WYTSyhKonzQZ3hu14LNr6"
+            },
+            {
+                "title": "Gee",
+                "artists": "Girls' Generation",
+                "album": "Oh! - The Second Album",
+                "release_year": "2010",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2739b57e9b31c831fb2137c38e2",
+                "track_id": "0t7kjpVLgOYITrSfFCoBEA"
+            },
+            {
+                "title": "Classic",
+                "artists": "MKTO",
+                "album": "MKTO",
+                "release_year": "2012",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2739474419f15773875a495eed3",
+                "track_id": "6FE2iI43OZnszFLuLtvvmg"
+            },
+            {
+                "title": "Counting Stars",
+                "artists": "OneRepublic",
+                "album": "Native",
+                "release_year": "2014",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273e80e7dbce3996a1ae5967751",
+                "track_id": "6sy3LkhNFjJWlaeSMNwQ62"
+            },
+            {
+                "title": "白日",
+                "artists": "King Gnu",
+                "album": "白日",
+                "release_year": "2019",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273e4da12ab8213633c552ecfa9",
+                "track_id": "5iF0Yf9gju6ERpAch08JsC"
+            },
+            {
+                "title": "Odoloop",
+                "artists": "Lefty Hand Cream",
+                "album": "Lefty Hand Covers II",
+                "release_year": "2018",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273f785ff4ac515df3e34f0d8a4",
+                "track_id": "0AGoLKiKdX3zlKzr5zcfPh"
+            },
+            {
+                "title": "Nightjar",
+                "artists": "Tsukuyomi",
+                "album": "Nightjar",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273aeae15e6e5ed8441a8d50c84",
+                "track_id": "5NPavNvSKsQyfTUO0HVgsy"
+            },
+            {
+                "title": "Gaming Party Xmas",
+                "artists": "ZETTAKUN",
+                "album": "Gaming Party Xmas",
+                "release_year": "2020",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273ddbeda60333f54ce0fe2e8ed",
+                "track_id": "52HPSWVYSVbeKCE28sVZ0J"
+            },
+            {
+                "title": "琥珀色の街、上海蟹の朝",
+                "artists": "Quruli",
+                "album": "琥珀色の街、上海蟹の朝",
+                "release_year": "2016",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27342ce15113d0b6d0daa9afc7f",
+                "track_id": "0NLlnBs7tQl8crpzX3O5Es"
+            },
+            {
+                "title": "Shinunoga E-Wa",
+                "artists": "Fujii Kaze",
+                "album": "HELP EVER HURT NEVER",
+                "release_year": "2020",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27322805a1b17e41ae357bd98bc",
+                "track_id": "0o9zmvc5f3EFApU52PPIyW"
+            },
+            {
+                "title": "Still The One",
+                "artists": "One Direction",
+                "album": "Take Me Home (Expanded Edition)",
+                "release_year": "2012",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734e31e0d38b89b8fb239d4fbf",
+                "track_id": "1fZvvlfjgoqjz7HQKEfzyp"
+            },
+            {
+                "title": "departure! -second version- (TVサイズ)",
+                "artists": "Masatoshi Ono",
+                "album": "TVアニメ「HUNTERxHUNTER」 キャラクターソング集 ~幻影旅団編~",
+                "release_year": "2012",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273ecf4c2ea5fb4c64772a5721b",
+                "track_id": "26TtP84gzYGmNeftIyB9Ug"
+            },
+            {
+                "title": "Shangri-La",
+                "artists": "angela",
+                "album": "I/O",
+                "release_year": "2004",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2736fd7669446ea1f0ffc855021",
+                "track_id": "3OxCaZnYX1pJA7CwV5rZ9O"
+            },
+            {
+                "title": "表裏一体",
+                "artists": "YUZU",
+                "album": "表裏一体",
+                "release_year": "2013",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27315dabfd8b84cdde3abe870ba",
+                "track_id": "0v1vufjir4OE4iRckLMoLd"
+            },
+            {
+                "title": "騎士行進曲",
+                "artists": "angela",
+                "album": "LOVE & CARNIVAL",
+                "release_year": "2016",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273e17d86e58a58961048bfa90e",
+                "track_id": "7IINJNoOGroXgTajlmAk8b"
+            },
+            {
+                "title": "YMCA - Original Version 1978",
+                "artists": "Village People",
+                "album": "YMCA",
+                "release_year": "1978",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273dbf223dbb6abdffa642eb287",
+                "track_id": "4YOJFyjqh8eAcbKFfv88mV"
+            },
+            {
+                "title": "エゴロック - long ver.",
+                "artists": "すりぃ",
+                "album": "エゴロック (long ver.)",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734ef98321d70e0f91f0839bd0",
+                "track_id": "2FRMwFXODegegRrfLAeVwx"
+            },
+            {
+                "title": "忘れてください",
+                "artists": "ヨルシカ",
+                "album": "忘れてください",
+                "release_year": "2024",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273fc4f789026e15e9abff06182",
+                "track_id": "7raKnLKyQSatDiVVpiZDds"
+            },
+            {
+                "title": "あの夏に咲け",
+                "artists": "ヨルシカ",
+                "album": "夏草が邪魔をする",
+                "release_year": "2017",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27318b1145d9883e5b140151fa9",
+                "track_id": "4Z8WSP6i30vg05WTDyvw0X"
+            },
+            {
+                "title": "Fly-day Chinatown",
+                "artists": "泰葉",
+                "album": "Fly-day Chinatown",
+                "release_year": "1981",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27368a5d2cd77f7abef0b964981",
+                "track_id": "2uXlHiOE4o5xHOCiob8DKn"
+            },
+            {
+                "title": "ルバート",
+                "artists": "ヨルシカ",
+                "album": "ルバート",
+                "release_year": "2024",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2733bcd755a5992996b85aaa3b6",
+                "track_id": "1w3837OMA0xxpFqqMtL7B5"
+            },
+            {
+                "title": "Better Days (NEIKED x Mae Muller x Polo G)",
+                "artists": "NEIKED, Mae Muller, Polo G",
+                "album": "Better Days (NEIKED x Mae Muller x Polo G)",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2736b742298f7f36717855c4caf",
+                "track_id": "6f5ExP43esnvdKPddwKXJH"
+            },
+            {
+                "title": "Gimme! Gimme! Gimme! (A Man After Midnight)",
+                "artists": "ABBA",
+                "album": "Voulez-Vous",
+                "release_year": "1979",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273aa22899360d8ba6704732dec",
+                "track_id": "3vkQ5DAB1qQMYO4Mr9zJN6"
+            },
+            {
+                "title": "CH4NGE - feat. 可不",
+                "artists": "Giga, 可不",
+                "album": "CH4NGE",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273ae5fe1233f48f3d4969df4e9",
+                "track_id": "3ipGZWQ7Q64OA7SwFNVfy2"
+            },
+            {
+                "title": "you [feat. 癒月] - 2014再ミックス Thanks you Ver.",
+                "artists": "dai, 癒月",
+                "album": "あの日へ／ｙｏｕ",
+                "release_year": "2014",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273d29561402053b9c9042a493f",
+                "track_id": "1glTwEfzMKCMZu2nmvUdfG"
+            },
+            {
+                "title": "ぼくらが旅に出る理由",
+                "artists": "Cana",
+                "album": "PEACEFUL",
+                "release_year": "2015",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27358297f04649019250d1f7e10",
+                "track_id": "3bUpgvSD7yCpyEeg5KUGif"
+            },
+            {
+                "title": "明日へのbrilliant road",
+                "artists": "angela",
+                "album": "明日へのbrilliant road",
+                "release_year": "2003",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273b6a322e3cd6a729647bb04f0",
+                "track_id": "5FhVx53wmYT3QIzCL9hA3Z"
+            },
+            {
+                "title": "楽園都市 (OP)",
+                "artists": "乃亜ノ鴉",
+                "album": "熱烈！アニソン魂 THE BEST カバー楽曲集 TVアニメシリーズ『コップクラフト』OP/ED主題歌コレクション",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2732f7388953f6e39ce5660ae2b",
+                "track_id": "5pfnVYd65PlzB68fn9HiTR"
+            },
+            {
+                "title": "again",
+                "artists": "YUI",
+                "album": "HOLIDAYS IN THE SUN",
+                "release_year": "2010",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273fdec3ee19da7cd9b1b02ca9c",
+                "track_id": "4OQq1bcP12GQQXJNupxqfR"
+            },
+            {
+                "title": "youthful beautiful",
+                "artists": "Maaya Uchida",
+                "album": "HIKARI",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273ec1d957bebac11fd25f224dd",
+                "track_id": "45Q9ALsVFeiaNYC97jJ0Ok"
+            },
+            {
+                "title": "心音（しんおん）",
+                "artists": "中島みゆき",
+                "album": "「アリスとテレスのまぼろし工場」オリジナルサウンドトラック",
+                "release_year": "2023",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2735abc9ae0c1d3ac3b8594ace8",
+                "track_id": "0DLr3MyMwfW30PTlhnXbqj"
+            },
+            {
+                "title": "ヒッチコック",
+                "artists": "ヨルシカ",
+                "album": "負け犬にアンコールはいらない",
+                "release_year": "2018",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27328b535c92629e3c8d20ec242",
+                "track_id": "153lRbNmhQZVi69kbhmjY8"
+            },
+            {
+                "title": "フォージェリィ",
+                "artists": "Yupsilon",
+                "album": "フォージェリィ",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273e34b04043a2127a517080bed",
+                "track_id": "2itKPrLbBTKW3g1lcxTfk4"
+            },
+            {
+                "title": "トウキョウ・シャンディ・ランデヴ",
+                "artists": "MAISONdes, 花譜, ツミキ",
+                "album": "トウキョウ・シャンディ・ランデヴ",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27343d214ac51fbf9b72c08f3e6",
+                "track_id": "2MmgGuQzr0kkiA04lMdPXW"
+            },
+            {
+                "title": "真夜中のドア〜stay with me",
+                "artists": "Miki Matsubara",
+                "album": "松原みき ベスト・コレクション",
+                "release_year": "2008",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27387a9458833df6cea79713fc7",
+                "track_id": "2BHj31ufdEqVK5CkYDp9mA"
+            },
+            {
+                "title": "Lights - Single Version",
+                "artists": "Ellie Goulding",
+                "album": "Bright Lights (Lights Re-pack / Bonus Version)",
+                "release_year": "2010",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273512cd44d21eacbfeda4affe2",
+                "track_id": "5aTsxlQlq0vIedDWZoqMWN"
+            }
+        ]
+    },
+    {
+        "name": "my juicy music 2",
+        "id": "6sYtHxu4f2pWhX98S720nD",
+        "tracks": [
+            {
+                "title": "Mayday",
+                "artists": "Tsukuyomi",
+                "album": "月が満ちる",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734b6652f48a63a4b65b7f991f",
+                "track_id": "5g3nNwsutrByN8u02Pnr4d"
+            },
+            {
+                "title": "月が満ちる",
+                "artists": "Tsukuyomi",
+                "album": "月が満ちる",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734b6652f48a63a4b65b7f991f",
+                "track_id": "5aDVNw5prQNcjWF02jhxmo"
+            },
+            {
+                "title": "あれから(絶望少女達2020)",
+                "artists": "Kenji Ohtsuki, 絶望少女達",
+                "album": "愛がゆえゆえ/あれから(絶望少女達2020)",
+                "release_year": "2020",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2738f89dbf745cfb133191af025",
+                "track_id": "0mcWKxl7xmxK5Dk5w9VPsD"
+            },
+            {
+                "title": "はいよろこんで",
+                "artists": "Kocchi no Kento",
+                "album": "はいよろこんで",
+                "release_year": "2024",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27363f1c64357b071196538f1f8",
+                "track_id": "6woV8uWxn7rcLZxJKYruS1"
+            },
+            {
+                "title": "花ハ踊レヤいろはにほ - TVsize",
+                "artists": "チーム“ハナヤマタ”",
+                "album": "花ハ踊レヤいろはにほ (TVsize)",
+                "release_year": "2014",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2735ad4e9b22b069eb423c48571",
+                "track_id": "3b19yTPpVVE4EMRO6Y4Sp1"
+            },
+            {
+                "title": "渡月橋 ～君 想ふ～(カラオケ)[原曲歌手:倉木麻衣]",
+                "artists": "歌っちゃ王",
+                "album": "渡月橋 ～君 想ふ～(カラオケ)[原曲歌手:倉木麻衣]",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273e23be6a635cf5783e4673dd2",
+                "track_id": "3N89zK36234TSCaZbPzUMr"
+            },
+            {
+                "title": "名前のない怪物",
+                "artists": "EGOIST",
+                "album": "名前のない怪物",
+                "release_year": "2012",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273b35137a75245e101759a6a66",
+                "track_id": "7ebceNRVeFRFpd4qLENYpO"
+            },
+            {
+                "title": "Surges",
+                "artists": "Orangestar, 夏背., ルワン",
+                "album": "Surges",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273762ef26a126d14d979995983",
+                "track_id": "66a0Ib85gRjtZmac4HFsvw"
+            },
+            {
+                "title": "あんずの花",
+                "artists": "すりぃ, Nene",
+                "album": "あんずの花",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273fd364a619d45542ff1171a9c",
+                "track_id": "0BJzl6XwawM8guBW9mDj2M"
+            },
+            {
+                "title": "INTERNET OVERDOSE",
+                "artists": "NEEDY GIRL OVERDOSE, KOTOKO, Aiobahn +81",
+                "album": "INTERNET OVERDOSE",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2730bc11aadbe7d936349963256",
+                "track_id": "5oEoZdIrz0izZwqFCy6gDa"
+            },
+            {
+                "title": "シドニア",
+                "artists": "angela",
+                "album": "ONE WAY",
+                "release_year": "2015",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27381fbfe24e6df351f1769e78d",
+                "track_id": "7fHz3bMy909FFZx3u6eRFV"
+            },
+            {
+                "title": "シルエット",
+                "artists": "KANA-BOON",
+                "album": "TIME",
+                "release_year": "2015",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27364be01336a8f917538a60b74",
+                "track_id": "1di1C0QI6Y92yZPYn6XYAZ"
+            },
+            {
+                "title": "U",
+                "artists": "ꉈꀧ꒒꒒ꁄꍈꍈꀧ꒦ꉈ ꉣꅔꎡꅔꁕꁄ, Belle",
+                "album": "U",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734b331ff7bf0ee6cbe4a90395",
+                "track_id": "1MfMbDnEzzKx2UR8VQURDl"
+            },
+            {
+                "title": "We Are The Champions - Remastered 2011",
+                "artists": "Queen",
+                "album": "News Of The World (2011 Remaster)",
+                "release_year": "1977",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2731f7077ae1018b5fbab08dfa8",
+                "track_id": "7ccI9cStQbQdystvc6TvxD"
+            },
+            {
+                "title": "青ノ栞歌",
+                "artists": "FantasticYouth, Wolpis Carter",
+                "album": "青ノ栞歌",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273248bcd2b42b67fda36bed9c9",
+                "track_id": "1exx3gc3XTxlD5WGELNqgy"
+            },
+            {
+                "title": "踊り子",
+                "artists": "Vaundy",
+                "album": "踊り子",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2737535e19e3d6c39514160db60",
+                "track_id": "1YXot2MLAG9sttepCtBRM7"
+            },
+            {
+                "title": "Onomatope (feat. Riria.)",
+                "artists": "Maigo Hanyuu, Riria.",
+                "album": "Onomatope (feat. Riria.)",
+                "release_year": "2021",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2733fcc8f0ff00657a84ed8f349",
+                "track_id": "1hir1AYrDFeT6weOvgXpBD"
+            },
+            {
+                "title": "名前のない青",
+                "artists": "Kami-sama, I have noticed",
+                "album": "名前のない青",
+                "release_year": "2020",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273153c6b391408733113afe1f2",
+                "track_id": "0xSKobz5d2E8oIkwTumwkZ"
+            },
+            {
+                "title": "Nobosemon HERO",
+                "artists": "ChibaNyan, Giga",
+                "album": "Nobosemon HERO",
+                "release_year": "2024",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27381b8289451be139ccb5174b2",
+                "track_id": "1XhrHsfK0aX5HkBfZ4MG7o"
+            },
+            {
+                "title": "春よ、来い",
+                "artists": "Yumi Matsutoya",
+                "album": "THE DANCING SUN",
+                "release_year": "1994",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273204d37d5927e143fe9d2255b",
+                "track_id": "7BgNhufmVuEQjRo86YrsJR"
+            },
+            {
+                "title": "Over Soul",
+                "artists": "Megumi Hayashibara",
+                "album": "Over Soul",
+                "release_year": "2001",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734b728cdc09f9b4ee7d90e3f0",
+                "track_id": "3uIdLQXUeYAPI1DMQXbdpk"
+            },
+            {
+                "title": "熱情のスペクトラム",
+                "artists": "Ikimonogakari",
+                "album": "FUN! FUN! FANFARE!",
+                "release_year": "2014",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2739b9a817af4096c3bdd01ff55",
+                "track_id": "1hyuVqyPEuUTjulIemtRft"
+            },
+            {
+                "title": "時の流れに身をまかせ",
+                "artists": "Teresa Teng",
+                "album": "歌道場",
+                "release_year": "1980",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2738ff6dabb1a35224c452538fa",
+                "track_id": "3IcsQlSI5QmQfNVjhCKm8r"
+            },
+            {
+                "title": "Where Have You Been",
+                "artists": "Rihanna",
+                "album": "Talk That Talk",
+                "release_year": "2011",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273bef074de9ca825bddaeb9f46",
+                "track_id": "5WQQIDU3HRaMyPkob8mpFb"
+            },
+            {
+                "title": "乙女どもよ。",
+                "artists": "CHiCO with HoneyWorks",
+                "album": "瞬く世界にｉを揺らせ",
+                "release_year": "2020",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b27357d5dbb45f6d68674b54b382",
+                "track_id": "2ZZx0Pss7zgl9XRIMax5IL"
+            },
+            {
+                "title": "サムライハート(Some Like It Hot!!) - New Version -",
+                "artists": "SPYAIR",
+                "album": "サムライハート(Some Like It Hot!!) -New Version-",
+                "release_year": "2023",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273546586230fcb53c24a8fd388",
+                "track_id": "4kAAFbY5pyUCgRtxxjysPM"
+            }
+        ]
+    },
+    {
+        "name": "my juicy music 3",
+        "id": "5PTz6wYFRjG6mK80flgPYx",
+        "tracks": [
+            {
+                "title": "カラノココロ",
+                "artists": "Anly",
+                "album": "anly one",
+                "release_year": "2017",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2735de35dd240100fbb7a9728e7",
+                "track_id": "3uXKEQTzOngrZ1WWyMzuqO"
+            },
+            {
+                "title": "INDETERMINATE UNIVERSE",
+                "artists": "Yuuyu, ケムリクサ",
+                "album": "TVアニメ「ケムリクサ」エンディングテーマ「INDETERMINATE UNIVERSE」",
+                "release_year": "2019",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273d783d0af058bb2888781fabf",
+                "track_id": "0dXlUvdd3YTJGIXwU61Ifj"
+            },
+            {
+                "title": "Daybreak Frontline",
+                "artists": "Orangestar",
+                "album": "SEASIDE SOLILOQUIES",
+                "release_year": "2020",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b273e0c88f05016b5d67e97c92df",
+                "track_id": "3DiBAQdZtWKYmVNQYtkIKB"
+            },
+            {
+                "title": "オトノケ - Otonoke",
+                "artists": "Creepy Nuts",
+                "album": "オトノケ - Otonoke",
+                "release_year": "2024",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2733863c7a4f0284c0a595905f8",
+                "track_id": "6KYOlIwDHbrbeBbJEtQ0Fj"
+            }
+        ]
+    }
+]
