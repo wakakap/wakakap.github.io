@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // 添加等级标题
         levelContainer.append("div")
           .attr("class", "level-title")
-          .text(`Level ${level}: ${playlist.name}`);
+          .text(`class ${level}: ${playlist.name}`);
 
         // 创建歌曲方块并放入容器
         const trackGroups = levelContainer.selectAll(".track-group")
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
           .text(d => {
             const titleParts = d.title.split('-'); // 根据 - 符号分割
             let title = titleParts[0].trim(); // 获取分割后的第一部分，并去除空格
-            title = title.replace(/[\(\[\{].*?[\)\]\}]/g, '').trim(); // 删除括号及其中的内容
+            title = title.replace(/[（\(\[\{].*?[）\)\]\}]/g, '').trim(); // 删除括号及其中的内容
             return title;
           });
 
