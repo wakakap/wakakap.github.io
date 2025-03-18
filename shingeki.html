@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>進撃の巨人セルフ</title>
+    <style>
+        body, html {
+            color: white; /* 设置所有文本颜色为白色 */
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* 防止页面滚动 */
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('media/00004-3147071911.png');
+            background-size: cover;
+            background-attachment: fixed;
+            z-index: -100;
+            margin: 0;
+        }
+        .embedded .background {/* 嵌入时清除背景 */
+            background: transparent;
+        }
+
+        .container {
+            flex-wrap: wrap; /* 允许换行 */
+            display: flex;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            height: 100vh;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .scroll-container {
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+            z-index: 10;
+            overflow: auto;
+        }
+
+        #left-bar {
+            flex: 2;
+            /* width: 150px; */
+            text-align: right;
+        }
+
+        #right-bar {
+            flex: 2;
+            /* width: 400px; */
+        }
+
+        .scroll-content {
+            position: absolute;
+            width: 100%;
+            transition: transform 0.1s linear;
+        }
+
+        .block {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.2); /* 黑色半透明，opacity=0.2 */
+            color: white; /* 确保文字可见 */
+            pointer-events: auto;
+        }
+
+        .block:hover {
+            background: rgba(0, 0, 0, 0.4); /* 悬停时稍微加深透明度 */
+        }
+
+        .iframe-container {
+            text-align: center; /* 居中 iframe */
+            flex: 0 0 100%; /* 让 iframe 宽度占满新的一行 */
+            top: 20%;
+            width: 560px;
+            height: 315px;
+            z-index: 20;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div id="left-bar" class="scroll-container">
+            <div class="scroll-content" id="left-content"></div>
+        </div>
+        <div id="right-bar" class="scroll-container">
+            <div class="scroll-content" id="right-content"></div>
+        </div>
+        <br>
+        <div class="iframe-container" id="iframe-container"></div>
+    </div>
+
+    <script>
+        // 检查 URL 参数，判断是否在 iframe 中
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('embedded') === 'true') {
+            document.body.classList.add('embedded');
+        }
+        const leftBar = document.getElementById('left-content');
+        const rightBar = document.getElementById('right-content');
+        const iframeContainer = document.getElementById('iframe-container');
+
+        // 视频ID对应表
+        const videoIdMap = {
+            "海": "bPYLoSliFbI",
+            "駆逐": "FBfzVojN6gg",
+            "家族": "q046utC3Fvk",
+            "森": "_EjHTfth_Lg",
+            "子ども": "bKfRrkZPrPk",
+            "進む": "OdjUvfjMj3A",
+            "兵士": "IksIV5BI8MY",
+            "戦士": "odOqXENR52w",
+            "悪魔": "eqCThvi4Cr4",
+            "記憶": "8tKpSuJjraU",
+            "奴隷": "TD8UyulvSmk",
+            "未来": "WUvpwe19vQ8",
+            "自由": "BH0QAcix0q8",
+        };
+
+        async function loadJsonData() {
+            try {
+                console.log('Fetching JSON data...');
+                const response = await fetch('data/shingeki_serifu.json');
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                const jsonData = await response.json();
+                // console.log('JSON data loaded:', jsonData);
+                initLeftBar(jsonData);
+                loadRightBar(Object.keys(jsonData)[0], jsonData); // 默认加载第一个key的内容
+            } catch (error) {
+                console.error('Error loading JSON:', error);
+                leftBar.innerHTML = '<div class="block">データ読み込みエラー</div>';
+            }
+        }
+
+        // 初始化左侧栏
+        function initLeftBar(jsonData) {
+            for (let key in videoIdMap) {
+                const block = document.createElement('div');
+                block.className = 'block';
+                block.textContent = key;
+                // console.log(`here`);
+                block.onclick = function(e) { // 换成普通函数测试
+                    // console.log(`Left block clicked: ${key}, event:`, e);
+                    loadRightBar(key, jsonData);
+                };
+                // console.log(`onclick assigned to block: ${key}, handler:`, block.onclick); // 检查绑定是否成功
+                leftBar.appendChild(block);
+            }
+            // duplicateContent(leftBar);
+            animateScroll(leftBar.parentElement, leftBar);
+        }
+
+        // 加载右侧栏
+        function loadRightBar(key, jsonData) {
+            rightBar.innerHTML = '';
+            if (!jsonData[key]) {
+                console.error(`No data found for key: ${key}`);
+                const errorBlock = document.createElement('div');
+                errorBlock.className = 'block';
+                errorBlock.textContent = 'データなし';
+                rightBar.appendChild(errorBlock);
+            } else {
+                jsonData[key].forEach(item => {
+                    const block = document.createElement('div');
+                    block.className = 'block';
+                    block.innerHTML = item.content + '<br>' + item.title + ' ' + item.ori_start_time;
+                    block.onclick = () => showDetails(item, block, key);
+                    rightBar.appendChild(block);
+                });
+            }
+            // duplicateContent(rightBar);
+            animateScroll(rightBar.parentElement, rightBar);
+        }
+
+        // 显示详细信息和iframe
+        function showDetails(item, block, key) {
+            const rect = block.getBoundingClientRect();
+            const startSeconds = convertTimestampToSeconds(item.timestamp.split(' --> ')[0]) - 1 ;//略微调整
+            const videoId = videoIdMap[key];
+            if (!videoId) {
+                console.error(`Error: No video ID found for key "${key}" in videoIdMap`);
+                iframeContainer.innerHTML = `<p style="color: red;">ビデオが見つかりません: "${key}"</p>`;
+                iframeContainer.style.display = 'block';
+                return;
+            }
+            iframeContainer.innerHTML = `
+                <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/${videoId}?start=${startSeconds}"
+                    frameborder="0"
+                    allow="autoplay"
+                    allowfullscreen></iframe>
+            `;
+            iframeContainer.style.display = 'block';
+        }
+
+        // 将时间戳转换为秒
+        function convertTimestampToSeconds(timestamp) {
+            const [hours, minutes, seconds] = timestamp.split(':');
+            return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds);
+        }
+
+        // 复制内容以实现循环滚动
+        // function duplicateContent(container) {
+        //     const originalHeight = container.offsetHeight;
+        //     const clone = container.cloneNode(true); // 深拷贝，保留保定的点击事件
+        //     container.appendChild(clone);
+        //     container.style.height = `${originalHeight * 2}px`;
+        // }
+
+        // 滚动动画
+        function animateScroll(container, content) {
+            let position = 0;
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const maxScroll = content.offsetHeight - container.clientHeight;
+                position += e.deltaY * 0.5;
+                
+                if (position < 0) position = 0;
+                if (position > maxScroll) position = maxScroll;
+                
+                content.style.transform = `translateY(-${position}px)`;
+            });
+        }
+        // 初始化
+        loadJsonData();
+    </script>
+</body>
+</html>
