@@ -143,7 +143,7 @@
                 leftBar.innerHTML = '<div class="block">データ読み込みエラー</div>';
             }
         }
-
+        
         // 初始化左侧栏
         function initLeftBar(jsonData) {
             for (let key in videoIdMap) {
@@ -175,7 +175,7 @@
                 jsonData[key].forEach(item => {
                     const block = document.createElement('div');
                     block.className = 'block';
-                    block.innerHTML = item.content + '<br>' + item.title + ' ' + item.ori_start_time;
+                    block.innerHTML = item.content + '<br>' + item.title + ' ' + formatTime(item.ori_start_time);
                     block.onclick = () => showDetails(item, block, key);
                     rightBar.appendChild(block);
                 });
@@ -197,10 +197,8 @@
             }
             iframeContainer.innerHTML = `
                 <iframe width="560" height="315"
-                    src="https://www.youtube.com/embed/${videoId}?start=${startSeconds}"
-                    frameborder="0"
-                    allow="autoplay"
-                    allowfullscreen></iframe>
+                    src="https://www.youtube.com/embed/${videoId}?&amp;start=${startSeconds}&amp;controls=0"
+                    frameborder="10px" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             `;
             iframeContainer.style.display = 'block';
         }
@@ -209,6 +207,17 @@
         function convertTimestampToSeconds(timestamp) {
             const [hours, minutes, seconds] = timestamp.split(':');
             return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds);
+        }
+
+        // 将秒转为时间戳
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+
+            return [h, m, s]
+                .map(v => String(v).padStart(2, '0')) // 确保两位数格式
+                .join(':');
         }
 
         // 复制内容以实现循环滚动
