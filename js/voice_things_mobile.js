@@ -72,7 +72,7 @@ fetch('data/japanese.txt')
 
 // 音频播放设置
 const audio = new Audio('/media/music/music.mp3');
-audio.volume = 0.5;
+audio.volume = 0.4;
 audio.loop = true;
 window.onload = () => {
     audio.play().catch(err => console.error('Error playing audio:', err));
@@ -81,7 +81,7 @@ window.onload = () => {
 // 计时器参数
 const offset = 0.5;  // 延迟0.5秒开始计时
 const hit = 4;     // 每周期4拍
-const BPM = 160.5;  
+const BPM = 164.5;  
 const hittime = 60 / BPM; // 每拍时间
 
 // 预处理：假设 media/hits/ 中以 "1" 开头的文件列表
@@ -138,7 +138,7 @@ function showText(text) {
     textOverlay.classList.add('active');
     setTimeout(() => {
         textOverlay.classList.remove('active');
-    }, 1000);
+    }, 1300);
 }
 
 let audioBuffer = null;

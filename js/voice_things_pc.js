@@ -73,7 +73,7 @@ fetch('data/japanese.txt')
 
 // 音频播放设置
 const audio = new Audio('media/music/music.mp3');
-audio.volume = 0.5; // 设置音量为50%，范围是0.0到1.0
+audio.volume = 0.4; // 设置音量为50%，范围是0.0到1.0
 audio.loop = true;
 window.onload = () => {
     audio.play().catch(err => console.error('Error playing audio:', err));
@@ -82,7 +82,7 @@ window.onload = () => {
 // 计时器参数
 const offset = 0.5;  // 延迟1秒开始计时
 const hit = 4;     // 每周期4拍
-const BPM = 160.5;  
+const BPM = 164.5;  
 const hittime = 60 / BPM ; // 每拍0.3秒 
 
 // 预处理：假设 media/hits/ 中以 "1" 开头的文件列表
@@ -100,7 +100,7 @@ function startBeatTimer() {
     setTimeout(() => {
         const beatInterval = setInterval(() => {
             currentBeat = (currentBeat % hit) + 1;
-            if (currentBeat === 1) {
+            if (currentBeat === 1 || currentBeat === 3) {
                 // 第一拍特殊处理：开始播放 hit1Images 列表
                 isPlayingHit1 = true;
                 hit1Index = 0;
@@ -125,7 +125,7 @@ function playHit1Animation() {
 
     if (hit1Index < hit1Images.length) {
         // 如果还有图片未播放，继续下一张
-        setTimeout(playHit1Animation, 100); // 每张图片间隔 100ms，可调整
+        setTimeout(playHit1Animation, 70); // 每张图片间隔 100ms，可调整
     }
     // 最后一张保持显示，直到下一次节拍变化
 }
@@ -147,7 +147,7 @@ function showText(text) {
     // 1秒后淡出（可调整时间）
     setTimeout(() => {
         textOverlay.classList.remove('active');
-    }, 1000);
+    }, 1300);
 }
 
 let audioBuffer = null;// 缓冲区
