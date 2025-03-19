@@ -152,13 +152,14 @@ async function loadData() {
                 const infoDiv = d3.select("#info");
                 infoDiv.html(`
                     <img src="${imagePath}" alt="${safeName}">
+                    <div id="info-text">
                     <h3>${subject.name}</h3>
                     <p>中文名: ${subject.name_cn}</p>
                     <p>年份: ${year}</p>
                     <p>评分: ${subject.score}</p>
                     <p>我的评分: ${anime.rate}</p>
                     <p>我的评价: ${anime.comment || '我没有写评价'}</p>
-                    <p>（右键清除信息）</p>
+                    </div>
                 `);
             })
             .on("mouseleave", (event, d) => {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>动漫年份网状图</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
@@ -58,6 +58,48 @@
         #info img {
             max-width: 200px;
             margin-bottom: 10px;
+        }
+        #info-text {
+            font-size: 16px; /* 调整字体大小 */
+        }
+
+        /* 适用于移动端的样式 */
+        @media screen and (max-width: 768px) {
+            .background {
+                flex-direction: column; /* 让 info 在上方，chart 在下方 */
+                align-items: center; /* 居中对齐 */
+            }
+
+            #info {
+                order: -1; /* 让 info 在最上方 */
+                width: 100%; /* 让 info 占满整行 */
+                border-left: none; /* 移除左边框 */
+                border-bottom: 3px solid #ccc; /* 改为底部边框 */
+                display: flex; /* 使用 flex 布局 */
+                flex-direction: row; /* 让图片和文字并排 */
+                align-items: center; /* 让内容垂直居中 */
+                justify-content: center; /* 居中显示 */
+                padding: 15px;
+            }
+
+            #info img {
+                max-width: 50%; /* 图片占左半部分 */
+                height: auto;
+            }
+
+            #info-text {
+                max-width: 50%; /* 文字占右半部分 */
+                padding-left: 5px; /* 增加间距 */
+                font-size: 14px; /* 调整字体大小 */
+                line-height: 1.1; /* 调整行距 */
+            }
+
+            #chart {
+                flex: 1;
+                width: 100%; /* 让 chart 适应屏幕宽度 */
+                justify-content: center; /* 居中显示 */
+                padding: 10px;
+            }
         }
     </style>
 </head>

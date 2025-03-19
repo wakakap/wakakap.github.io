@@ -119,6 +119,49 @@
             font-size: 12px;
             padding: 5px;
         }
+        /* 适用于移动端的样式 */
+        @media screen and (max-width: 768px) {
+            .background {
+                flex-direction: column; /* 竖向排列，使 musicbar 置顶 */
+                align-items: center; /* 居中对齐 */
+            }
+
+            .musicbar {
+                order: -1; /* 让 musicbar 在最前面 */
+                width: 100%; /* 占满整个宽度 */
+                flex-direction: column; /* 让内部元素横向排列 */
+                justify-content: center; /* 居中排列 */
+                flex-wrap: wrap; /* 允许换行 */
+                padding: 2px 0;
+            }
+
+            .musicbar iframe {
+                width: 92%; /* 让 iframe 适应屏幕宽度 */
+                height: 80px; /* 适当缩小高度 */
+                padding-top: 5px;
+                border-radius: 5px;
+            }
+
+            #chart {
+                flex: 1;
+                width: 100%; /* 让 chart 也占满整个屏幕宽度 */
+                justify-content: center; /* 居中显示 */
+                padding: 10px;
+            }
+
+            #infobar {
+                width: 100%; /* 占满整行 */
+                border-left: none; /* 取消左侧边框 */
+                border-top: 3px solid #ccc; /* 改为顶部边框 */
+                font-size: 16px; /* 调整字体大小 */
+                line-height: 0.6; /* 调整行距 */
+            }
+
+            .level-container {
+                justify-content: center; /* 让歌曲居中显示 */
+            }
+        }
+
 
       </style>
     </head>
