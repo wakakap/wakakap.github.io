@@ -182,7 +182,16 @@
             }
             // duplicateContent(rightBar);
             animateScroll(rightBar.parentElement, rightBar);
+            loadiframe();
         }
+        // 加载iframe
+        function loadiframe() {
+            iframeContainer.innerHTML = `
+                <p style="color: white;">セリフをクリックすると、動画が表示されます</p>
+            `;
+            iframeContainer.style.display = 'block';
+        }
+
 
         // 显示详细信息和iframe
         function showDetails(item, block, key) {
@@ -191,7 +200,7 @@
             const videoId = videoIdMap[key];
             if (!videoId) {
                 console.error(`Error: No video ID found for key "${key}" in videoIdMap`);
-                iframeContainer.innerHTML = `<p style="color: red;">ビデオが見つかりません: "${key}"</p>`;
+                iframeContainer.innerHTML = `<p style="color: red;">見つかりませんでした: "${key}"</p>`;
                 iframeContainer.style.display = 'block';
                 return;
             }

@@ -1,4 +1,4 @@
-var resourcesPath = './live2d/CubismSdkForWeb-4-r.6.2/Samples/Resources/';  // 模型保存的路径
+var resourcesPath = '/live2d/CubismSdkForWeb-4-r.6.2/Samples/Resources/';  // 模型保存的路径
 var backImageName = 'back_class_normal'; // 背景图片
 var modelDir = 'Hiyori';  // 需要加载的模型
 var viewscale = 2;
