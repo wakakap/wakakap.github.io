@@ -115,9 +115,7 @@ export class LAppLive2DManager {
             `[APP]hit area: [${LAppDefine.HitAreaNameBody}]`
           );
         }
-        this._models
-          .at(i)
-          .startRandomMotion(
+        this._models.at(i).startRandomMotion(
             LAppDefine.MotionGroupTapBody,
             LAppDefine.PriorityNormal,
             this._finishedMotion

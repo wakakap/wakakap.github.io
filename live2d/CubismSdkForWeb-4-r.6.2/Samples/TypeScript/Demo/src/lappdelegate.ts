@@ -54,10 +54,13 @@ export class LAppDelegate {
   public initialize(): boolean {
     // キャンバスの作成
     // canvas = document.createElement('canvas');
-    canvas = <HTMLCanvasElement>document.getElementById("live2d"); // index.html中的id为live2d的画布
-    canvas.width = canvas.width;
-    canvas.height = canvas.height;
-    this._resizeCanvas();
+    canvas = <HTMLCanvasElement>document.getElementById("live2d");// index.html中的id为live2d的画布
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      canvas.id = "live2d";
+      document.body.appendChild(canvas);
+    }
+    canvas = <HTMLCanvasElement>document.getElementById("live2d"); 
 
     // if (LAppDefine.CanvasSize === 'auto') {
     //       this._resizeCanvas();
@@ -371,9 +374,10 @@ function onMouseMoved(e: MouseEvent | TouchEvent): void {
       LAppPal.printMessage('view notfound');
       return;
     }
-    const rect = (e.target as Element).getBoundingClientRect();
-    let posX: number = e.touches[0].clientX - rect.left;
-    let posY: number = e.touches[0].clientY - rect.top;
+    const rect = (e.target as Element).getBoundingClientRect();// 提供相对于视口的坐标信息（left, top, width, height 等）。
+    let posX: number = e.touches[0].clientX - rect.left;// 计算触摸点相对于 canvas 左上角的 X 坐标。
+    let posY: number = e.touches[0].clientY - rect.top;// 计算触摸点相对于 canvas 左上角的 Y 坐标。
+    // 确保触摸坐标不会超出 canvas 的范围。
     posX = (posX > canvas.width) ? canvas.width : posX;
     posY = (posY < 0) ? 0 : posY;
     LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
@@ -384,6 +388,11 @@ function onMouseMoved(e: MouseEvent | TouchEvent): void {
       return;
     }
     // e.clientX和e.clientY获取的坐标点都是以左上角为原点
+    // 添加对 canvas 的检查
+    if (!canvas) {
+      LAppPal.printMessage('canvas not found');
+      return;
+    }
     const rect = (e.target as Element).getBoundingClientRect();
     // const posX: number = e.clientX - rect.left;
     // const posY: number = e.clientY - rect.top;
@@ -397,8 +406,6 @@ function onMouseMoved(e: MouseEvent | TouchEvent): void {
     // 转换坐标，调用LAppLive2DManager类重新绘制图像
     LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
   }
-
-
 }
 
 /**
