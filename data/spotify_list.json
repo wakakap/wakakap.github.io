@@ -260,28 +260,12 @@
                 "track_id": "1ux8Y96cV5Qs0kdOCq4cZ2"
             },
             {
-                "title": "星間飛行（みんな抱きしめて銀河のはてまでー）",
-                "artists": "ランカ・リー=中島愛",
-                "album": "「マクロスF」VOCAL COLLECTION　娘たま♀",
-                "release_year": "2008",
-                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734a522a91ef253e698a0b7ba0",
-                "track_id": "3xMjeLdLF76ZYe2w1FggBp"
-            },
-            {
                 "title": "時には昔の話を",
                 "artists": "Tokiko Kato",
                 "album": "さくらんぼの実る頃",
                 "release_year": "1992",
                 "cover_url": "https://i.scdn.co/image/ab67616d0000b273c4d841e0c7b3390f853ced26",
                 "track_id": "6doYuv4YLRc5ip4GqMUMnb"
-            },
-            {
-                "title": "僕らの戦場",
-                "artists": "シェリル・ノーム starring May'n, ランカ・リー=中島愛",
-                "album": "マクロス40周年記念超時空コラボアルバム「デカルチャー！！ミクスチャー！！！！！」",
-                "release_year": "2022",
-                "cover_url": "https://i.scdn.co/image/ab67616d0000b2736eb0302e149b8bdedbdd2124",
-                "track_id": "5i96Atn72BQdBO2hxfN5T9"
             },
             {
                 "title": "メデ",
@@ -672,6 +656,22 @@
                 "release_year": "2024",
                 "cover_url": "https://i.scdn.co/image/ab67616d0000b273a52ffa7b1ee67275e32d04bc",
                 "track_id": "5pN2AyWwjzwRoI7gukEVNd"
+            },
+            {
+                "title": "星間飛行（みんな抱きしめて銀河のはてまでー）",
+                "artists": "ランカ・リー=中島愛",
+                "album": "「マクロスF」VOCAL COLLECTION　娘たま♀",
+                "release_year": "2008",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2734a522a91ef253e698a0b7ba0",
+                "track_id": "3xMjeLdLF76ZYe2w1FggBp"
+            },
+            {
+                "title": "僕らの戦場",
+                "artists": "シェリル・ノーム starring May'n, ランカ・リー=中島愛",
+                "album": "マクロス40周年記念超時空コラボアルバム「デカルチャー！！ミクスチャー！！！！！」",
+                "release_year": "2022",
+                "cover_url": "https://i.scdn.co/image/ab67616d0000b2736eb0302e149b8bdedbdd2124",
+                "track_id": "5i96Atn72BQdBO2hxfN5T9"
             }
         ]
     },
