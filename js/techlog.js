@@ -4,9 +4,69 @@ if (urlParams.get('embedded') === 'true') {
     document.body.classList.add('embedded');
 }
 
+// 注册扩展
+showdown.extension('customListIndent', function () {
+    return [{
+        type: 'lang',
+        filter: function (text) {
+            const lines = text.split('\n');
+            const adjustedLines = [];
+            const stack = []; // 存储每一级的缩进值
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const listMatch = line.match(/^(\s*)([-+*])\s+(.*)$/);
+                const spacesMatch = line.match(/^(\s*)(.*)$/);
+
+                if (listMatch) {
+                    const spaces = listMatch[1].length; // 当前缩进空格数
+                    const marker = listMatch[2];
+                    const content = listMatch[3];
+
+                    // 调整栈：缩进减少时退出层级，缩进相同时保持层级
+                    while (stack.length > 0 && stack[stack.length - 1] > spaces) {
+                        stack.pop();
+                    }
+
+                    // 如果缩进相同，不增加层级；如果增加，则推入新层级
+                    if (stack.length === 0 || stack[stack.length - 1] < spaces) {
+                        stack.push(spaces);
+                    }
+
+                    const indentLevel = stack.length - 1; // 当前层级
+                    const adjustedSpaces = ' '.repeat(indentLevel * 4);
+                    adjustedLines.push(`${adjustedSpaces}${marker} ${content}`);
+                } else if (spacesMatch && spacesMatch[1].length > 0 && spacesMatch[2]) {
+                    // 非列表项但有缩进，作为上一列表项的延续
+                    const spaces = spacesMatch[1].length;
+                    while (stack.length > 0 && stack[stack.length - 1] > spaces) {
+                        stack.pop();
+                    }
+                    const indentLevel = stack.length - 1;
+                    const adjustedSpaces = ' '.repeat(indentLevel * 4 + 4);
+                    adjustedLines.push(`${adjustedSpaces}${spacesMatch[2]}`);
+                } else {
+                    // 无缩进的行，直接添加
+                    adjustedLines.push(line);
+                    if (!line.trim()) stack.length = 0; // 空行重置栈
+                }
+            }
+
+            return adjustedLines.join('\n');
+        }
+    }];
+});
+
 // 在 DOM 加载完成后处理 Markdown 文件
 document.addEventListener('DOMContentLoaded', async () => {
-    const converter = new showdown.Converter();
+    const converter = new showdown.Converter({
+        tables: true,           // 支持表格
+        tasklists: true,        // 支持任务列表
+        strikethrough: true,    // 支持删除线
+        simplifiedAutoLink: true, // 自动识别链接
+        ghCodeBlocks: true,     // GitHub 风格的代码块
+        extensions: ['customListIndent'] // 注册自定义扩展
+    });
     const fileNames = await fetchFileNames();
     await loadAllMarkdown(fileNames, converter);
 });
