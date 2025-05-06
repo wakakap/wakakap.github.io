@@ -2,7 +2,7 @@ name: Update Data
 
 on:
   schedule:
-    - cron: '0 19 * * *'  # 每天 UTC 19 点（北京时间次日 3 点）
+    - cron: '0 19 * * 1'  # 每周一 UTC 19 点（北京时间次日 3 点）
   workflow_dispatch:      # 支持手动触发
 
 permissions:
@@ -25,7 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Fetch and Process Anime Data
+      - name: Update Data
         env:
           BANGUMI_API_KEY: ${{ secrets.BANGUMI_API_KEY }}
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
@@ -33,13 +33,16 @@ jobs:
         run: |
           python update_data.py
 
+      - name: Debug File Changes
+        run: |
+          echo "当前工作目录: $(pwd)"
+          echo "显示 Git 状态:"
+          git status
+
       - name: Commit Changes
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add data/sorted_anime_by_year.json
-          git add markdown/diary/0000-filenames.txt
-          git add markdown/tech/0000-filenames.txt
-          git add data/spotify_list.json
+          git add .
           git commit -m "AUTO Update" || echo "No changes to commit"
           git push
