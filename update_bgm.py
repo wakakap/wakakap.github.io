@@ -8,9 +8,9 @@ import tempfile
 import re
 from pathlib import Path
 
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 # 加载 .env 文件 本地测试时使用
-# load_dotenv() 
+load_dotenv() 
 
 
 # API 基础配置

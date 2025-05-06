@@ -84,7 +84,7 @@ def main():
     try:
         # 获取 token
         token = get_access_token(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
-        print(f"Access Token: {token}")
+        # print(f"Access Token: {token}")
         
         # 存储所有播放列表数据
         all_playlists_data = []
