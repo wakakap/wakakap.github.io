@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>日语单词测试</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .main-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+        .container {
+            flex: 3;
+        }
+        .wrong-container {
+            flex: 1;
+            height: 100%;
+            padding: 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #222;
+        }
+        .wrong-list {
+            width: 100%;
+            max-height: 80%;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .wrong-item {
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .clear-wrong-btn {
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .clear-wrong-btn:active {
+            background-color: #555;
+        }
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .top-half {
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .bottom-half {
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .word {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .answer {
+            color: #ccc;
+            font-size: 24px;
+            margin-top: 20px;
+            display: none;
+        }
+        .input-box {
+            width: 200px;
+            height: 40px;
+            background-color: #666;
+            border: none;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            outline: none;
+            margin-top: 20px;
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+        select {
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            border: none;
+        }
+        .show-answer-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .show-answer-btn:active {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <div class="header">
+                <select id="mode">
+                    <option value="random">ランダム</option>
+                    <option value="error">バツ率順</option>
+                </select>
+                <select id="fileSelector">
+                    <option value="">選んで</option>
+                    <!-- 文件选项将动态添加 -->
+                </select>
+            </div>
+            <div class="top-half">
+                <div class="word" id="wordDisplay">↑選んで</div>
+                <div class="answer" id="answerDisplay"></div>
+            </div>
+            <div class="bottom-half">
+                <input type="text" class="input-box" id="inputBox" disabled>
+                <button class="show-answer-btn" id="showAnswerBtn">答えを見る</button>
+            </div>
+        </div>
+        <div class="wrong-container">
+            <div class="wrong-list" id="wrongList"></div>
+            <button class="clear-wrong-btn" id="clearWrongBtn">リストをクリア</button>
+        </div>
+    </div>
+
+    <script>
+        let wordsData = [];
+        let currentIndex = 0;
+        let currentMode = 'random';
+        let visited = []; // Tracks visited words in the current cycle
+        let wrongAnswers = [];
+
+        // 加载文件列表
+        const fileSelector = document.getElementById('fileSelector');
+        fetch('data/typing/filelist.txt')
+            .then(response => {
+                if (!response.ok) throw new Error('FAIL LOADING');
+                return response.text();
+            })
+            .then(content => {
+                const files = content.split('\n').filter(line => line.trim());
+                files.forEach(file => {
+                    const option = document.createElement('option');
+                    option.value = file;
+                    option.textContent = file;
+                    fileSelector.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('FAIL LOADING:', error);
+                fileSelector.innerHTML = '<option value="">FAIL LOADING</option>';
+            });
+
+        // 文件选择事件
+        fileSelector.addEventListener('change', (e) => {
+            const selectedFile = e.target.value;
+            if (selectedFile) {
+                loadFile(selectedFile);
+            }
+        });
+
+        // 加载选中的文件
+        function loadFile(filename) {
+            fetch(`data/typing/${filename}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('FAIL LOADING');
+                    return response.text();
+                })
+                .then(content => {
+                    wordsData = content.split('\n')
+                        .filter(line => line.trim())
+                        .map(line => {
+                            const [riddle, answer, correct, total] = line.split(',')
+                                .map(part => part.replace(/\s/g, ''));
+                            // Check if this riddle exists in wrongAnswers
+                            const existingWrong = wrongAnswers.find(item => item.riddle === riddle);
+                            return { 
+                                riddle, 
+                                answer, 
+                                correct: parseInt(correct) || 0, 
+                                total: parseInt(total) || 0,
+                                consecutiveWrong: existingWrong ? existingWrong.consecutiveWrong : 0 // Preserve count
+                            };
+                        });
+                    visited = []; // Reset visited for new dataset
+                    document.getElementById('inputBox').disabled = false;
+                    selectNextWord();
+                })
+                .catch(error => {
+                    console.error('FAIL LOADING:', error);
+                    document.getElementById('wordDisplay').textContent = 'FAIL LOADING';
+                    document.getElementById('inputBox').disabled = true;
+                });
+        }
+
+        function loadWord() {
+            document.getElementById('wordDisplay').textContent = wordsData[currentIndex].riddle;
+            document.getElementById('inputBox').value = '';
+            document.getElementById('answerDisplay').textContent = wordsData[currentIndex].answer;
+            document.getElementById('answerDisplay').style.display = 'none'; // 确保答案默认隐藏
+        }
+
+        function selectNextWord() {
+            if (wordsData.length === 0) return;
+
+            if (currentMode === 'random') {
+                currentIndex = Math.floor(Math.random() * wordsData.length);
+                visited = []; // Reset visited in random mode
+            } else {
+                // If all words have been visited, reset the visited array
+                if (visited.length >= wordsData.length) {
+                    visited = [];
+                }
+
+                // Create a sorted copy of wordsData with error rates
+                const sortedWords = wordsData.map((word, index) => ({
+                    word,
+                    index,
+                    rate: word.total === 0 ? 0 : (word.total - word.correct) / word.total
+                })).sort((a, b) => {
+                    if (a.rate === b.rate) {
+                        return Math.random() - 0.5; // Randomize order for equal rates
+                    }
+                    return b.rate - a.rate; // Sort by error rate descending
+                });
+
+                // Find the next unvisited word
+                for (let i = 0; i < sortedWords.length; i++) {
+                    const wordIndex = sortedWords[i].index;
+                    if (!visited.includes(wordIndex)) {
+                        currentIndex = wordIndex;
+                        visited.push(wordIndex);
+                        break;
+                    }
+                }
+            }
+            loadWord();
+        }
+
+        function updateWrongList() {
+            const wrongList = document.getElementById('wrongList');
+            wrongList.innerHTML = '';
+            wrongAnswers.sort((a, b) => b.consecutiveWrong - a.consecutiveWrong); // Sort by consecutiveWrong descending
+            wrongAnswers.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'wrong-item';
+                div.textContent = `${item.riddle},${item.consecutiveWrong}`;
+                wrongList.appendChild(div);
+            });
+        }
+
+        document.getElementById('inputBox').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const input = e.target.value.replace(/\s/g, '');
+                if (input === '') return; // Ignore empty input
+                const correctAnswer = wordsData[currentIndex].answer.replace(/\s/g, '');
+                wordsData[currentIndex].total++;
+
+                if (input === correctAnswer) {
+                    wordsData[currentIndex].correct++;
+                    new Audio('media/correct.wav').play();
+                    selectNextWord();
+                } else {
+                    wordsData[currentIndex].consecutiveWrong++;
+                    const riddle = wordsData[currentIndex].riddle;
+                    const existing = wrongAnswers.find(item => item.riddle === riddle);
+                    if (existing) {
+                        existing.consecutiveWrong = wordsData[currentIndex].consecutiveWrong;
+                    } else {
+                        wrongAnswers.push({
+                            riddle,
+                            consecutiveWrong: wordsData[currentIndex].consecutiveWrong
+                        });
+                    }
+                    updateWrongList();
+                    const inputBox = document.getElementById('inputBox');
+                    inputBox.value = '';
+                    inputBox.classList.add('shake');
+                    new Audio('media/wrong.wav').play();
+                    setTimeout(() => inputBox.classList.remove('shake'), 500);
+                }
+                console.log('更新后的数据:', wordsData);
+            }
+        });
+
+        document.getElementById('clearWrongBtn').addEventListener('click', () => {
+            wordsData.forEach(word => word.consecutiveWrong = 0); // Reset all consecutive wrong counts
+            wrongAnswers = []; // Clear wrong answers list
+            updateWrongList(); // Update display
+        });
+
+        document.getElementById('mode').addEventListener('change', (e) => {
+            currentMode = e.target.value;
+            visited = []; // Reset visited for new mode
+            selectNextWord();
+        });
+
+        // 显示答案按钮事件
+        const showAnswerBtn = document.getElementById('showAnswerBtn');
+        const answerDisplay = document.getElementById('answerDisplay');
+
+        showAnswerBtn.addEventListener('mousedown', () => {
+            if (wordsData.length > 0) {
+                answerDisplay.style.display = 'block';
+            }
+        });
+
+        showAnswerBtn.addEventListener('mouseup', () => {
+            answerDisplay.style.display = 'none';
+        });
+
+        // 防止鼠标移开按钮时答案仍然显示
+        showAnswerBtn.addEventListener('mouseleave', () => {
+            answerDisplay.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
