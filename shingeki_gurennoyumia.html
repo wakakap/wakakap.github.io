@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紅蓮の弓矢</title>
+    <style>
+        /* Basic Reset and Background */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: black; color: white; font-family: sans-serif; overflow: hidden; position: relative; }
+        /* Start Button */
+        #startButton { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 15px 30px; font-size: 1.5em; cursor: pointer; background-color: #333; color: white; border: 1px solid #555; border-radius: 5px; z-index: 10; transition: opacity 0.5s ease-out; }
+        /* Animation Canvas */
+        #animationCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; z-index: 1; pointer-events: none; }
+        /* Pixel */
+        .pixel { background-color: transparent; border: none; width: 100%; height: 100%; }
+
+        /* Lyrics Container - Updated */
+        #lyricsContainer {
+            position: absolute;
+            top: 50%;                 /* Center vertically */
+            left: 50%;                /* Center horizontally */
+            transform: translate(-50%, -50%); /* Fine-tune centering */
+            width: 90%;               /* Limit width for centering and wrapping */
+            text-align: center;
+            font-size: 3.6em;         /* Doubled font size */
+            z-index: 2;
+            pointer-events: none;
+            line-height: 1.6;         /* Keep or adjust as needed */
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Ruby Styles */
+        ruby { ruby-position: over; }
+        rt { font-size: 0.6em; /* Relative to parent, so might need adjustment if base font gets too large */ color: #ccc; user-select: none; }
+        /* Control Bar Area */
+        #controlBar { position: fixed; bottom: 10px; left: 10px; right: 10px; display: flex; align-items: center; z-index: 3; padding: 5px; background-color: rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        /* Time Display */
+        #timeDisplay { background-color: rgba(50, 50, 50, 0.7); color: white; padding: 5px 10px; font-family: monospace; font-size: 0.9em; border-radius: 3px; margin-right: 15px; }
+        /* Progress Bar Container */
+        #progressBarContainer { flex-grow: 1; height: 8px; background-color: #444; border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
+        /* Progress Bar (Elapsed Part) */
+        #progressBar { height: 100%; width: 0%; background-color: #eee; border-radius: 4px; transition: width 0.1s linear; }
+        /* Hidden Class */
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <button id="startButton">地獄のユミル</button>
+
+    <div id="animationCanvas"></div>
+    <div id="lyricsContainer"></div>
+
+    <div id="controlBar">
+        <div id="timeDisplay">00:00:00</div>
+        <div id="progressBarContainer">
+            <div id="progressBar"></div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" src="media/music/紅蓮の弓矢 - Linked Horizon.mp3" preload="auto"></audio>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const lyricsContainer = document.getElementById('lyricsContainer');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const animationCanvas = document.getElementById('animationCanvas');
+        const progressBarContainer = document.getElementById('progressBarContainer');
+        const progressBar = document.getElementById('progressBar');
+
+        // --- Config ---
+        const PIXEL_GRID_WIDTH = 100;
+        const PIXEL_GRID_HEIGHT = 80;
+        // Verify these paths carefully!
+        const LYRICS_FILE = 'media/music/紅蓮の弓矢.ass';
+        const ANIMATION_FILE = 'media/music/anime.srt';
+        // -------------
+
+        let lyricsData = [];
+        let animationData = [];
+        let pixelElements = [];
+        let currentLyricIndices = [];
+        let activeAnimationPixels = new Set();
+        let audioDuration = 0;
+
+        // --- Time Conversion Utilities ---
+        function parseAssTime(timeStr) {
+            const parts = timeStr.split(':'); const ssms = parts[2].split('.');
+            const hours = parseInt(parts[0], 10); const minutes = parseInt(parts[1], 10);
+            const seconds = parseInt(ssms[0], 10); const centiseconds = parseInt(ssms[1], 10);
+            return hours * 3600 + minutes * 60 + seconds + centiseconds / 100;
+        }
+        function parseSrtTime(timeStr) {
+            const parts = timeStr.split(':'); const ssms = parts[2].split(',');
+            const hours = parseInt(parts[0], 10); const minutes = parseInt(parts[1], 10);
+            const seconds = parseInt(ssms[0], 10); const milliseconds = parseInt(ssms[1], 10);
+            return hours * 3600 + minutes * 60 + seconds + milliseconds / 1000;
+        }
+        function formatTime(seconds) {
+            if (typeof seconds !== 'number' || !isFinite(seconds)) { return '00:00:00'; }
+            const totalMilliseconds = Math.floor(seconds * 1000);
+            const ms = String(totalMilliseconds % 1000).padStart(3, '0').substring(0, 2);
+            const totalSeconds = Math.floor(seconds);
+            const s = String(totalSeconds % 60).padStart(2, '0');
+            const m = String(Math.floor(totalSeconds / 60) % 60).padStart(2, '0');
+            return `${m}:${s}:${ms}`;
+        }
+
+        // --- Data Loading ---
+        async function loadLyrics() {
+            try {
+                const response = await fetch(LYRICS_FILE);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${LYRICS_FILE}`);
+                const assText = await response.text(); const lines = assText.split(/\r?\n/);
+                let isEventsSection = false; const rawLyrics = [];
+                for (const line of lines) {
+                     if (line.trim().toLowerCase() === '[events]') { isEventsSection = true; continue; }
+                     if (line.trim().startsWith('[')) { isEventsSection = false; continue; }
+                     if (isEventsSection && line.toLowerCase().startsWith('dialogue:')) {
+                         const parts = line.substring(9).split(',');
+                         if (parts.length >= 10) {
+                             const startTime = parseAssTime(parts[1].trim()); const endTime = parseAssTime(parts[2].trim());
+                             const text = parts.slice(9).join(',');
+                             if (startTime < endTime) { rawLyrics.push({ startTime, endTime, text }); }
+                         }
+                     }
+                }
+                lyricsData = rawLyrics.sort((a, b) => a.startTime - b.startTime);
+            } catch (error) {
+                console.error('Failed to load or parse lyrics:', error);
+                lyricsContainer.innerHTML = '无法加载歌词';
+            }
+        }
+        async function loadAnimation() {
+             try {
+                const response = await fetch(ANIMATION_FILE);
+                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${ANIMATION_FILE}`);
+                const srtText = await response.text(); const blocks = srtText.trim().split(/(?:\r?\n){2,}/);
+                const rawAnimation = [];
+                for (const block of blocks) {
+                    const lines = block.split(/\r?\n/);
+                     if (lines.length >= 3 && typeof lines[1] === 'string') {
+                         const timeLine = lines[1]; const coordLines = lines.slice(2).join('');
+                         const timeMatch = timeLine.match(/(\d{2}:\d{2}:\d{2},\d{3})\s*--\>\s*(\d{2}:\d{2}:\d{2},\d{3})/);
+                         if (timeMatch) {
+                             const startTime = parseSrtTime(timeMatch[1]); const endTime = parseSrtTime(timeMatch[2]);
+                             const coords = []; const coordRegex = /\(\s*(\d+)\s*,\s*(\d+)\s*\)/g; let match;
+                             while ((match = coordRegex.exec(coordLines)) !== null) {
+                                 const x = parseInt(match[1], 10); const y = parseInt(match[2], 10);
+                                 if (x >= 1 && x <= PIXEL_GRID_WIDTH && y >= 1 && y <= PIXEL_GRID_HEIGHT) { coords.push({ x, y }); }
+                                 // else { console.warn(`SRT Coord (${x},${y}) out of range`); } // Keep warnings minimal
+                             }
+                             if (startTime < endTime && coords.length > 0) { rawAnimation.push({ startTime, endTime, coords }); }
+                             // else { console.warn(`SRT Block invalid: time=${startTime}-${endTime}, coords=${coords.length}`); } // Keep warnings minimal
+                         } // else { console.warn(`Cannot parse SRT time line: "${timeLine}"`); } // Keep warnings minimal
+                     } // else if (lines.length > 0 && lines[0].trim() !== '') { console.warn(`Skipping malformed SRT block: "${lines[0]}..."`); } // Keep warnings minimal
+                }
+                animationData = rawAnimation.sort((a, b) => a.startTime - b.startTime);
+            } catch (error) { console.error('Failed to load or parse animation:', error); }
+        }
+
+        // --- Pixel Grid & Coordinate Logic ---
+        function createPixelGrid() {
+             animationCanvas.innerHTML = ''; pixelElements = [];
+             animationCanvas.style.gridTemplateColumns = `repeat(${PIXEL_GRID_WIDTH}, 1fr)`;
+             animationCanvas.style.gridTemplateRows = `repeat(${PIXEL_GRID_HEIGHT}, 1fr)`;
+             const totalPixels = PIXEL_GRID_WIDTH * PIXEL_GRID_HEIGHT;
+             for (let i = 0; i < totalPixels; i++) {
+                 const pixel = document.createElement('div'); pixel.classList.add('pixel');
+                 animationCanvas.appendChild(pixel); pixelElements.push(pixel);
+             }
+        }
+        function getPixelIndex(x, y) {
+            if (x < 1 || x > PIXEL_GRID_WIDTH || y < 1 || y > PIXEL_GRID_HEIGHT) { return -1; }
+            return (y - 1) * PIXEL_GRID_WIDTH + (x - 1);
+        }
+
+        // --- Update Logic ---
+        function updateLyrics(currentTime) {
+            const activeLyrics = []; let changed = false; const newActiveIndices = [];
+            for (let i = 0; i < lyricsData.length; i++) {
+                const lyric = lyricsData[i];
+                if (currentTime >= lyric.startTime && currentTime < lyric.endTime) {
+                    activeLyrics.push(lyric.text); newActiveIndices.push(i);
+                }
+            }
+            if (newActiveIndices.length !== currentLyricIndices.length || newActiveIndices.some((val, idx) => val !== currentLyricIndices[idx])) {
+                changed = true; currentLyricIndices = newActiveIndices;
+            }
+            if (changed) { lyricsContainer.innerHTML = activeLyrics.join('<br>'); }
+        }
+        function updateAnimation(currentTime) {
+            let targetFrame = null;
+            for (let i = 0; i < animationData.length; i++) {
+                if (currentTime >= animationData[i].startTime && currentTime < animationData[i].endTime) { targetFrame = animationData[i]; break; }
+            }
+            const newActivePixels = new Set();
+            if (targetFrame) {
+                targetFrame.coords.forEach(coord => {
+                    const index = getPixelIndex(coord.x, coord.y);
+                    if (index !== -1) { newActivePixels.add(index); }
+                });
+            }
+            activeAnimationPixels.forEach(index => {
+                if (!newActivePixels.has(index)) { if (pixelElements[index]) pixelElements[index].style.backgroundColor = 'transparent'; }
+            });
+            newActivePixels.forEach(index => {
+                if (!activeAnimationPixels.has(index)) { if (pixelElements[index]) pixelElements[index].style.backgroundColor = 'white'; }
+            });
+            activeAnimationPixels = newActivePixels;
+        }
+
+        // --- Update Progress Bar ---
+        function updateProgressBar() {
+            if (audioDuration > 0 && isFinite(audioDuration)) {
+                const progressPercentage = (audioPlayer.currentTime / audioDuration) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+            } else {
+                if (progressBar.style.width !== '0%') { progressBar.style.width = '0%'; }
+            }
+        }
+
+        // --- Time Update Main Loop ---
+        function onTimeUpdate() {
+            const currentTime = audioPlayer.currentTime;
+            timeDisplay.textContent = formatTime(currentTime);
+            updateLyrics(currentTime);
+            updateAnimation(currentTime);
+            updateProgressBar();
+        }
+
+        // --- Handle Progress Bar Click (Seeking) ---
+        function handleSeek(event) {
+            if (audioDuration > 0 && isFinite(audioDuration)) {
+                const rect = progressBarContainer.getBoundingClientRect();
+                const clickX = event.clientX - rect.left;
+                const containerWidth = progressBarContainer.offsetWidth;
+                const progressRatio = Math.max(0, Math.min(1, clickX / containerWidth));
+                const targetTime = progressRatio * audioDuration;
+
+                console.log(`Seeking to: ${formatTime(targetTime)} (${(progressRatio * 100).toFixed(1)}%)`); // Keep seek log
+                audioPlayer.currentTime = targetTime;
+
+                updateProgressBar(); // Immediately update visuals
+                updateLyrics(targetTime);
+                updateAnimation(targetTime);
+            } else {
+                console.warn("Cannot seek: Audio duration is not valid or available yet. Duration:", audioDuration); // Keep warning
+            }
+        }
+
+        // --- Event Listeners ---
+        startButton.addEventListener('click', () => {
+            startButton.style.opacity = '0';
+            startButton.style.pointerEvents = 'none';
+            startButton.classList.add('hidden');
+
+            audioPlayer.play().then(() => {
+                 audioPlayer.addEventListener('timeupdate', onTimeUpdate);
+                 audioPlayer.addEventListener('ended', () => {
+                     console.log("Audio playback ended."); // Keep end log
+                     audioPlayer.removeEventListener('timeupdate', onTimeUpdate);
+                     progressBar.style.width = '100%';
+                 });
+                 if(audioPlayer.duration && isFinite(audioPlayer.duration)) {
+                     audioDuration = audioPlayer.duration;
+                 }
+            }).catch(error => {
+                console.error("Audio play() failed:", error); // Keep error
+                alert("无法自动播放音频，请再次点击页面。\nError: " + error.message);
+            });
+
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                if (audioPlayer.duration && isFinite(audioPlayer.duration)) {
+                    audioDuration = audioPlayer.duration;
+                    console.log(`Audio duration: ${formatTime(audioDuration)}`); // Keep duration log
+                } else {
+                    console.warn("Event 'loadedmetadata': Duration is invalid.", audioPlayer.duration); // Keep warning
+                }
+            });
+
+             audioPlayer.addEventListener('error', (e) => {
+                 console.error("Audio Element Error:", e); // Keep error
+                 let errorDetails = 'Unknown audio error';
+                 if (audioPlayer.error) {
+                     switch (audioPlayer.error.code) {
+                         case MediaError.MEDIA_ERR_ABORTED: errorDetails = 'Playback aborted.'; break;
+                         case MediaError.MEDIA_ERR_NETWORK: errorDetails = 'Network error.'; break;
+                         case MediaError.MEDIA_ERR_DECODE: errorDetails = 'Decoding error.'; break;
+                         case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorDetails = 'Audio source format not supported.'; break;
+                         default: errorDetails = `Unknown error (Code: ${audioPlayer.error.code})`;
+                     }
+                 }
+                 lyricsContainer.innerHTML = `音频错误: ${errorDetails}`;
+             });
+        });
+
+        progressBarContainer.addEventListener('click', handleSeek);
+
+        // --- Initialization ---
+        async function initialize() {
+            createPixelGrid();
+            const results = await Promise.allSettled([loadLyrics(), loadAnimation()]);
+            console.log("Initialization complete. Waiting for start button click."); // Keep init log
+            if (results[0].status === 'rejected' || lyricsData.length === 0) { console.warn("Lyrics data missing or failed to load."); } // Keep warning
+            if (results[1].status === 'rejected' || animationData.length === 0) { console.warn("Animation data missing or failed to load."); } // Keep warning
+        }
+
+        document.addEventListener('DOMContentLoaded', initialize);
+
+    </script>
+
+</body>
+</html>

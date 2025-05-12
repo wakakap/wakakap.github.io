@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合影展示</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000;
+            overflow: hidden;
+        }
+        #container {
+            position: relative;
+            height: auto;
+            max-width: 100%;
+        }
+        .character {
+            position: absolute;
+            transition: opacity 0.3s, z-index 0.3s;
+            opacity: 0.5;
+            pointer-events: auto;
+            user-select: none;
+        }
+        .character:hover {
+            opacity: 1;
+            z-index: 1000 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        const container = document.getElementById('container');
+        const centerX = container.offsetWidth / 2;
+        const centerY = container.offsetHeight / 2;
+        const maxRadius = 200; // 最大偏移半径
+        const minRadius = 50;  // 最小偏移半径
+
+        // 从wifes.txt读取PNG文件名
+        async function loadImageNames() {
+            try {
+                const response = await fetch('media/wife/wifes.txt');
+                if (!response.ok) throw new Error('Failed to fetch wifes.txt');
+                const text = await response.text();
+                // 分割逗号，清理空格，过滤空字符串
+                return text.split(',').map(name => name.trim()).filter(name => name && name.toLowerCase().endsWith('.png'));
+            } catch (error) {
+                console.error('Error loading wifes.txt:', error);
+                return [];
+            }
+        }
+
+        // 加载并排列图片
+        async function arrangeImages() {
+            const imageNames = await loadImageNames();
+            if (imageNames.length === 0) {
+                console.warn('No PNG files found in wifes.txt');
+                return;
+            }
+
+            const maxHeight = window.innerHeight * 0.75; // 默认高度为屏幕高度的3/4
+
+            imageNames.forEach((name, index) => {
+                const img = new Image();
+                img.src = `media/wife/${name}`;
+                img.className = 'character';
+                img.style.zIndex = Math.floor(Math.random() * 100); // 初始随机z-index
+
+                img.onload = () => {
+                    // 调整图片大小
+                    if (img.height > maxHeight) {
+                        img.style.height = `${maxHeight}px`;
+                        img.style.width = 'auto'; // 保持宽高比
+                    }
+
+                    // 计算随机位置
+                    const angle = Math.random() * 0.5 * Math.PI;
+                    const radius = minRadius + Math.random() * (maxRadius - minRadius);
+                    const x = centerX + Math.cos(angle) * radius - img.width / 2;
+                    const y = centerY + Math.sin(angle) * radius - img.height / 2;
+
+                    // 设置位置
+                    img.style.left = `${x}px`;
+                    img.style.top = `${y}px`;
+
+                    // 添加到容器
+                    container.appendChild(img);
+                };
+
+                // 错误处理
+                img.onerror = () => {
+                    console.error(`Failed to load image: ${name}`);
+                };
+            });
+        }
+
+        // 执行图片加载和排列
+        arrangeImages();
+    </script>
+</body>
+</html>
