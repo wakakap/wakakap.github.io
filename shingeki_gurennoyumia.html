@@ -1,88 +1,307 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>紅蓮の弓矢</title>
     <style>
-        /* Basic Reset and Background */
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: black; color: white; font-family: sans-serif; overflow: hidden; position: relative; }
-        /* Start Button */
-        #startButton { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 15px 30px; font-size: 1.5em; cursor: pointer; background-color: #333; color: white; border: 1px solid #555; border-radius: 5px; z-index: 10; transition: opacity 0.5s ease-out; }
-        /* Animation Canvas */
-        #animationCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; z-index: 1; pointer-events: none; }
-        /* Pixel */
-        .pixel { background-color: transparent; border: none; width: 100%; height: 100%; }
+        @font-face {
+            font-family: 'LXGWWenKai';
+            src: url('../fonts/LXGWWenKai-Light.ttf');
+            /* 请确保路径正确 */
+        }
 
-        /* Lyrics Container - Updated */
+        @font-face {
+            font-family: 'minzhao';
+            src: url('../fonts/MS明朝.ttf');
+            /* 请确保路径正确 */
+        }
+
+        /* Basic Reset and Background */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            color: white;
+            font-family: LXGWWenKai, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 添加备用字体 */
+
+        /* Start Button */
+        #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            font-size: 1.5em;
+            /* This font size doesn't need to be responsive based on screen height */
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            z-index: 10;
+            transition: opacity 0.5s ease-out;
+        }
+
+        /* Animation Canvas - Now a general container */
+        #animationCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background-color: transparent;
+            /* Ensure it doesn't block view */
+        }
+
+        /* Secondary Text Container (Parent for Top/Bottom) */
+        #secondaryTextContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            /* Between animation (1) and main lyrics (3) */
+            pointer-events: none;
+
+            display: flex;
+            /* 新增：设为 Flex 容器 */
+            flex-direction: column;
+            /* 新增：子元素垂直排列 */
+            box-sizing: border-box;
+            /* Include padding in height */
+            /* padding-bottom: 80px; /* 可以根据需要调整或移除 */
+        }
+
+        /* 新增：Secondary Text 的顶部和底部子容器共享样式 */
+        #secondaryTextContainer>div {
+            flex-grow: 1;
+            width: 100%;
+            font-family: 'Arial', sans-serif;
+            font-size: 45vh;
+            color: rgba(255, 255, 255, 0.384);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+            display: flex;
+            flex-direction: column;
+            /* 内部内容垂直排列 (即使只有一行，也视为垂直方向的flex项) */
+            justify-content: center;
+            white-space: nowrap;
+            /* 防止文字换行 */
+            overflow: hidden;
+        }
+
+        /* #secondaryTextTop 和 #secondaryTextBottom 的 align-items 规则不变，继续控制左右对齐 */
+        #secondaryTextTop {
+            align-items: flex-start;
+            text-align: left;
+            /* 文字从左边开始排列 */
+            padding-bottom: 10px;
+            /* 保持底部内边距 */
+        }
+
+        #secondaryTextBottom {
+            align-items: flex-end;
+            text-align: right;
+            /* 文字靠右排列 */
+            padding-bottom: 10px;
+            /* 保持底部内边距 */
+        }
+
+
+        /* Main Lyrics Container (Original Layer) */
         #lyricsContainer {
             position: absolute;
-            top: 50%;                 /* Center vertically */
-            left: 50%;                /* Center horizontally */
-            transform: translate(-50%, -50%); /* Fine-tune centering */
-            width: 90%;               /* Limit width for centering and wrapping */
+            top: 50%;
+            /* Center vertically */
+            left: 50%;
+            /* Center horizontally */
+            transform: translate(-50%, -50%);
+            /* Fine-tune centering */
+            width: 90%;
+            /* Limit width for centering and wrapping */
             text-align: center;
-            font-size: 3.6em;         /* Doubled font size */
-            z-index: 2;
+            font-size: 5vh;
+            /* Adjusted font size based on viewport height */
+            z-index: 3;
+            /* Above secondary text (2) */
             pointer-events: none;
-            line-height: 1.6;         /* Keep or adjust as needed */
+            line-height: 1.6;
+            /* Keep line height relative to new font size */
             color: rgba(255, 255, 255, 0.9);
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
 
         /* Ruby Styles */
-        ruby { ruby-position: over; }
-        rt { font-size: 0.6em; /* Relative to parent, so might need adjustment if base font gets too large */ color: #ccc; user-select: none; }
+        ruby {
+            ruby-position: over;
+        }
+
+        rt {
+            font-size: 0.6em;
+            /* This will scale relative to the parent's (ruby) font size (which is now vh) */
+            color: #ccc;
+            user-select: none;
+        }
+
         /* Control Bar Area */
-        #controlBar { position: fixed; bottom: 10px; left: 10px; right: 10px; display: flex; align-items: center; z-index: 3; padding: 5px; background-color: rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        #controlBar {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            z-index: 4;
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        /* Above lyrics (3) */
+
         /* Time Display */
-        #timeDisplay { background-color: rgba(50, 50, 50, 0.7); color: white; padding: 5px 10px; font-family: monospace; font-size: 0.9em; border-radius: 3px; margin-right: 15px; }
+        #timeDisplay {
+            background-color: rgba(50, 50, 50, 0.7);
+            color: white;
+            padding: 5px 10px;
+            font-family: monospace;
+            font-size: 0.9em;
+            z-index: 4;
+            /* This font size doesn't need to be responsive based on screen height */
+            border-radius: 3px;
+            margin-right: 15px;
+        }
+
         /* Progress Bar Container */
-        #progressBarContainer { flex-grow: 1; height: 8px; background-color: #444; border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
+        #progressBarContainer {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #444;
+            border-radius: 4px;
+            z-index: 4;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
         /* Progress Bar (Elapsed Part) */
-        #progressBar { height: 100%; width: 0%; background-color: #eee; border-radius: 4px; transition: width 0.1s linear; }
+        #progressBar {
+            height: 100%;
+            width: 0%;
+            z-index: 4;
+            background-color: #eee;
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+
         /* Hidden Class */
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
+
+        /* Volume Slider */
+        #volumeSlider {
+            -webkit-appearance: none;
+            /* Remove default browser styles */
+            appearance: none;
+            width: 80px;
+            /* Keep a fixed width */
+            height: 8px;
+            background: #555;
+            /* Slider track color */
+            outline: none;
+            z-index: 4;
+            opacity: 0.9;
+            transition: opacity .2s;
+            margin-left: 15px;
+            /* Space from progress bar */
+            border-radius: 4px;
+        }
+
+        #volumeSlider:hover {
+            opacity: 1;
+        }
+
+        /* Style for the slider thumb (handle) */
+        #volumeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            /* Thumb size */
+            height: 16px;
+            background: #eee;
+            /* Thumb color */
+            cursor: pointer;
+            border-radius: 50%;
+            /* Round thumb */
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+
+        #volumeSlider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #eee;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
+
 <body>
-
     <button id="startButton">地獄のユミル</button>
-
     <div id="animationCanvas"></div>
+    <div id="secondaryTextContainer">
+        <div id="secondaryTextTop"></div>
+        <div id="secondaryTextBottom"></div>
+    </div>
     <div id="lyricsContainer"></div>
-
     <div id="controlBar">
         <div id="timeDisplay">00:00:00</div>
         <div id="progressBarContainer">
             <div id="progressBar"></div>
         </div>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
     </div>
-
     <audio id="audioPlayer" src="media/music/紅蓮の弓矢 - Linked Horizon.mp3" preload="auto"></audio>
-
     <script>
         const startButton = document.getElementById('startButton');
         const audioPlayer = document.getElementById('audioPlayer');
-        const lyricsContainer = document.getElementById('lyricsContainer');
+        const lyricsContainer = document.getElementById('lyricsContainer'); // 主歌词容器
+        const secondaryTextContainer = document.getElementById('secondaryTextContainer'); // Secondary父容器
+        const secondaryTextTop = document.getElementById('secondaryTextTop'); // 新增：Secondary顶部容器
+        const secondaryTextBottom = document.getElementById('secondaryTextBottom'); // 新增：Secondary底部容器
         const timeDisplay = document.getElementById('timeDisplay');
-        const animationCanvas = document.getElementById('animationCanvas');
+        const animationCanvas = document.getElementById('animationCanvas'); // 动画画布
         const progressBarContainer = document.getElementById('progressBarContainer');
         const progressBar = document.getElementById('progressBar');
+        const volumeSlider = document.getElementById('volumeSlider');
 
         // --- Config ---
-        const PIXEL_GRID_WIDTH = 100;
-        const PIXEL_GRID_HEIGHT = 80;
         // Verify these paths carefully!
-        const LYRICS_FILE = 'media/music/紅蓮の弓矢.ass';
-        const ANIMATION_FILE = 'media/music/anime.srt';
+        const LYRICS_FILE = 'media/music/紅蓮の弓矢.ass'; // 主歌词文件
+        const SECONDARY_LYRICS_FILE = 'media/music/紅蓮の弓矢_big.ass'; // 新增：第二个ass文件路径
+        // Removed ANIMATION_FILE
         // -------------
 
-        let lyricsData = [];
-        let animationData = [];
-        let pixelElements = [];
-        let currentLyricIndices = [];
-        let activeAnimationPixels = new Set();
+        let lyricsData = []; // 主歌词数据
+        let secondaryLyricsData = []; // 新增：第二个ass的数据
+        // Removed animationData, pixelElements, activeAnimationPixels
+        let currentLyricIndices = []; // 主歌词当前索引
+        // Removed currentSecondaryLyricIndices as we track separately for top/bottom or compare output strings
         let audioDuration = 0;
 
         // --- Time Conversion Utilities ---
@@ -92,12 +311,7 @@
             const seconds = parseInt(ssms[0], 10); const centiseconds = parseInt(ssms[1], 10);
             return hours * 3600 + minutes * 60 + seconds + centiseconds / 100;
         }
-        function parseSrtTime(timeStr) {
-            const parts = timeStr.split(':'); const ssms = parts[2].split(',');
-            const hours = parseInt(parts[0], 10); const minutes = parseInt(parts[1], 10);
-            const seconds = parseInt(ssms[0], 10); const milliseconds = parseInt(ssms[1], 10);
-            return hours * 3600 + minutes * 60 + seconds + milliseconds / 1000;
-        }
+        // Removed parseSrtTime
         function formatTime(seconds) {
             if (typeof seconds !== 'number' || !isFinite(seconds)) { return '00:00:00'; }
             const totalMilliseconds = Math.floor(seconds * 1000);
@@ -109,108 +323,116 @@
         }
 
         // --- Data Loading ---
-        async function loadLyrics() {
+        // Modified to also store the style field
+        async function loadLyrics(file, targetArray) {
             try {
-                const response = await fetch(LYRICS_FILE);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${LYRICS_FILE}`);
+                const response = await fetch(file);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${file}`);
                 const assText = await response.text(); const lines = assText.split(/\r?\n/);
-                let isEventsSection = false; const rawLyrics = [];
+                let isEventsSection = false; const rawData = [];
                 for (const line of lines) {
-                     if (line.trim().toLowerCase() === '[events]') { isEventsSection = true; continue; }
-                     if (line.trim().startsWith('[')) { isEventsSection = false; continue; }
-                     if (isEventsSection && line.toLowerCase().startsWith('dialogue:')) {
-                         const parts = line.substring(9).split(',');
-                         if (parts.length >= 10) {
-                             const startTime = parseAssTime(parts[1].trim()); const endTime = parseAssTime(parts[2].trim());
-                             const text = parts.slice(9).join(',');
-                             if (startTime < endTime) { rawLyrics.push({ startTime, endTime, text }); }
-                         }
-                     }
+                    if (line.trim().toLowerCase() === '[events]') { isEventsSection = true; continue; }
+                    if (line.trim().startsWith('[')) { isEventsSection = false; continue; }
+                    if (isEventsSection && line.toLowerCase().startsWith('dialogue:')) {
+                        const parts = line.substring(9).split(',');
+                        if (parts.length >= 10) {
+                            const startTime = parseAssTime(parts[1].trim());
+                            const endTime = parseAssTime(parts[2].trim());
+                            const style = parts[3].trim(); // 获取Style字段
+                            const text = parts.slice(9).join(',');
+                            if (startTime < endTime) {
+                                rawData.push({ startTime, endTime, text, style }); // 存储style
+                            }
+                        }
+                    }
                 }
-                lyricsData = rawLyrics.sort((a, b) => a.startTime - b.startTime);
+                // Assign data to the correct array based on the target
+                if (targetArray === 'lyrics') {
+                    lyricsData = rawData.sort((a, b) => a.startTime - b.startTime);
+                    console.log(`Loaded ${lyricsData.length} main lyric entries.`); // Log count
+                } else if (targetArray === 'secondary') {
+                    secondaryLyricsData = rawData.sort((a, b) => a.startTime - b.startTime);
+                    console.log(`Loaded ${secondaryLyricsData.length} secondary text entries.`); // Log count
+                }
             } catch (error) {
-                console.error('Failed to load or parse lyrics:', error);
-                lyricsContainer.innerHTML = '无法加载歌词';
+                console.error(`Failed to load or parse ${file}:`, error);
+                // Handle error display appropriately
+                if (targetArray === 'lyrics' && lyricsContainer) lyricsContainer.innerHTML = '无法加载主歌词';
+                if (targetArray === 'secondary') {
+                    const errorMsg = '无法加载次要文本';
+                    if (secondaryTextTop) secondaryTextTop.innerHTML = errorMsg;
+                    if (secondaryTextBottom) secondaryTextBottom.innerHTML = errorMsg;
+                }
+                throw error; // Re-throw to let Promise.allSettled know it failed
             }
         }
-        async function loadAnimation() {
-             try {
-                const response = await fetch(ANIMATION_FILE);
-                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${ANIMATION_FILE}`);
-                const srtText = await response.text(); const blocks = srtText.trim().split(/(?:\r?\n){2,}/);
-                const rawAnimation = [];
-                for (const block of blocks) {
-                    const lines = block.split(/\r?\n/);
-                     if (lines.length >= 3 && typeof lines[1] === 'string') {
-                         const timeLine = lines[1]; const coordLines = lines.slice(2).join('');
-                         const timeMatch = timeLine.match(/(\d{2}:\d{2}:\d{2},\d{3})\s*--\>\s*(\d{2}:\d{2}:\d{2},\d{3})/);
-                         if (timeMatch) {
-                             const startTime = parseSrtTime(timeMatch[1]); const endTime = parseSrtTime(timeMatch[2]);
-                             const coords = []; const coordRegex = /\(\s*(\d+)\s*,\s*(\d+)\s*\)/g; let match;
-                             while ((match = coordRegex.exec(coordLines)) !== null) {
-                                 const x = parseInt(match[1], 10); const y = parseInt(match[2], 10);
-                                 if (x >= 1 && x <= PIXEL_GRID_WIDTH && y >= 1 && y <= PIXEL_GRID_HEIGHT) { coords.push({ x, y }); }
-                                 // else { console.warn(`SRT Coord (${x},${y}) out of range`); } // Keep warnings minimal
-                             }
-                             if (startTime < endTime && coords.length > 0) { rawAnimation.push({ startTime, endTime, coords }); }
-                             // else { console.warn(`SRT Block invalid: time=${startTime}-${endTime}, coords=${coords.length}`); } // Keep warnings minimal
-                         } // else { console.warn(`Cannot parse SRT time line: "${timeLine}"`); } // Keep warnings minimal
-                     } // else if (lines.length > 0 && lines[0].trim() !== '') { console.warn(`Skipping malformed SRT block: "${lines[0]}..."`); } // Keep warnings minimal
-                }
-                animationData = rawAnimation.sort((a, b) => a.startTime - b.startTime);
-            } catch (error) { console.error('Failed to load or parse animation:', error); }
-        }
 
-        // --- Pixel Grid & Coordinate Logic ---
-        function createPixelGrid() {
-             animationCanvas.innerHTML = ''; pixelElements = [];
-             animationCanvas.style.gridTemplateColumns = `repeat(${PIXEL_GRID_WIDTH}, 1fr)`;
-             animationCanvas.style.gridTemplateRows = `repeat(${PIXEL_GRID_HEIGHT}, 1fr)`;
-             const totalPixels = PIXEL_GRID_WIDTH * PIXEL_GRID_HEIGHT;
-             for (let i = 0; i < totalPixels; i++) {
-                 const pixel = document.createElement('div'); pixel.classList.add('pixel');
-                 animationCanvas.appendChild(pixel); pixelElements.push(pixel);
-             }
-        }
-        function getPixelIndex(x, y) {
-            if (x < 1 || x > PIXEL_GRID_WIDTH || y < 1 || y > PIXEL_GRID_HEIGHT) { return -1; }
-            return (y - 1) * PIXEL_GRID_WIDTH + (x - 1);
-        }
 
         // --- Update Logic ---
         function updateLyrics(currentTime) {
-            const activeLyrics = []; let changed = false; const newActiveIndices = [];
+            // Ensure lyricsContainer element exists before trying to update it
+            if (!lyricsContainer) return;
+
+            const activeLyrics = [];
+            let changed = false;
+            const newActiveIndices = [];
             for (let i = 0; i < lyricsData.length; i++) {
                 const lyric = lyricsData[i];
                 if (currentTime >= lyric.startTime && currentTime < lyric.endTime) {
-                    activeLyrics.push(lyric.text); newActiveIndices.push(i);
+                    activeLyrics.push(lyric.text);
+                    newActiveIndices.push(i);
                 }
             }
+            // Check if the set of active lyrics has changed
             if (newActiveIndices.length !== currentLyricIndices.length || newActiveIndices.some((val, idx) => val !== currentLyricIndices[idx])) {
-                changed = true; currentLyricIndices = newActiveIndices;
+                changed = true;
+                currentLyricIndices = newActiveIndices;
             }
-            if (changed) { lyricsContainer.innerHTML = activeLyrics.join('<br>'); }
+
+            if (changed) {
+                lyricsContainer.innerHTML = activeLyrics.join('<br>');
+            }
+            // Optional: Clear container if no active lyrics and it's not already empty
+            if (activeLyrics.length === 0 && lyricsContainer.innerHTML !== '') {
+                lyricsContainer.innerHTML = '';
+            }
         }
-        function updateAnimation(currentTime) {
-            let targetFrame = null;
-            for (let i = 0; i < animationData.length; i++) {
-                if (currentTime >= animationData[i].startTime && currentTime < animationData[i].endTime) { targetFrame = animationData[i]; break; }
+
+        // 新增：更新第二个文字展示层的内容，根据Style分发到顶部或底部
+        function updateSecondaryText(currentTime) {
+            // Ensure secondary text elements exist
+            if (!secondaryTextTop || !secondaryTextBottom) return;
+
+            const activeTopText = [];
+            const activeBottomText = [];
+
+            for (let i = 0; i < secondaryLyricsData.length; i++) {
+                const entry = secondaryLyricsData[i];
+                if (currentTime >= entry.startTime && currentTime < entry.endTime) {
+                    // 根据Style字段判断显示位置
+                    if (entry.style.toLowerCase() === 'japanese') { // Style "Japanese" goes to top
+                        activeTopText.push(entry.text);
+                    } else if (entry.style.toLowerCase() === 'chinese') { // Style "Chinese" goes to bottom
+                        activeBottomText.push(entry.text);
+                    }
+                    // 如果有其他Style，可以根据需要添加 else if 或忽略
+                }
             }
-            const newActivePixels = new Set();
-            if (targetFrame) {
-                targetFrame.coords.forEach(coord => {
-                    const index = getPixelIndex(coord.x, coord.y);
-                    if (index !== -1) { newActivePixels.add(index); }
-                });
+
+            // Check if content for top container has changed before updating
+            const newTopContent = activeTopText.join('<br>');
+            if (secondaryTextTop.innerHTML !== newTopContent) {
+                secondaryTextTop.innerHTML = newTopContent;
             }
-            activeAnimationPixels.forEach(index => {
-                if (!newActivePixels.has(index)) { if (pixelElements[index]) pixelElements[index].style.backgroundColor = 'transparent'; }
-            });
-            newActivePixels.forEach(index => {
-                if (!activeAnimationPixels.has(index)) { if (pixelElements[index]) pixelElements[index].style.backgroundColor = 'white'; }
-            });
-            activeAnimationPixels = newActivePixels;
+
+            // Check if content for bottom container has changed before updating
+            const newBottomContent = activeBottomText.join('<br>');
+            if (secondaryTextBottom.innerHTML !== newBottomContent) {
+                secondaryTextBottom.innerHTML = newBottomContent;
+            }
         }
+
+        // Removed updateAnimation
 
         // --- Update Progress Bar ---
         function updateProgressBar() {
@@ -226,8 +448,9 @@
         function onTimeUpdate() {
             const currentTime = audioPlayer.currentTime;
             timeDisplay.textContent = formatTime(currentTime);
-            updateLyrics(currentTime);
-            updateAnimation(currentTime);
+            updateLyrics(currentTime); // 更新主歌词
+            updateSecondaryText(currentTime); // 更新第二个文字层 (顶部和底部)
+            // Removed call to updateAnimation
             updateProgressBar();
         }
 
@@ -244,8 +467,9 @@
                 audioPlayer.currentTime = targetTime;
 
                 updateProgressBar(); // Immediately update visuals
-                updateLyrics(targetTime);
-                updateAnimation(targetTime);
+                updateLyrics(targetTime); // 寻求后更新主歌词
+                updateSecondaryText(targetTime); // 寻求后更新第二个文字层
+                // Removed call to updateAnimation
             } else {
                 console.warn("Cannot seek: Audio duration is not valid or available yet. Duration:", audioDuration); // Keep warning
             }
@@ -258,15 +482,19 @@
             startButton.classList.add('hidden');
 
             audioPlayer.play().then(() => {
-                 audioPlayer.addEventListener('timeupdate', onTimeUpdate);
-                 audioPlayer.addEventListener('ended', () => {
-                     console.log("Audio playback ended."); // Keep end log
-                     audioPlayer.removeEventListener('timeupdate', onTimeUpdate);
-                     progressBar.style.width = '100%';
-                 });
-                 if(audioPlayer.duration && isFinite(audioPlayer.duration)) {
-                     audioDuration = audioPlayer.duration;
-                 }
+                audioPlayer.addEventListener('timeupdate', onTimeUpdate);
+                audioPlayer.addEventListener('ended', () => {
+                    console.log("Audio playback ended."); // Keep end log
+                    audioPlayer.removeEventListener('timeupdate', onTimeUpdate);
+                    progressBar.style.width = '100%';
+                    // 清空所有文字层
+                    if (lyricsContainer) lyricsContainer.innerHTML = '';
+                    if (secondaryTextTop) secondaryTextTop.innerHTML = '';
+                    if (secondaryTextBottom) secondaryTextBottom.innerHTML = '';
+                });
+                if (audioPlayer.duration && isFinite(audioPlayer.duration)) {
+                    audioDuration = audioPlayer.duration;
+                }
             }).catch(error => {
                 console.error("Audio play() failed:", error); // Keep error
                 alert("无法自动播放音频，请再次点击页面。\nError: " + error.message);
@@ -279,33 +507,73 @@
                 } else {
                     console.warn("Event 'loadedmetadata': Duration is invalid.", audioPlayer.duration); // Keep warning
                 }
+                // 设置音量条的初始值
+                if (volumeSlider) volumeSlider.value = audioPlayer.volume;
             });
 
-             audioPlayer.addEventListener('error', (e) => {
-                 console.error("Audio Element Error:", e); // Keep error
-                 let errorDetails = 'Unknown audio error';
-                 if (audioPlayer.error) {
-                     switch (audioPlayer.error.code) {
-                         case MediaError.MEDIA_ERR_ABORTED: errorDetails = 'Playback aborted.'; break;
-                         case MediaError.MEDIA_ERR_NETWORK: errorDetails = 'Network error.'; break;
-                         case MediaError.MEDIA_ERR_DECODE: errorDetails = 'Decoding error.'; break;
-                         case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorDetails = 'Audio source format not supported.'; break;
-                         default: errorDetails = `Unknown error (Code: ${audioPlayer.error.code})`;
-                     }
-                 }
-                 lyricsContainer.innerHTML = `音频错误: ${errorDetails}`;
-             });
+            audioPlayer.addEventListener('error', (e) => {
+                console.error("Audio Element Error:", e); // Keep error
+                let errorDetails = 'Unknown audio error';
+                if (audioPlayer.error) {
+                    switch (audioPlayer.error.code) {
+                        case MediaError.MEDIA_ERR_ABORTED: errorDetails = 'Playback aborted.'; break;
+                        case MediaError.MEDIA_ERR_NETWORK: errorDetails = 'Network error.'; break;
+                        case MediaError.MEDIA_ERR_DECODE: errorDetails = 'Decoding error.'; break;
+                        case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorDetails = 'Audio source format not supported.'; break;
+                        default: errorDetails = `Unknown error (Code: ${audioPlayer.error.code})`;
+                    }
+                }
+                // 显示音频错误信息，通常在主歌词区域显示
+                if (lyricsContainer) lyricsContainer.innerHTML = `音频错误: ${errorDetails}`;
+                // 也可以在 secondary text 区域显示错误
+                if (secondaryTextTop) secondaryTextTop.innerHTML = '音频错误';
+                if (secondaryTextBottom) secondaryTextBottom.innerHTML = errorDetails; // 底部显示详细错误
+            });
         });
 
         progressBarContainer.addEventListener('click', handleSeek);
 
+        // 音量条事件监听器
+        if (volumeSlider) { // Check if element exists
+            volumeSlider.addEventListener('input', (event) => {
+                // 将滑块的值（0到1）设置给音频播放器的音量
+                audioPlayer.volume = parseFloat(event.target.value);
+            });
+        } else {
+            console.warn("Volume slider element not found.");
+        }
+
         // --- Initialization ---
         async function initialize() {
-            createPixelGrid();
-            const results = await Promise.allSettled([loadLyrics(), loadAnimation()]);
+            // Removed createPixelGrid()
+            // 同时加载主歌词和第二个ass文件
+            const results = await Promise.allSettled([
+                loadLyrics(LYRICS_FILE, 'lyrics'),
+                loadLyrics(SECONDARY_LYRICS_FILE, 'secondary')
+            ]);
+
             console.log("Initialization complete. Waiting for start button click."); // Keep init log
-            if (results[0].status === 'rejected' || lyricsData.length === 0) { console.warn("Lyrics data missing or failed to load."); } // Keep warning
-            if (results[1].status === 'rejected' || animationData.length === 0) { console.warn("Animation data missing or failed to load."); } // Keep warning
+
+            // 检查加载结果
+            if (results[0].status === 'rejected' || lyricsData.length === 0) {
+                console.warn(`Main lyrics data missing or failed to load from ${LYRICS_FILE}.`);
+                if (lyricsContainer) lyricsContainer.innerHTML = '无法加载主歌词';
+            }
+            if (results[1].status === 'rejected' || secondaryLyricsData.length === 0) {
+                console.warn(`Secondary text data missing or failed to load from ${SECONDARY_LYRICS_FILE}.`);
+                const errorMsg = '无法加载次要文本';
+                if (secondaryTextTop) secondaryTextTop.innerHTML = errorMsg;
+                if (secondaryTextBottom) secondaryTextBottom.innerHTML = errorMsg;
+            }
+
+            // 确保在初始化时设置音量条的初始值（以防loadedmetadata在DOMContentLoad之后触发）
+            if (volumeSlider && audioPlayer.readyState > 0) { // Check if elements exist and metadata is loaded
+                volumeSlider.value = audioPlayer.volume;
+            }
+            // 初始化时清空容器，准备显示第一个时间点的文本
+            if (lyricsContainer) lyricsContainer.innerHTML = '';
+            if (secondaryTextTop) secondaryTextTop.innerHTML = '';
+            if (secondaryTextBottom) secondaryTextBottom.innerHTML = '';
         }
 
         document.addEventListener('DOMContentLoaded', initialize);
@@ -313,4 +581,5 @@
     </script>
 
 </body>
+
 </html>

@@ -1,0 +1,82 @@
+﻿Title: 紅蓮の弓矢 - Guren no Yumiya - 多言語歌詞
+ScriptType: v4.00+
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+YCbCr Matrix: None
+PlayResX: 1280
+PlayResY: 720
+
+
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Japanese,Arial,32,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2,1,2,10,10,30,1
+Style: Furigana,Arial,18,&H00E0E0E0,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1,0,8,10,10,65,1
+Style: Chinese,Noto Sans SC,28,&H00FFFF00,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2,1,2,10,10,70,1
+Style: German,Arial Black,36,&H0000FFFF,&H000000FF,&H00FFFFFF,&H00404040,1,0,0,0,100,100,0,0,1,2,2,5,10,10,100,1
+Style: RomajiKana,Arial,18,&H0090EE90,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1,0,8,10,10,140,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:02.77,0:00:14.84,Japanese,,0,0,0,,アルミン
+Dialogue: 0,0:00:02.77,0:00:14.84,Chinese,,0,0,0,,阿尔敏
+Dialogue: 0,0:00:15.84,0:00:19.84,Japanese,,0,0,0,,先に
+Dialogue: 0,0:00:15.84,0:00:19.84,Chinese,,0,0,0,,前方
+Dialogue: 0,0:00:19.84,0:00:23.19,Japanese,,0,0,0,,弓矢
+Dialogue: 0,0:00:19.84,0:00:23.19,Chinese,,0,0,0,,箭
+Dialogue: 0,0:00:23.19,0:00:24.23,Japanese,,0,0,0,,獲物
+Dialogue: 4,0:00:23.19,0:00:24.23,Chinese,,0,0,0,,食物
+Dialogue: 0,0:00:24.23,0:00:25.71,Japanese,,0,0,0,,狩人
+Dialogue: 4,0:00:24.23,0:00:25.71,Chinese,,0,0,0,,猎人
+Dialogue: 0,0:00:53.51,0:00:58.51,Japanese,,0,0,0,,いま
+Dialogue: 4,0:00:53.51,0:00:58.51,Chinese,,0,0,0,,现在
+Dialogue: 0,0:00:58.82,0:01:03.85,Japanese,,0,0,0,,屍踏み越えて 進む意思を 笑う豚よ
+Dialogue: 4,0:00:58.82,0:01:03.85,Chinese,,0,0,0,,嘲笑我们跨越尸体前进意志的猪猡啊
+Dialogue: 0,0:01:04.11,0:01:05.51,Japanese,,0,0,0,,家畜の安寧
+Dialogue: 0,0:01:05.51,0:01:07.05,Japanese,,0,0,0,,虚偽の繁栄
+Dialogue: 0,0:01:07.05,0:01:09.29,Japanese,,0,0,0,,死せる餓狼の「自由」を！
+Dialogue: 4,0:01:04.11,0:01:05.51,Chinese,,0,0,0,,家畜的安宁
+Dialogue: 4,0:01:05.51,0:01:07.05,Chinese,,0,0,0,,虚假的繁荣
+Dialogue: 4,0:01:07.05,0:01:09.29,Chinese,,0,0,0,,饿狼的「自由」！
+Dialogue: 0,0:01:18.95,0:01:20.19,Japanese,,0,0,0,,イェーガー
+Dialogue: 4,0:01:18.95,0:01:20.19,Chinese,,0,0,0,,耶格尔
+Dialogue: 0,0:01:22.19,0:01:25.26,Japanese,,0,0,0,,殺意衝動
+Dialogue: 4,0:01:22.19,0:01:25.26,Chinese,,0,0,0,,杀意冲动
+
+Dialogue: 0,0:01:54.95,0:01:56.98,Japanese,,0,0,0,, やつ
+Dialogue: 4,0:01:54.95,0:01:56.98,Chinese,,0,0,0,,那家伙
+Dialogue: 0,0:02:07.88,0:02:09.57,Japanese,,0,0,0,,やつ
+Dialogue: 4,0:02:07.88,0:02:09.57,Chinese,,0,0,0,,那家伙
+Dialogue: 0,0:02:22.61,0:02:23.80,Japanese,,0,0,0,,殺意
+Dialogue: 4,0:02:22.61,0:02:23.80,Chinese,,0,0,0,,杀意
+
+Dialogue: 0,0:02:25.30,0:02:26.82,Japanese,,0,0,0,,イェーガー
+Dialogue: 4,0:02:25.30,0:02:26.82,Chinese,,0,0,20,,耶格尔
+Dialogue: 0,0:02:30.57,0:02:32.10,Japanese,,0,0,0,,イェーガー
+Dialogue: 4,0:02:30.57,0:02:32.10,Chinese,,0,0,20,,耶格尔
+Dialogue: 0,0:02:36.14,0:02:37.45,Japanese,,0,0,0,,イェーガー
+Dialogue: 4,0:02:36.14,0:02:37.45,Chinese,,0,0,20,,耶格尔
+Dialogue: 0,0:02:41.52,0:02:42.50,Japanese,,0,0,0,,イェーガー
+Dialogue: 4,0:02:41.52,0:02:42.50,Chinese,,0,0,0,,耶格尔
+
+Dialogue: 2,0:03:17.50,0:03:20.90,Japanese,,0,0,0,,Titanen
+Dialogue: 4,0:03:17.50,0:03:20.90,Chinese,,0,0,0,,进击的巨人
+Dialogue: 2,0:03:40.80,0:03:45.70,Japanese,,0,0,0,,諸刃の剣
+Dialogue: 4,0:03:40.80,0:03:45.70,Chinese,,0,0,0,,双刃剑
+Dialogue: 2,0:03:45.70,0:03:51.10,Japanese,,0,0,0,,未来
+Dialogue: 4,0:03:45.70,0:03:51.10,Chinese,,0,0,0,,未来
+
+Dialogue: 0,0:03:51.10,0:03:52.56,Japanese,,0,0,0,,何か
+Dialogue: 0,0:03:56.51,0:03:57.89,Japanese,,0,0,0,,何か
+Dialogue: 0,0:04:11.43,0:04:16.49,Japanese,,0,0,0,,暗愚の想定 ...唯の幻影 ...今は無謀な勇気も...
+Dialogue: 4,0:04:11.43,0:04:16.49,Chinese,,0,0,0,,愚昧的设想 ...不过是幻影 ...如今连无谋的勇气...
+Dialogue: 0,0:04:16.75,0:04:21.90,Japanese,,0,0,0,,「自由」の尖兵  ...賭けの攻勢 奔る奴隷に勝利を！
+Dialogue: 4,0:04:16.75,0:04:21.90,Chinese,,0,0,0,,也是「自由」的先锋 ...赌局的攻势为奔跑的奴隶带来胜利！
+Dialogue: 0,0:04:22.08,0:04:27.34,Japanese,,0,0,0,,架せられた不条理は 進撃の ◅─嚆─< だ
+Dialogue: 4,0:04:22.08,0:04:27.34,Chinese,,0,0,0,,强加的不公 是进击的号角
+Dialogue: 0,0:04:27.49,0:04:30.55,Japanese,,0,0,0,,奪われた其の地平
+Dialogue: 4,0:04:27.49,0:04:30.55,Chinese,,0,0,0,,被夺走的那个地平
+Dialogue: 0,0:04:31.80,0:04:32.80,Japanese,,0,0,0,,エレン！
+Dialogue: 4,0:04:31.80,0:04:32.80,Chinese,,0,0,0,,艾伦！
+Dialogue: 0,0:04:32.80,0:04:37.95,Japanese,,0,0,0,,殺意衝動にその身を侵されながら
+Dialogue: 4,0:04:32.80,0:04:37.95,Chinese,,0,0,0,,杀意冲动侵蚀自身
+Dialogue: 0,0:04:38.17,0:04:46.06,Japanese,,0,0,0,,死死死死死死死死死死死
+Dialogue: 4,0:04:38.17,0:04:46.06,Chinese,,0,0,0,,死死死死死死死死死死死
