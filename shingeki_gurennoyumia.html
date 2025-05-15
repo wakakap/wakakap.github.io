@@ -6,19 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>紅蓮の弓矢</title>
     <style>
+        /* CSS 样式与之前保持一致 */
         @font-face {
             font-family: 'LXGWWenKai';
             src: url('../fonts/LXGWWenKai-Light.ttf');
-            /* 请确保路径正确 */
         }
 
         @font-face {
             font-family: 'minzhao';
             src: url('../fonts/MS明朝.ttf');
-            /* 请确保路径正确 */
         }
 
-        /* Basic Reset and Background */
         body,
         html {
             margin: 0;
@@ -32,27 +30,22 @@
             position: relative;
         }
 
-        /* 添加备用字体 */
-
-        /* Start Button */
         #startButton {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 15px 30px;
-            font-size: 1.5em;
-            /* This font size doesn't need to be responsive based on screen height */
+            font-size: 1.4em;
             cursor: pointer;
             background-color: #333;
             color: white;
             border: 1px solid #555;
             border-radius: 5px;
             z-index: 10;
-            transition: opacity 0.5s ease-out;
+            transition: opacity .5s ease-out;
         }
 
-        /* Animation Canvas - Now a general container */
         #animationCanvas {
             position: absolute;
             top: 0;
@@ -62,10 +55,8 @@
             z-index: 1;
             pointer-events: none;
             background-color: transparent;
-            /* Ensure it doesn't block view */
         }
 
-        /* Secondary Text Container (Parent for Top/Bottom) */
         #secondaryTextContainer {
             position: absolute;
             top: 0;
@@ -73,90 +64,111 @@
             width: 100%;
             height: 100%;
             z-index: 2;
-            /* Between animation (1) and main lyrics (3) */
             pointer-events: none;
-
+            background-color: transparent;
             display: flex;
-            /* 新增：设为 Flex 容器 */
             flex-direction: column;
-            /* 新增：子元素垂直排列 */
             box-sizing: border-box;
-            /* Include padding in height */
-            /* padding-bottom: 80px; /* 可以根据需要调整或移除 */
         }
 
-        /* 新增：Secondary Text 的顶部和底部子容器共享样式 */
         #secondaryTextContainer>div {
             flex-grow: 1;
             width: 100%;
             font-family: 'Arial', sans-serif;
             font-size: 45vh;
-            color: rgba(255, 255, 255, 0.384);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            color: rgba(255, 255, 255, .384);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
             line-height: 1;
             display: flex;
             flex-direction: column;
-            /* 内部内容垂直排列 (即使只有一行，也视为垂直方向的flex项) */
             justify-content: center;
             white-space: nowrap;
-            /* 防止文字换行 */
             overflow: hidden;
         }
 
-        /* #secondaryTextTop 和 #secondaryTextBottom 的 align-items 规则不变，继续控制左右对齐 */
         #secondaryTextTop {
             align-items: flex-start;
             text-align: left;
-            /* 文字从左边开始排列 */
-            padding-bottom: 10px;
-            /* 保持底部内边距 */
+            padding-top: 1px;
+            justify-content: flex-start; /* 使其内容在垂直主轴上顶端对齐 */
         }
 
         #secondaryTextBottom {
             align-items: flex-end;
             text-align: right;
-            /* 文字靠右排列 */
-            padding-bottom: 10px;
-            /* 保持底部内边距 */
+            padding-bottom: 1px;
+            justify-content: flex-end; /* 使其内容在垂直主轴上底端对齐 */
         }
 
+        #thirdTextContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            /* Same as secondaryTextContainer or adjust as needed */
+            pointer-events: none;
+            background-color: transparent;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
 
-        /* Main Lyrics Container (Original Layer) */
+        #thirdTextContainer>div {
+            flex-grow: 1;
+            width: 100%;
+            font-family: 'Arial', sans-serif;
+            /* Or your preferred font like LXGWWenKai */
+            font-size: 45vh;
+            /* Similar to secondaryTextContainer or adjust */
+            color: rgba(255, 255, 255, .384);
+            /* Similar to secondaryTextContainer or adjust */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+            /* Similar to secondaryTextContainer or adjust */
+            line-height: 1;
+            overflow: hidden;
+            /* Crucial for scrolling */
+            white-space: nowrap;
+            /* Crucial for scrolling */
+            display: flex;
+            /* For vertical alignment of the span */
+            align-items: center;
+            /* Vertically centers the scrolling text line */
+        }
+
+        #thirdTextTop>span,
+        #thirdTextBottom>span {
+            display: inline-block;
+            text-rendering: geometricPrecision; /* 尝试这个值 */
+        }
+
         #lyricsContainer {
             position: absolute;
             top: 50%;
-            /* Center vertically */
             left: 50%;
-            /* Center horizontally */
             transform: translate(-50%, -50%);
-            /* Fine-tune centering */
             width: 90%;
-            /* Limit width for centering and wrapping */
             text-align: center;
             font-size: 5vh;
-            /* Adjusted font size based on viewport height */
             z-index: 3;
-            /* Above secondary text (2) */
             pointer-events: none;
+            background-color: transparent;
             line-height: 1.6;
-            /* Keep line height relative to new font size */
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            color: rgba(255, 255, 255, .9);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, .7);
         }
 
-        /* Ruby Styles */
         ruby {
             ruby-position: over;
         }
 
         rt {
-            font-size: 0.6em;
-            /* This will scale relative to the parent's (ruby) font size (which is now vh) */
+            font-size: .6em;
             color: #ccc;
             user-select: none;
         }
 
-        /* Control Bar Area */
         #controlBar {
             position: fixed;
             bottom: 10px;
@@ -166,68 +178,52 @@
             align-items: center;
             z-index: 4;
             padding: 5px;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, .3);
             border-radius: 5px;
         }
 
-        /* Above lyrics (3) */
-
-        /* Time Display */
         #timeDisplay {
-            background-color: rgba(50, 50, 50, 0.7);
+            background-color: rgba(50, 50, 50, .7);
             color: white;
             padding: 5px 10px;
             font-family: monospace;
-            font-size: 0.9em;
-            z-index: 4;
-            /* This font size doesn't need to be responsive based on screen height */
+            font-size: .9em;
             border-radius: 3px;
             margin-right: 15px;
         }
 
-        /* Progress Bar Container */
         #progressBarContainer {
             flex-grow: 1;
             height: 8px;
             background-color: #444;
             border-radius: 4px;
-            z-index: 4;
             cursor: pointer;
             overflow: hidden;
             position: relative;
         }
 
-        /* Progress Bar (Elapsed Part) */
         #progressBar {
             height: 100%;
             width: 0%;
-            z-index: 4;
             background-color: #eee;
             border-radius: 4px;
-            transition: width 0.1s linear;
+            transition: width .1s linear;
         }
 
-        /* Hidden Class */
         .hidden {
-            display: none;
+            display: none !important;
         }
 
-        /* Volume Slider */
         #volumeSlider {
             -webkit-appearance: none;
-            /* Remove default browser styles */
             appearance: none;
             width: 80px;
-            /* Keep a fixed width */
             height: 8px;
             background: #555;
-            /* Slider track color */
             outline: none;
-            z-index: 4;
-            opacity: 0.9;
+            opacity: .9;
             transition: opacity .2s;
             margin-left: 15px;
-            /* Space from progress bar */
             border-radius: 4px;
         }
 
@@ -235,19 +231,15 @@
             opacity: 1;
         }
 
-        /* Style for the slider thumb (handle) */
         #volumeSlider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 16px;
-            /* Thumb size */
             height: 16px;
             background: #eee;
-            /* Thumb color */
             cursor: pointer;
             border-radius: 50%;
-            /* Round thumb */
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 2px rgba(0, 0, 0, .5);
         }
 
         #volumeSlider::-moz-range-thumb {
@@ -256,17 +248,33 @@
             background: #eee;
             cursor: pointer;
             border-radius: 50%;
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+        }
+        /* 移动端 (max-width: 768px) */
+        @media screen and (max-width: 768px) {
+            #secondaryTextContainer>div {
+                font-size: 25vh;
+            }
+            #thirdTextContainer>div {
+                font-size: 25vh;
+            }
+            #lyricsContainer {
+                font-size: 3.5vh;
+            }
         }
     </style>
 </head>
 
 <body>
     <button id="startButton">地獄のユミル</button>
-    <div id="animationCanvas"></div>
+    <canvas id="animationCanvas"></canvas>
     <div id="secondaryTextContainer">
         <div id="secondaryTextTop"></div>
         <div id="secondaryTextBottom"></div>
+    </div>
+    <div id="thirdTextContainer">
+        <div id="thirdTextTop"><span></span></div>
+        <div id="thirdTextBottom"><span></span></div>
     </div>
     <div id="lyricsContainer"></div>
     <div id="controlBar">
@@ -277,309 +285,862 @@
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
     </div>
     <audio id="audioPlayer" src="media/music/紅蓮の弓矢 - Linked Horizon.mp3" preload="auto"></audio>
+
     <script>
+        // --- 全局变量与常量定义 ---
         const startButton = document.getElementById('startButton');
         const audioPlayer = document.getElementById('audioPlayer');
-        const lyricsContainer = document.getElementById('lyricsContainer'); // 主歌词容器
-        const secondaryTextContainer = document.getElementById('secondaryTextContainer'); // Secondary父容器
-        const secondaryTextTop = document.getElementById('secondaryTextTop'); // 新增：Secondary顶部容器
-        const secondaryTextBottom = document.getElementById('secondaryTextBottom'); // 新增：Secondary底部容器
+        const lyricsContainer = document.getElementById('lyricsContainer');
+        const secondaryTextTop = document.getElementById('secondaryTextTop');
+        const secondaryTextBottom = document.getElementById('secondaryTextBottom');
         const timeDisplay = document.getElementById('timeDisplay');
-        const animationCanvas = document.getElementById('animationCanvas'); // 动画画布
         const progressBarContainer = document.getElementById('progressBarContainer');
         const progressBar = document.getElementById('progressBar');
         const volumeSlider = document.getElementById('volumeSlider');
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
 
-        // --- Config ---
-        // Verify these paths carefully!
-        const LYRICS_FILE = 'media/music/紅蓮の弓矢.ass'; // 主歌词文件
-        const SECONDARY_LYRICS_FILE = 'media/music/紅蓮の弓矢_big.ass'; // 新增：第二个ass文件路径
-        // Removed ANIMATION_FILE
-        // -------------
+        const thirdTextTop = document.getElementById('thirdTextTop');
+        const thirdTextBottom = document.getElementById('thirdTextBottom');
+        let thirdTextTopSpan, thirdTextBottomSpan; // Will hold the inner span elements for scrolling
+        let currentThirdTopText = "";    // To track changes for top scrolling text
+        let currentThirdBottomText = ""; // To track changes for bottom scrolling text
+        const SCROLL_SPEED_PIXELS_PER_SECOND = 3000; // Adjust speed as needed
 
-        let lyricsData = []; // 主歌词数据
-        let secondaryLyricsData = []; // 新增：第二个ass的数据
-        // Removed animationData, pixelElements, activeAnimationPixels
-        let currentLyricIndices = []; // 主歌词当前索引
-        // Removed currentSecondaryLyricIndices as we track separately for top/bottom or compare output strings
-        let audioDuration = 0;
+        // 歌词文件路径
+        const LYRICS_FILE = 'media/music/紅蓮の弓矢.ass';
+        const SECONDARY_LYRICS_FILE = 'media/music/紅蓮の弓矢_big.ass'; // 用于动画触发和次要文本
 
-        // --- Time Conversion Utilities ---
+        // 数据存储
+        let lyricsData = [];             // 主歌词数据
+        let secondaryLyricsData = [];    // 次要文本/动画指令数据
+        let currentLyricIndices = [];    // 当前活动主歌词的索引
+        let audioDuration = 0;           // 音频总时长
+        let activeAnimations = [];       // 当前活动的动画对象数组
+        let animationFrameId = null;     // requestAnimationFrame 的ID，用于取消
+
+        // 动画效果参数
+        const ARROW_DRAW_SCALE = 8.0;
+        const ARROW_TOTAL_DRAWING_UNITS_FROM_TIP = 200;
+        const ARROW_VISUAL_LENGTH = ARROW_TOTAL_DRAWING_UNITS_FROM_TIP * ARROW_DRAW_SCALE; // 箭矢的总视觉长度
+        const ARROW_FLIGHT_DURATION_SECONDS = 0.2;         // 箭矢单次飞行所需时间（秒）
+        const CRACK_LIFETIME_SECONDS = 0.5;                // 单个裂纹特效的持续时间（秒）
+        const NUM_CRACKS_PER_ARROW = 10;                    // 每次箭矢飞行后产生的裂纹数量
+        const CRACK_SPAWN_DELAY_SECONDS = 0.05;            // 箭矢飞行结束后，延迟多久开始生成裂纹（秒）
+        const MULTI_SHOT_INTERVAL_SECONDS = 0.08; // 用于“Y”模式下，每支箭的发射间隔（秒）
+        const C_SHAFT_MAIN = '#787878';         // 箭杆主色 (中灰)
+        const C_SHAFT_HIGHLIGHT = '#A0A0A0';    // 箭杆高光 (亮灰)
+        const C_HEAD_MAIN = '#606060';          // 箭头主色 (深灰)
+        const C_HEAD_EDGE = '#D0D0D0';          // 箭头边缘/高光 (很亮的灰色，近乎白色)
+        const C_HEAD_OUTLINE = '#282828';       // 箭头轮廓线 (深黑灰)
+        const C_FEATHER_MAIN = '#BDBDBD';       // 羽毛主色 (浅灰)
+        const C_FEATHER_LINES = '#505050';      // 羽毛纹理/边缘线 (暗灰)
+        const C_NOCK = '#404040';               // 箭尾卡弦处 (深灰)
+        // --- 工具函数 ---
+
+        /**
+         * 解析 ASS 时间字符串 (例如 "0:01:02.34") 为秒
+         * @param {string} timeStr ASS格式的时间字符串
+         * @returns {number} 总秒数
+         */
         function parseAssTime(timeStr) {
-            const parts = timeStr.split(':'); const ssms = parts[2].split('.');
-            const hours = parseInt(parts[0], 10); const minutes = parseInt(parts[1], 10);
-            const seconds = parseInt(ssms[0], 10); const centiseconds = parseInt(ssms[1], 10);
-            return hours * 3600 + minutes * 60 + seconds + centiseconds / 100;
+            const parts = timeStr.split(':');
+            const ssms = parts[2].split('.');
+            return parseInt(parts[0], 10) * 3600 + parseInt(parts[1], 10) * 60 + parseInt(ssms[0], 10) + parseInt(ssms[1], 10) / 100;
         }
-        // Removed parseSrtTime
+
+        /**
+         * 将秒数格式化为 "mm:ss:cc" (分:秒:百分之一秒) 格式
+         * @param {number} seconds 总秒数
+         * @returns {string} 格式化后的时间字符串
+         */
         function formatTime(seconds) {
-            if (typeof seconds !== 'number' || !isFinite(seconds)) { return '00:00:00'; }
-            const totalMilliseconds = Math.floor(seconds * 1000);
-            const ms = String(totalMilliseconds % 1000).padStart(3, '0').substring(0, 2);
-            const totalSeconds = Math.floor(seconds);
-            const s = String(totalSeconds % 60).padStart(2, '0');
-            const m = String(Math.floor(totalSeconds / 60) % 60).padStart(2, '0');
+            if (typeof seconds !== 'number' || !isFinite(seconds)) return '00:00:00';
+            const ms = String(Math.floor(seconds * 1000) % 1000).padStart(3, '0').substring(0, 2);
+            const s = String(Math.floor(seconds) % 60).padStart(2, '0');
+            const m = String(Math.floor(seconds / 60) % 60).padStart(2, '0');
             return `${m}:${s}:${ms}`;
         }
 
-        // --- Data Loading ---
-        // Modified to also store the style field
-        async function loadLyrics(file, targetArray) {
+        // --- 数据加载 ---
+
+        /**
+         * 异步加载并解析 ASS 歌词文件
+         * @param {string} file 文件路径
+         * @param {'lyrics' | 'secondary'} targetArrayType 数据存入的目标数组类型
+         */
+        async function loadLyrics(file, targetArrayType) {
             try {
                 const response = await fetch(file);
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${file}`);
-                const assText = await response.text(); const lines = assText.split(/\r?\n/);
-                let isEventsSection = false; const rawData = [];
+                const assText = await response.text();
+                const lines = assText.split(/\r?\n/);
+                let isEventsSection = false;
+                const rawData = [];
                 for (const line of lines) {
                     if (line.trim().toLowerCase() === '[events]') { isEventsSection = true; continue; }
                     if (line.trim().startsWith('[')) { isEventsSection = false; continue; }
                     if (isEventsSection && line.toLowerCase().startsWith('dialogue:')) {
                         const parts = line.substring(9).split(',');
                         if (parts.length >= 10) {
+                            const layer = parts[0].trim(); // <<< ADD THIS LINE to get the layer
                             const startTime = parseAssTime(parts[1].trim());
                             const endTime = parseAssTime(parts[2].trim());
-                            const style = parts[3].trim(); // 获取Style字段
+                            const style = parts[3].trim();
+                            const actor = parts[4].trim(); // ASS中的Name字段，角色名
                             const text = parts.slice(9).join(',');
                             if (startTime < endTime) {
-                                rawData.push({ startTime, endTime, text, style }); // 存储style
+                                // VVV MODIFY THIS LINE to include layer VVV
+                                rawData.push({ startTime, endTime, text, style, actor, layer });
                             }
                         }
                     }
                 }
-                // Assign data to the correct array based on the target
-                if (targetArray === 'lyrics') {
-                    lyricsData = rawData.sort((a, b) => a.startTime - b.startTime);
-                    console.log(`Loaded ${lyricsData.length} main lyric entries.`); // Log count
-                } else if (targetArray === 'secondary') {
-                    secondaryLyricsData = rawData.sort((a, b) => a.startTime - b.startTime);
-                    console.log(`Loaded ${secondaryLyricsData.length} secondary text entries.`); // Log count
-                }
+                if (targetArrayType === 'lyrics') lyricsData = rawData.sort((a, b) => a.startTime - b.startTime);
+                else if (targetArrayType === 'secondary') secondaryLyricsData = rawData.sort((a, b) => a.startTime - b.startTime);
+                console.log(`[资源加载] 成功加载 ${rawData.length} 条目 (${targetArrayType}) 来自 ${file}`);
             } catch (error) {
-                console.error(`Failed to load or parse ${file}:`, error);
-                // Handle error display appropriately
-                if (targetArray === 'lyrics' && lyricsContainer) lyricsContainer.innerHTML = '无法加载主歌词';
-                if (targetArray === 'secondary') {
-                    const errorMsg = '无法加载次要文本';
-                    if (secondaryTextTop) secondaryTextTop.innerHTML = errorMsg;
-                    if (secondaryTextBottom) secondaryTextBottom.innerHTML = errorMsg;
-                }
-                throw error; // Re-throw to let Promise.allSettled know it failed
+                console.error(`[资源加载] 加载文件 ${file} 失败:`, error);
+                if (targetArrayType === 'lyrics' && lyricsContainer) lyricsContainer.innerHTML = '无法加载主歌词';
+                if (targetArrayType === 'secondary' && secondaryTextTop) secondaryTextTop.innerHTML = '无法加载次要文本';
             }
         }
 
+        // --- UI 更新函数 ---
 
-        // --- Update Logic ---
+        /** 更新主歌词显示 */
         function updateLyrics(currentTime) {
-            // Ensure lyricsContainer element exists before trying to update it
             if (!lyricsContainer) return;
-
-            const activeLyrics = [];
-            let changed = false;
-            const newActiveIndices = [];
+            const activeLyrics = []; let changed = false; const newActiveIndices = [];
             for (let i = 0; i < lyricsData.length; i++) {
                 const lyric = lyricsData[i];
                 if (currentTime >= lyric.startTime && currentTime < lyric.endTime) {
-                    activeLyrics.push(lyric.text);
-                    newActiveIndices.push(i);
+                    activeLyrics.push(lyric.text); newActiveIndices.push(i);
                 }
             }
-            // Check if the set of active lyrics has changed
             if (newActiveIndices.length !== currentLyricIndices.length || newActiveIndices.some((val, idx) => val !== currentLyricIndices[idx])) {
-                changed = true;
-                currentLyricIndices = newActiveIndices;
+                changed = true; currentLyricIndices = newActiveIndices;
             }
-
-            if (changed) {
-                lyricsContainer.innerHTML = activeLyrics.join('<br>');
-            }
-            // Optional: Clear container if no active lyrics and it's not already empty
-            if (activeLyrics.length === 0 && lyricsContainer.innerHTML !== '') {
-                lyricsContainer.innerHTML = '';
-            }
+            if (changed) lyricsContainer.innerHTML = activeLyrics.join('<br>');
+            if (activeLyrics.length === 0 && lyricsContainer.innerHTML !== '') lyricsContainer.innerHTML = '';
         }
 
-        // 新增：更新第二个文字展示层的内容，根据Style分发到顶部或底部
+        /** 更新顶部和底部的次要文本（大号背景字） */
         function updateSecondaryText(currentTime) {
-            // Ensure secondary text elements exist
             if (!secondaryTextTop || !secondaryTextBottom) return;
-
-            const activeTopText = [];
-            const activeBottomText = [];
-
+            const activeTopText = []; const activeBottomText = [];
             for (let i = 0; i < secondaryLyricsData.length; i++) {
                 const entry = secondaryLyricsData[i];
                 if (currentTime >= entry.startTime && currentTime < entry.endTime) {
-                    // 根据Style字段判断显示位置
-                    if (entry.style.toLowerCase() === 'japanese') { // Style "Japanese" goes to top
+                    const trimmedStyle = entry.style ? entry.style.trim() : ''; // 获取并清理style字符串
+                    // 如果 Style 字段是 'y' 或 'Y'（忽略大小写），则此行为动画触发指令，不显示为文本
+                    if (trimmedStyle.toLowerCase() === 'y') { // 同时处理 'y' 和 'Y'
+                        continue;
+                    }
+                    // 根据 Style 字段（非'y'/'Y'时）决定文本位置
+                    if (entry.style.toLowerCase() === 'japanese') {
                         activeTopText.push(entry.text);
-                    } else if (entry.style.toLowerCase() === 'chinese') { // Style "Chinese" goes to bottom
+                    } else if (entry.style.toLowerCase() === 'chinese') {
                         activeBottomText.push(entry.text);
                     }
-                    // 如果有其他Style，可以根据需要添加 else if 或忽略
                 }
             }
-
-            // Check if content for top container has changed before updating
             const newTopContent = activeTopText.join('<br>');
-            if (secondaryTextTop.innerHTML !== newTopContent) {
-                secondaryTextTop.innerHTML = newTopContent;
+            if (secondaryTextTop.innerHTML !== newTopContent) secondaryTextTop.innerHTML = newTopContent;
+            const newBottomContent = activeBottomText.join('<br>');
+            if (secondaryTextBottom.innerHTML !== newBottomContent) secondaryTextBottom.innerHTML = newBottomContent;
+        }
+
+        /** Updates all text displays: secondary (static) and third (scrolling) */
+        function updateTextDisplays(currentTime) {
+            // --- Update Secondary Text (Non-layer "9", non-animation triggers) ---
+            if (secondaryTextTop && secondaryTextBottom) {
+                const activeTopSecondary = [];
+                const activeBottomSecondary = [];
+                for (let i = 0; i < secondaryLyricsData.length; i++) {
+                    const entry = secondaryLyricsData[i];
+                    if (currentTime >= entry.startTime && currentTime < entry.endTime) {
+                        const style = entry.style ? entry.style.trim().toLowerCase() : '';
+                        // Ensure it's NOT an animation trigger AND layer is NOT "9"
+                        if (style !== 'y' && style !== 'Y' && entry.layer !== '9') {
+                            if (style === 'japanese') {
+                                activeTopSecondary.push(entry.text);
+                            } else if (style === 'chinese') {
+                                activeBottomSecondary.push(entry.text);
+                            }
+                        }
+                    }
+                }
+                const newTopSecContent = activeTopSecondary.join('<br>');
+                if (secondaryTextTop.innerHTML !== newTopSecContent) secondaryTextTop.innerHTML = newTopSecContent;
+                const newBottomSecContent = activeBottomSecondary.join('<br>');
+                if (secondaryTextBottom.innerHTML !== newBottomSecContent) secondaryTextBottom.innerHTML = newBottomSecContent;
+
+                if (activeTopSecondary.length === 0 && secondaryTextTop.innerHTML !== '') secondaryTextTop.innerHTML = '';
+                if (activeBottomSecondary.length === 0 && secondaryTextBottom.innerHTML !== '') secondaryTextBottom.innerHTML = '';
             }
 
-            // Check if content for bottom container has changed before updating
-            const newBottomContent = activeBottomText.join('<br>');
-            if (secondaryTextBottom.innerHTML !== newBottomContent) {
-                secondaryTextBottom.innerHTML = newBottomContent;
+            // --- Update Third Text (Layer "9", non-animation triggers, scrolling) ---
+            if (thirdTextTopSpan && thirdTextBottomSpan) {
+                const activeTopThird = [];
+                const activeBottomThird = [];
+                for (let i = 0; i < secondaryLyricsData.length; i++) {
+                    const entry = secondaryLyricsData[i];
+                    if (currentTime >= entry.startTime && currentTime < entry.endTime) {
+                        const style = entry.style ? entry.style.trim().toLowerCase() : '';
+                        // Ensure it's NOT an animation trigger AND layer IS "9"
+                        if (style !== 'y' && style !== 'Y' && entry.layer === '9') {
+                            if (style === 'japanese') { // Top (right-to-left scroll)
+                                activeTopThird.push(entry.text);
+                            } else if (style === 'chinese') { // Bottom (left-to-right scroll)
+                                activeBottomThird.push(entry.text);
+                            }
+                        }
+                    }
+                }
+
+                const newTopThirdTextContent = activeTopThird.join(' / '); // Join multiple lines for single scroll line
+                if (currentThirdTopText !== newTopThirdTextContent) {
+                    currentThirdTopText = newTopThirdTextContent;
+                    thirdTextTopSpan.textContent = currentThirdTopText;
+                    if (currentThirdTopText) {
+                        startScrolling(thirdTextTopSpan, thirdTextTop, 'rtl');
+                    } else {
+                        thirdTextTopSpan.style.animation = 'none';
+                    }
+                }
+                if (activeTopThird.length === 0 && thirdTextTopSpan.textContent !== '') { // Ensure clearing if no active text
+                    thirdTextTopSpan.textContent = '';
+                    thirdTextTopSpan.style.animation = 'none';
+                    currentThirdTopText = ""; // Reset tracker
+                }
+
+                const newBottomThirdTextContent = activeBottomThird.join(' / ');
+                if (currentThirdBottomText !== newBottomThirdTextContent) {
+                    currentThirdBottomText = newBottomThirdTextContent;
+                    thirdTextBottomSpan.textContent = currentThirdBottomText;
+                    if (currentThirdBottomText) {
+                        startScrolling(thirdTextBottomSpan, thirdTextBottom, 'ltr');
+                    } else {
+                        thirdTextBottomSpan.style.animation = 'none';
+                    }
+                }
+                if (activeBottomThird.length === 0 && thirdTextBottomSpan.textContent !== '') { // Ensure clearing
+                    thirdTextBottomSpan.textContent = '';
+                    thirdTextBottomSpan.style.animation = 'none';
+                    currentThirdBottomText = ""; // Reset tracker
+                }
             }
         }
 
-        // Removed updateAnimation
+        function startScrolling(spanElement, containerElement, direction) {
+            spanElement.style.animation = 'none'; // Reset animation to recalculate and restart
 
-        // --- Update Progress Bar ---
+            // Yield to the browser for a tick to apply the style reset and get correct offsetWidth
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => { // Double RAF to be safer for reflow
+                    const textWidth = spanElement.offsetWidth;
+                    const containerWidth = containerElement.offsetWidth;
+
+                    if (textWidth === 0 || containerWidth === 0) {
+                        spanElement.style.transform = 'translateX(0px)'; // Reset position if no text/width
+                        return;
+                    }
+
+                    const totalDistance = containerWidth + textWidth;
+                    const duration = totalDistance / SCROLL_SPEED_PIXELS_PER_SECOND;
+
+                    // Ensure a style sheet exists (the page has one inline)
+                    const styleSheet = document.styleSheets[0];
+                    if (!styleSheet) {
+                        console.error("Stylesheet not found for dynamic keyframes.");
+                        return;
+                    }
+
+                    let keyframesName, fromX, toX;
+
+                    if (direction === 'rtl') { // Right to Left (e.g., thirdTextTop)
+                        keyframesName = `scroll-rtl-${spanElement.parentElement.id}`;
+                        fromX = `${containerWidth}px`;
+                        toX = `-${textWidth}px`;
+                    } else { // Left to Right (e.g., thirdTextBottom)
+                        keyframesName = `scroll-ltr-${spanElement.parentElement.id}`;
+                        fromX = `-${textWidth}px`;
+                        toX = `${containerWidth}px`;
+                    }
+
+                    // Remove old keyframes if they exist with this name to redefine it
+                    for (let i = 0; i < styleSheet.cssRules.length; i++) {
+                        if (styleSheet.cssRules[i].type === CSSRule.KEYFRAMES_RULE && styleSheet.cssRules[i].name === keyframesName) {
+                            styleSheet.deleteRule(i);
+                            break;
+                        }
+                    }
+
+                    try {
+                        styleSheet.insertRule(`
+                            @keyframes ${keyframesName} {
+                                0% { transform: translateX(${fromX}); }
+                                100% { transform: translateX(${toX}); }
+                            }`, styleSheet.cssRules.length);
+                    } catch (e) {
+                        console.error("Failed to insert keyframe rule:", e);
+                        return;
+                    }
+
+                    spanElement.style.animationName = keyframesName;
+                    spanElement.style.animationDuration = `${duration}s`;
+                    spanElement.style.animationTimingFunction = 'linear';
+                    spanElement.style.animationIterationCount = 'infinite';
+                });
+            });
+        }
+
+        /** 更新播放进度条 */
         function updateProgressBar() {
             if (audioDuration > 0 && isFinite(audioDuration)) {
                 const progressPercentage = (audioPlayer.currentTime / audioDuration) * 100;
                 progressBar.style.width = `${progressPercentage}%`;
             } else {
-                if (progressBar.style.width !== '0%') { progressBar.style.width = '0%'; }
+                if (progressBar.style.width !== '0%') progressBar.style.width = '0%';
             }
         }
 
-        // --- Time Update Main Loop ---
+        // --- Canvas 动画相关函数 ---
+
+        /** 窗口大小改变时，重置Canvas尺寸并可能重定位动画元素 */
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            activeAnimations.forEach(anim => { // 如果动画Y坐标是基于画布高度计算的，则更新
+                if (anim.arrowYBase) anim.arrowY = canvas.height / 2;
+            });
+            // console.log(`[Canvas] Resized: ${canvas.width}x${canvas.height}`); // 可按需取消注释
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        /**
+         * 在Canvas上绘制美化后的箭矢 (修正 headBarbOffsetY 未定义错误, 箭杆加长，箭羽细节修正)
+         * @param {number} x 箭尖的横坐标 (箭矢指向左方)
+         * @param {number} y 箭的垂直中心线坐标
+         */
+        function drawArrow(x, y) {
+            ctx.save();
+            const scale = ARROW_DRAW_SCALE; // 使用全局定义的缩放比例
+
+            // --- 关键点定义 (基于x是箭头最尖端，箭头指向左方) ---
+            const headTipX = x;
+            const headBaseX = x + 22 * scale;
+            const arrowheadDefiningLength = headBaseX - headTipX; // 箭头从尖端到与箭杆连接处的“可见长度”
+
+            // !!!!! 修正：重新加入 headBarbX 和 headBarbOffsetY 的定义 !!!!!
+            const headBarbX = x + 28 * scale; // 箭头倒钩最后端X (从尖端x算起的偏移)
+            const headBarbOffsetY = 9 * scale; // 倒钩Y方向偏移
+
+            // 箭杆：从箭头根部开始
+            const shaftStartX = headBaseX;
+            const originalShaftDrawingUnits = (90 - 22);
+            const newShaftVisualDrawingUnits = originalShaftDrawingUnits * 1.4;
+            const shaftEndX = shaftStartX + (newShaftVisualDrawingUnits * scale);
+
+            const shaftWidth = 3.5 * scale;
+
+            // 箭羽（尾翼）：附着在箭杆尾部
+            const fletchingLength = 22 * scale;
+            const fletchingHeight = 11 * scale;
+            const fletchingAttachEndX = shaftEndX - 2 * scale;
+            const fletchingAttachStartX = fletchingAttachEndX - fletchingLength;
+
+            // --- 颜色常量 (确保这些已在脚本顶部定义) ---
+            // const C_SHAFT_MAIN = '#787878'; const C_SHAFT_HIGHLIGHT = '#A0A0A0';
+            // const C_HEAD_MAIN = '#606060'; const C_HEAD_EDGE = '#D0D0D0';
+            // const C_HEAD_OUTLINE = '#282828'; const C_FEATHER_MAIN = '#BDBDBD';
+            // const C_FEATHER_LINES = '#505050'; const C_NOCK = '#404040';
+
+            // --- 1. 绘制箭羽 (Fletching) ---
+            ctx.fillStyle = C_FEATHER_MAIN;
+            ctx.strokeStyle = C_FEATHER_LINES;
+            ctx.lineWidth = 0.7 * scale;
+
+            const drawSingleFeather = (angleDirection) => {
+                ctx.beginPath();
+                ctx.moveTo(fletchingAttachStartX, y);
+                ctx.lineTo(fletchingAttachStartX - 1 * scale, y + (fletchingHeight * 0.7) * angleDirection);
+                ctx.lineTo(fletchingAttachEndX + 2 * scale, y + fletchingHeight * angleDirection);
+                ctx.lineTo(fletchingAttachEndX, y);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                const numBarbLines = 4;
+                for (let i = 1; i <= numBarbLines; i++) {
+                    ctx.beginPath();
+                    const barbProgress = i / (numBarbLines + 1);
+                    const lineStartX = fletchingAttachStartX + (fletchingLength) * barbProgress;
+                    const lineStartY = y + (2 * scale * angleDirection);
+                    const outerFrontX = fletchingAttachStartX - 1 * scale;
+                    const outerFrontY = y + (fletchingHeight * 0.7) * angleDirection;
+                    const outerRearX = fletchingAttachEndX + 2 * scale;
+                    const outerRearY = y + fletchingHeight * angleDirection;
+                    const lineEndX = outerFrontX + (outerRearX - outerFrontX) * barbProgress;
+                    const lineEndY = outerFrontY + (outerRearY - outerFrontY) * barbProgress;
+                    ctx.moveTo(lineStartX, lineStartY);
+                    ctx.lineTo(lineEndX, lineEndY);
+                    ctx.stroke();
+                }
+            };
+            drawSingleFeather(1);
+            drawSingleFeather(-1);
+
+            // --- 2. 绘制箭杆 (Shaft) ---
+            ctx.strokeStyle = C_SHAFT_MAIN;
+            ctx.lineWidth = shaftWidth;
+            ctx.beginPath(); ctx.moveTo(shaftStartX, y); ctx.lineTo(shaftEndX, y); ctx.stroke();
+            ctx.strokeStyle = C_SHAFT_HIGHLIGHT;
+            ctx.lineWidth = shaftWidth / 2.5;
+            ctx.beginPath(); ctx.moveTo(shaftStartX + 1 * scale, y - shaftWidth / 4.5);
+            ctx.lineTo(shaftEndX - 1 * scale, y - shaftWidth / 4.5); ctx.stroke();
+
+            ctx.fillStyle = C_NOCK; ctx.strokeStyle = C_HEAD_OUTLINE; ctx.lineWidth = 0.5 * scale;
+            ctx.beginPath(); const nockWidth = 2 * scale; const nockHeight = shaftWidth * 1.1;
+            ctx.rect(shaftEndX - nockWidth / 2, y - nockHeight / 2, nockWidth, nockHeight);
+            ctx.fill(); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(shaftEndX + 0.5 * scale, y - nockHeight * 0.2);
+            ctx.lineTo(shaftEndX + 0.5 * scale, y + nockHeight * 0.2);
+            ctx.lineWidth = 1 * scale; ctx.strokeStyle = C_SHAFT_MAIN; ctx.stroke();
+
+            // --- 3. 绘制箭头 (Arrowhead) ---
+            ctx.beginPath();
+            ctx.moveTo(headTipX, y);
+            ctx.lineTo(headTipX + arrowheadDefiningLength * 0.4, y - headBarbOffsetY * 0.5);
+            ctx.lineTo(headBarbX, y - headBarbOffsetY);
+            ctx.lineTo(headBaseX, y);
+            ctx.lineTo(headBarbX, y + headBarbOffsetY);
+            ctx.lineTo(headTipX + arrowheadDefiningLength * 0.4, y + headBarbOffsetY * 0.5);
+            ctx.closePath();
+            ctx.fillStyle = C_HEAD_MAIN;
+            ctx.fill();
+
+            ctx.strokeStyle = C_HEAD_EDGE; ctx.lineWidth = 1.2 * scale;
+            ctx.beginPath(); ctx.moveTo(headTipX, y);
+            ctx.lineTo(headBaseX - 3 * scale, y - shaftWidth * 0.1); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(headTipX, y);
+            ctx.lineTo(headBaseX - 3 * scale, y + shaftWidth * 0.1); ctx.stroke();
+            ctx.strokeStyle = C_HEAD_EDGE; ctx.lineWidth = 0.8 * scale;
+            ctx.beginPath(); ctx.moveTo(headTipX + 2 * scale, y);
+            ctx.lineTo(headBaseX, y); ctx.stroke();
+            ctx.strokeStyle = C_HEAD_OUTLINE; ctx.lineWidth = 0.7 * scale;
+            ctx.beginPath(); ctx.moveTo(headTipX, y);
+            ctx.lineTo(headTipX + arrowheadDefiningLength * 0.4, y - headBarbOffsetY * 0.5);
+            ctx.lineTo(headBarbX, y - headBarbOffsetY); ctx.lineTo(headBaseX, y);
+            ctx.lineTo(headBarbX, y + headBarbOffsetY);
+            ctx.lineTo(headTipX + arrowheadDefiningLength * 0.4, y + headBarbOffsetY * 0.5);
+            ctx.closePath(); ctx.stroke();
+
+            ctx.restore();
+        }
+
+        /**
+         * 创建一个裂纹动画对象
+         * @param {number} startX 裂纹起始X坐标
+         * @param {number} startY 裂纹起始Y坐标
+         * @param {string} animationId 父动画的ID (未使用，但保留结构)
+         * @param {number} crackStartTime 裂纹效果的精确开始时间 (基于音频播放时间)
+         * @param {number} crackLifetime 裂纹效果的持续时间 (秒)
+         * @returns {object} 裂纹对象
+         */
+        function createCrack(startX, startY, animationId, crackStartTime, crackLifetime) {
+            const crack = { id: `crack_${Date.now()}_${Math.random()}`, animationId, segments: [], life: crackLifetime, startTime: crackStartTime, originalY: startY, shakeIntensity: 2.5 + Math.random() * 3, shakeToggleTime: .04 + Math.random() * .03, lastShakeToggle: crackStartTime, currentShakeY: 0, opacity: .6 + Math.random() * .2, };
+            let cX = startX, cSY = startY; const nS = 4 + Math.floor(Math.random() * 4), cML = 50 + Math.random() * 70;
+            for (let i = 0; i < nS; i++) { const a = (Math.random() - .5) * (Math.PI / 2.5), l = (cML / nS) * (.7 + Math.random() * .6); const eX = cX - Math.cos(a) * l * (.6 + Math.random() * .8), eY = cSY + Math.sin(a) * l; crack.segments.push({ x1: cX, y1: cSY, x2: eX, y2: eY }); cX = eX; cSY = eY }
+            return crack;
+        }
+
+        /**
+         * 在Canvas上绘制单个裂纹
+         * @param {object} crack 裂纹对象
+         * @param {number} currentTime 当前音频播放时间
+         */
+        function drawCrack(crack, currentTime) {
+            const timeAlive = currentTime - crack.startTime;
+            if (timeAlive < 0 || timeAlive >= crack.life) return; // 如果裂纹未到显示时间或已结束，则不绘制
+            ctx.save(); let sOY = crack.currentShakeY || 0;
+            if (timeAlive < crack.life * .6) { if (currentTime - crack.lastShakeToggle > crack.shakeToggleTime) { crack.currentShakeY = (Math.random() - .5) * crack.shakeIntensity; crack.lastShakeToggle = currentTime } } else { crack.currentShakeY = 0 }
+            ctx.beginPath(); crack.segments.forEach(s => { ctx.moveTo(s.x1, s.y1 + sOY); ctx.lineTo(s.x2, s.y2 + sOY) });
+            const cO = Math.max(0, (crack.life - timeAlive) / crack.life) * crack.opacity;
+            ctx.strokeStyle = `rgba(220,220,220,${cO})`; ctx.lineWidth = .8 + Math.random() * 1.5; ctx.stroke();
+            ctx.restore();
+        }
+
+        /**
+         * 核心动画更新与绘制函数 (箭矢和裂纹)
+         * @param {number} currentTime 当前音频播放时间
+         */
+        function updateArrowAnimations(currentTime) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 每帧开始前清空画布
+
+            // 步骤1: 管理 activeAnimations 数组中的动画对象实例及其状态
+            secondaryLyricsData.forEach(entry => {
+                const trimmedStyle = entry.style ? entry.style.trim() : ''; // 获取并清理style字符串
+
+                // 仅处理 'y' 或 'Y' 作为 Style 的动画触发指令
+                if (trimmedStyle.toLowerCase() === 'y') { // 同时处理 'y' 和 'Y'
+                    const animationId = `arrow_${entry.startTime.toFixed(2)}_${entry.endTime.toFixed(2)}`;
+                    let anim = activeAnimations.find(a => a.id === animationId);
+
+                    if (currentTime >= entry.startTime && currentTime < entry.endTime) { // 当前时间在此动画条目的有效期内
+                        if (!anim) { // 如果是新的动画条目，或因seek后被清理，则创建动画主实例
+                            anim = {
+                                id: animationId,
+                                assStartTime: entry.startTime,      // ASS中定义的开始时间
+                                assEndTime: entry.endTime,          // ASS中定义的结束时间
+                                arrowY: canvas.height / 2,        // 箭矢Y坐标固定在屏幕中线
+                                arrowYBase: true,                 // 标记Y坐标基于画布高度，用于resize
+                                arrowStartX: canvas.width + 50,   // 箭矢初始X坐标 (屏幕右侧外)
+                                arrowTargetX: -ARROW_VISUAL_LENGTH - 50, // 箭矢目标X坐标 (确保整个箭矢飞出屏幕左侧)
+                                isMultiShot: (trimmedStyle === 'Y'), // 根据Style是否为大写Y判断是否为多重射击
+                            };
+                            if (anim.isMultiShot) { // 多重射击特定属性
+                                anim.shotInterval = MULTI_SHOT_INTERVAL_SECONDS; // 设置发射间隔
+                                anim.lastShotTime = entry.startTime - anim.shotInterval; // 允许立即发射第一支（或接近立即）
+                                anim.individualFlights = []; // 存储每一支独立飞行的箭的状态
+                            } else { // 单次射击 ('y') 特定属性
+                                anim.hasFiredThisFlight = false;        // 此ASS时间段内，0.2秒的飞行是否已触发过
+                                anim.actualFlightStartTime = 0;         // 0.2秒飞行的精确开始时刻
+                                anim.flightCompleted = false;           // 0.2秒飞行是否已完成
+                                anim.arrowFlightCompletedTime = 0;      // 0.2秒飞行完成的精确时刻
+                                anim.cracksGenerated = false;           // 此飞行关联的裂纹是否已生成
+                                anim.cracks = [];                       // 存储裂纹对象
+                            }
+                            activeAnimations.push(anim);
+                        }
+
+                        // 动画触发逻辑
+                        if (anim.isMultiShot) { // 如果是多重射击模式
+                            if (currentTime >= anim.lastShotTime + anim.shotInterval) {
+                                // console.log(`[多重射击] 为 ${anim.id} 发射新箭矢于 ${currentTime.toFixed(3)}`);
+                                const subFlight = { // 创建一支子箭矢的飞行状态对象
+                                    subId: `${anim.id}_sub_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+                                    actualFlightStartTime: currentTime,
+                                    flightCompleted: false,
+                                    arrowFlightCompletedTime: 0,
+                                    arrowCurrentX: anim.arrowStartX, // 继承主设定的起点X
+                                    cracksGenerated: false,
+                                    cracks: []
+                                };
+                                anim.individualFlights.push(subFlight);
+                                anim.lastShotTime = currentTime; // 更新最后发射时间
+                            }
+                        } else { // 如果是单次射击模式 ('y')
+                            if (!anim.hasFiredThisFlight) { // 如果本次ASS时间段的飞行尚未触发
+                                // console.log(`[单次射击] 为 ${anim.id} 触发飞行于 ${currentTime.toFixed(3)}`);
+                                anim.hasFiredThisFlight = true; anim.actualFlightStartTime = currentTime;
+                                anim.flightCompleted = false; anim.cracksGenerated = false;
+                                anim.arrowCurrentX = anim.arrowStartX; anim.cracks = [];
+                            }
+                        }
+                    } else { // 当前时间不在此动画条目的有效期内
+                        if (anim) { // 如果此动画实例之前存在
+                            if (!anim.isMultiShot) { // 单次射击的，重置其飞行触发标记
+                                anim.hasFiredThisFlight = false; anim.flightCompleted = false; anim.cracksGenerated = false;
+                            }
+                            // 对于多重射击 (isMultiShot为true), 当其父级ASS时间段结束后，
+                            // 不会再生成新的 individualFlights。已有的 individualFlights 会继续播放完毕。
+                            // 主anim对象会在下面的循环中，当条件满足时（如assEndTime过期且无子飞行）被移除。
+                        }
+                    }
+                }
+            });
+
+            // 步骤2: 遍历当前所有活动的动画实例 (activeAnimations)，更新并绘制它们
+            for (let i = activeAnimations.length - 1; i >= 0; i--) {
+                const anim = activeAnimations[i];
+
+                // ----- 主动画对象生命周期管理 -----
+                // A. 如果是多重射击动画，并且其ASS时间段已过，且所有内部箭矢都已播放完毕，则移除主动画对象
+                if (anim.isMultiShot && currentTime >= anim.assEndTime && anim.individualFlights.length === 0) {
+                    activeAnimations.splice(i, 1);
+                    continue;
+                }
+                // B. 如果是单次射击动画，且其ASS时间段已过(或早于开始)，则移除主动画对象
+                if (!anim.isMultiShot && (currentTime >= anim.assEndTime || currentTime < anim.assStartTime)) {
+                    activeAnimations.splice(i, 1);
+                    continue;
+                }
+                // C. 如果是多重射击，但ASS时间段未过，或者还有子箭矢在飞，则不在此处移除主动画对象
+
+                // ----- 根据动画类型进行处理 -----
+                if (anim.isMultiShot) {
+                    // ----- 处理多重射击中的每一支独立箭矢 (subFlight) -----
+                    for (let j = anim.individualFlights.length - 1; j >= 0; j--) {
+                        const subFlight = anim.individualFlights[j];
+                        let allEffectsForThisSubFlightDone = true; // 先假设此子箭矢的所有效果都结束了
+
+                        // 1. 更新和绘制当前子箭矢的飞行
+                        if (!subFlight.flightCompleted) {
+                            allEffectsForThisSubFlightDone = false; // 标记效果未结束
+                            const elapsed = currentTime - subFlight.actualFlightStartTime;
+                            let progress = (ARROW_FLIGHT_DURATION_SECONDS > 0) ? Math.min(1, elapsed / ARROW_FLIGHT_DURATION_SECONDS) : 1;
+                            subFlight.arrowCurrentX = anim.arrowStartX + (anim.arrowTargetX - anim.arrowStartX) * progress;
+                            drawArrow(subFlight.arrowCurrentX, anim.arrowY); // 使用父anim的Y坐标和通用的起止X
+                            if (progress >= 1) {
+                                subFlight.flightCompleted = true;
+                                subFlight.arrowFlightCompletedTime = subFlight.actualFlightStartTime + ARROW_FLIGHT_DURATION_SECONDS;
+                            }
+                        }
+
+                        // 2. 为当前子箭矢生成裂纹
+                        if (subFlight.flightCompleted && !subFlight.cracksGenerated && currentTime >= subFlight.arrowFlightCompletedTime + CRACK_SPAWN_DELAY_SECONDS) {
+                            const cZSX = canvas.width * 0.9, cZEX = canvas.width * 0.1, cZL = cZSX - cZEX;
+                            for (let k = 0; k < NUM_CRACKS_PER_ARROW; k++) {
+                                const cSX = cZSX - (Math.random() * cZL); const cAST = subFlight.arrowFlightCompletedTime + CRACK_SPAWN_DELAY_SECONDS;
+                                subFlight.cracks.push(createCrack(cSX, anim.arrowY + (Math.random() * 60 - 30), subFlight.subId, cAST, CRACK_LIFETIME_SECONDS));
+                            }
+                            subFlight.cracksGenerated = true;
+                        }
+
+                        // 3. 更新和绘制当前子箭矢的裂纹
+                        if (subFlight.cracks.length > 0) allEffectsForThisSubFlightDone = false; // 如果还有裂纹，则效果未结束
+                        for (let k = subFlight.cracks.length - 1; k >= 0; k--) {
+                            const crack = subFlight.cracks[k];
+                            if (currentTime < crack.startTime || currentTime >= crack.startTime + crack.life) {
+                                subFlight.cracks.splice(k, 1);
+                            } else {
+                                drawCrack(crack, currentTime);
+                            }
+                        }
+
+                        // 4. 判断此子箭矢的所有效果是否都已结束，以便清理
+                        // （飞行完成 & 裂纹已生成过(或无需生成) & 当前没有活动裂纹了）
+                        if (subFlight.flightCompleted && subFlight.cracksGenerated && subFlight.cracks.length === 0) {
+                            // allEffectsForThisSubFlightDone 已经是 true
+                        } else if (!subFlight.flightCompleted || !subFlight.cracksGenerated || subFlight.cracks.length > 0) {
+                            allEffectsForThisSubFlightDone = false; // 只要有任何一部分未完成，都不能算结束
+                        }
+
+                        // 5. 如果此子箭矢的所有效果都已彻底结束 (加上一个小缓冲时间确保显示完整)，则从数组中移除
+                        const safetyBufferForEffectEnd = 0.2;
+                        if (allEffectsForThisSubFlightDone &&
+                            currentTime > subFlight.arrowFlightCompletedTime + CRACK_SPAWN_DELAY_SECONDS + CRACK_LIFETIME_SECONDS + safetyBufferForEffectEnd) {
+                            anim.individualFlights.splice(j, 1);
+                        }
+                    }
+                } else {
+                    // ----- 处理单次射击 'y' 的逻辑 -----
+                    if (anim.hasFiredThisFlight && !anim.flightCompleted) {
+                        const elapsed = currentTime - anim.actualFlightStartTime;
+                        let progress = (ARROW_FLIGHT_DURATION_SECONDS > 0) ? Math.min(1, elapsed / ARROW_FLIGHT_DURATION_SECONDS) : 1;
+                        anim.arrowCurrentX = anim.arrowStartX + (anim.arrowTargetX - anim.arrowStartX) * progress;
+                        drawArrow(anim.arrowCurrentX, anim.arrowY);
+                        if (progress >= 1) {
+                            anim.flightCompleted = true;
+                            anim.arrowFlightCompletedTime = anim.actualFlightStartTime + ARROW_FLIGHT_DURATION_SECONDS;
+                        }
+                    }
+                    if (anim.flightCompleted && !anim.cracksGenerated && currentTime >= anim.arrowFlightCompletedTime + CRACK_SPAWN_DELAY_SECONDS) {
+                        const cZSX = canvas.width * 0.9, cZEX = canvas.width * 0.1, cZL = cZSX - cZEX;
+                        for (let j = 0; j < NUM_CRACKS_PER_ARROW; j++) {
+                            const cSX = cZSX - (Math.random() * cZL); const cAST = anim.arrowFlightCompletedTime + CRACK_SPAWN_DELAY_SECONDS;
+                            anim.cracks.push(createCrack(cSX, anim.arrowY + (Math.random() * 60 - 30), anim.id, cAST, CRACK_LIFETIME_SECONDS));
+                        }
+                        anim.cracksGenerated = true;
+                    }
+                    for (let j = anim.cracks.length - 1; j >= 0; j--) { const crack = anim.cracks[j]; if (currentTime < crack.startTime || currentTime >= crack.startTime + crack.life) { anim.cracks.splice(j, 1) } else { drawCrack(crack, currentTime) } }
+                }
+            }
+        }
+
+        /** requestAnimationFrame 驱动的主动画循环 */
+        function animationGameLoop() {
+            // console.log(`[rAF] Tick. Paused: ${audioPlayer.paused}, Ended: ${audioPlayer.ended}, RS: ${audioPlayer.readyState}, Time: ${audioPlayer.currentTime.toFixed(3)}`); // 高频日志，通常注释掉
+            if (!audioPlayer.paused && !audioPlayer.ended && audioPlayer.readyState >= 2) { // audioPlayer.readyState >= 2 (HAVE_CURRENT_DATA) 通常是安全的
+                const currentTime = audioPlayer.currentTime;
+                updateArrowAnimations(currentTime); // 调用核心动画更新函数
+                animationFrameId = requestAnimationFrame(animationGameLoop); // 请求下一帧
+            } else {
+                // 如果音频未在播放状态，则停止动画循环
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+            }
+        }
+
+        // --- 音频事件与控制 ---
+
+        /** 音频播放时间更新时的回调 (不直接驱动箭矢动画，主要用于歌词、进度条等) */
         function onTimeUpdate() {
             const currentTime = audioPlayer.currentTime;
             timeDisplay.textContent = formatTime(currentTime);
-            updateLyrics(currentTime); // 更新主歌词
-            updateSecondaryText(currentTime); // 更新第二个文字层 (顶部和底部)
-            // Removed call to updateAnimation
+            updateLyrics(currentTime);
+            updateTextDisplays(currentTime); // <<< CHANGED HERE
             updateProgressBar();
         }
 
-        // --- Handle Progress Bar Click (Seeking) ---
-        function handleSeek(event) {
-            if (audioDuration > 0 && isFinite(audioDuration)) {
-                const rect = progressBarContainer.getBoundingClientRect();
-                const clickX = event.clientX - rect.left;
-                const containerWidth = progressBarContainer.offsetWidth;
-                const progressRatio = Math.max(0, Math.min(1, clickX / containerWidth));
-                const targetTime = progressRatio * audioDuration;
-
-                console.log(`Seeking to: ${formatTime(targetTime)} (${(progressRatio * 100).toFixed(1)}%)`); // Keep seek log
-                audioPlayer.currentTime = targetTime;
-
-                updateProgressBar(); // Immediately update visuals
-                updateLyrics(targetTime); // 寻求后更新主歌词
-                updateSecondaryText(targetTime); // 寻求后更新第二个文字层
-                // Removed call to updateAnimation
-            } else {
-                console.warn("Cannot seek: Audio duration is not valid or available yet. Duration:", audioDuration); // Keep warning
-            }
-        }
-
-        // --- Event Listeners ---
+        // 开始按钮点击事件
         startButton.addEventListener('click', () => {
-            startButton.style.opacity = '0';
-            startButton.style.pointerEvents = 'none';
-            startButton.classList.add('hidden');
+            console.log("[事件] 开始按钮点击。");
+            startButton.style.opacity = '0'; startButton.classList.add('hidden'); startButton.style.pointerEvents = 'none';
 
             audioPlayer.play().then(() => {
-                audioPlayer.addEventListener('timeupdate', onTimeUpdate);
+                console.log("[事件] 音频 play() 成功。");
+                audioPlayer.addEventListener('timeupdate', onTimeUpdate); // 添加非动画UI更新的监听
+
+                console.log("[动画循环] 尝试从startButton启动 animationGameLoop。");
+                if (animationFrameId) { cancelAnimationFrame(animationFrameId); animationFrameId = null; } // 安全起见，先停止旧的
+                animationFrameId = requestAnimationFrame(animationGameLoop); // 启动动画循环
+                console.log("[动画循环] 已请求新的 animationFrameId:", animationFrameId);
+
+                // 音频播放结束事件
                 audioPlayer.addEventListener('ended', () => {
-                    console.log("Audio playback ended."); // Keep end log
+                    console.log("[事件] 音频播放结束。");
                     audioPlayer.removeEventListener('timeupdate', onTimeUpdate);
+                    if (animationFrameId) { console.log("[动画循环] 因音频结束而取消 rAF:", animationFrameId); cancelAnimationFrame(animationFrameId); animationFrameId = null; }
                     progressBar.style.width = '100%';
-                    // 清空所有文字层
-                    if (lyricsContainer) lyricsContainer.innerHTML = '';
-                    if (secondaryTextTop) secondaryTextTop.innerHTML = '';
-                    if (secondaryTextBottom) secondaryTextBottom.innerHTML = '';
+                    if (lyricsContainer) lyricsContainer.innerHTML = ''; if (secondaryTextTop) secondaryTextTop.innerHTML = ''; if (secondaryTextBottom) secondaryTextBottom.innerHTML = ''; if (thirdTextTopSpan) { thirdTextTopSpan.textContent = ''; thirdTextTopSpan.style.animation = 'none'; } if (thirdTextBottomSpan) { thirdTextBottomSpan.textContent = ''; thirdTextBottomSpan.style.animation = 'none'; } currentThirdTopText = ""; currentThirdBottomText = "";
+                    activeAnimations = []; ctx.clearRect(0, 0, canvas.width, canvas.height);
                 });
-                if (audioPlayer.duration && isFinite(audioPlayer.duration)) {
-                    audioDuration = audioPlayer.duration;
-                }
+                if (audioPlayer.duration && isFinite(audioPlayer.duration)) audioDuration = audioPlayer.duration;
             }).catch(error => {
-                console.error("Audio play() failed:", error); // Keep error
-                alert("无法自动播放音频，请再次点击页面。\nError: " + error.message);
+                console.error("[事件] 音频 play() 失败:", error);
+                alert("无法自动播放音频。请检查浏览器设置或与页面交互后再试。\nError: " + error.message);
+                startButton.style.opacity = '1'; startButton.classList.remove('hidden'); startButton.style.pointerEvents = 'auto'; // 重置开始按钮
+                if (animationFrameId) { console.log("[动画循环] 因 play() 失败而取消 rAF:", animationFrameId); cancelAnimationFrame(animationFrameId); animationFrameId = null; }
             });
 
-            audioPlayer.addEventListener('loadedmetadata', () => {
-                if (audioPlayer.duration && isFinite(audioPlayer.duration)) {
-                    audioDuration = audioPlayer.duration;
-                    console.log(`Audio duration: ${formatTime(audioDuration)}`); // Keep duration log
-                } else {
-                    console.warn("Event 'loadedmetadata': Duration is invalid.", audioPlayer.duration); // Keep warning
-                }
-                // 设置音量条的初始值
+            // 检查音频元数据是否已加载（可能因preload="auto"已提前完成）
+            if (audioPlayer.readyState >= HTMLMediaElement.HAVE_METADATA) {
+                if (audioPlayer.duration && isFinite(audioPlayer.duration)) audioDuration = audioPlayer.duration;
                 if (volumeSlider) volumeSlider.value = audioPlayer.volume;
-            });
-
-            audioPlayer.addEventListener('error', (e) => {
-                console.error("Audio Element Error:", e); // Keep error
-                let errorDetails = 'Unknown audio error';
-                if (audioPlayer.error) {
-                    switch (audioPlayer.error.code) {
-                        case MediaError.MEDIA_ERR_ABORTED: errorDetails = 'Playback aborted.'; break;
-                        case MediaError.MEDIA_ERR_NETWORK: errorDetails = 'Network error.'; break;
-                        case MediaError.MEDIA_ERR_DECODE: errorDetails = 'Decoding error.'; break;
-                        case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorDetails = 'Audio source format not supported.'; break;
-                        default: errorDetails = `Unknown error (Code: ${audioPlayer.error.code})`;
-                    }
-                }
-                // 显示音频错误信息，通常在主歌词区域显示
-                if (lyricsContainer) lyricsContainer.innerHTML = `音频错误: ${errorDetails}`;
-                // 也可以在 secondary text 区域显示错误
-                if (secondaryTextTop) secondaryTextTop.innerHTML = '音频错误';
-                if (secondaryTextBottom) secondaryTextBottom.innerHTML = errorDetails; // 底部显示详细错误
-            });
+            }
         });
 
+        // 音频错误处理 (只添加一次)
+        audioPlayer.addEventListener('error', (e) => {
+            console.error("[事件] 音频元素错误:", e);
+            if (animationFrameId) { console.log("[动画循环] 因音频错误而取消 rAF:", animationFrameId); cancelAnimationFrame(animationFrameId); animationFrameId = null; }
+            let errorDetails = '未知音频错误';
+            if (audioPlayer.error) { /* ... (错误详情switch case不变) ... */ switch (audioPlayer.error.code) { case MediaError.MEDIA_ERR_ABORTED: errorDetails = 'Playback aborted.'; break; case MediaError.MEDIA_ERR_NETWORK: errorDetails = 'Network error.'; break; case MediaError.MEDIA_ERR_DECODE: errorDetails = 'Decoding error.'; break; case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorDetails = 'Audio source format not supported.'; break; default: errorDetails = `Unknown error (Code: ${audioPlayer.error.code})` } }
+            if (lyricsContainer) lyricsContainer.innerHTML = `音频错误: ${errorDetails}`;
+        });
+
+        // 音频元数据加载完成事件
+        audioPlayer.addEventListener('loadedmetadata', () => {
+            if (audioPlayer.duration && isFinite(audioPlayer.duration)) {
+                audioDuration = audioPlayer.duration;
+                console.log(`[事件] 音频元数据加载完毕，时长: ${formatTime(audioDuration)}`);
+            } else {
+                console.warn("[事件] 'loadedmetadata': 音频时长无效或未获取到.", audioPlayer.duration);
+            }
+            if (volumeSlider) volumeSlider.value = audioPlayer.volume; // 设置音量条初始值
+        });
+
+        // 进度条点击事件 (跳转)
         progressBarContainer.addEventListener('click', handleSeek);
 
-        // 音量条事件监听器
-        if (volumeSlider) { // Check if element exists
-            volumeSlider.addEventListener('input', (event) => {
-                // 将滑块的值（0到1）设置给音频播放器的音量
-                audioPlayer.volume = parseFloat(event.target.value);
-            });
-        } else {
-            console.warn("Volume slider element not found.");
+        function handleSeek(event) {
+            if (!audioDuration || !isFinite(audioDuration)) {
+                console.warn("[跳转] 无法跳转: 音频时长无效。", audioDuration);
+                return;
+            }
+            const rect = progressBarContainer.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const containerWidth = progressBarContainer.offsetWidth;
+            const progressRatio = Math.max(0, Math.min(1, clickX / containerWidth));
+            const targetTime = progressRatio * audioDuration;
+
+            const wasPlaying = !audioPlayer.paused; // 在改变 currentTime 之前记录播放状态
+            console.log(`[跳转] 跳转到: ${formatTime(targetTime)}.之前是否播放: ${wasPlaying}`);
+            audioPlayer.currentTime = targetTime; // 设置新的播放时间
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
+            console.log("[跳转] 清空 activeAnimations 数组以重置动画状态。");
+            activeAnimations = []; // 关键：彻底清空，让动画状态完全重新生成
+
+            // 立即更新UI元素
+            updateProgressBar(); updateLyrics(targetTime); updateTextDisplays(targetTime);
+
+            // 管理动画循环
+            if (animationFrameId) { console.log(`[跳转] 取消已存在的 rAF (${animationFrameId})。`); cancelAnimationFrame(animationFrameId); animationFrameId = null; }
+
+            if (wasPlaying) { // 如果之前在播放，则尝试在跳转后继续播放并重启rAF循环
+                console.log("[跳转] 音频之前在播放。尝试 play() 并重启 rAF。");
+                audioPlayer.play().then(() => {
+                    console.log("[跳转] 跳转后 play() 成功。请求新的 rAF。");
+                    animationFrameId = requestAnimationFrame(animationGameLoop);
+                }).catch(error => {
+                    console.error("[跳转] 跳转后尝试 play() 失败:", error);
+                    // 如果播放失败，确保动画循环也是停止的
+                    if (animationFrameId) { cancelAnimationFrame(animationFrameId); animationFrameId = null; }
+                });
+            } else { // 如果之前是暂停的，则仅绘制跳转到的那一帧，不启动rAF循环
+                console.log("[跳转] 音频之前是暂停的。绘制单帧。");
+                updateArrowAnimations(targetTime);
+            }
         }
 
-        // --- Initialization ---
+        // 音量条控制
+        if (volumeSlider) { volumeSlider.addEventListener('input', (event) => { audioPlayer.volume = parseFloat(event.target.value); }); }
+
+        // --- 初始化 ---
         async function initialize() {
-            // Removed createPixelGrid()
-            // 同时加载主歌词和第二个ass文件
-            const results = await Promise.allSettled([
+            console.log("[初始化] 开始页面初始化...");
+            resizeCanvas(); // 初始化Canvas尺寸
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 初始清空画布
+            if (thirdTextTop) thirdTextTop.innerHTML = '<span></span>';
+            else console.error("thirdTextTop element not found during init");
+            if (thirdTextBottom) thirdTextBottom.innerHTML = '<span></span>';
+            else console.error("thirdTextBottom element not found during init");
+
+            thirdTextTopSpan = thirdTextTop ? thirdTextTop.querySelector('span') : null;
+            thirdTextBottomSpan = thirdTextBottom ? thirdTextBottom.querySelector('span') : null;
+
+            if (!thirdTextTopSpan) console.error("thirdTextTopSpan not found after creation.");
+            if (!thirdTextBottomSpan) console.error("thirdTextBottomSpan not found after creation.");
+            const loadPromises = [
                 loadLyrics(LYRICS_FILE, 'lyrics'),
                 loadLyrics(SECONDARY_LYRICS_FILE, 'secondary')
-            ]);
+            ];
+            // 确保能获取到音频时长
+            const audioReadyPromise = new Promise(resolve => {
+                if (audioPlayer.readyState >= HTMLMediaElement.HAVE_METADATA) {
+                    if (audioPlayer.duration && isFinite(audioPlayer.duration)) audioDuration = audioPlayer.duration;
+                    resolve();
+                } else {
+                    audioPlayer.addEventListener('loadedmetadata', () => {
+                        if (audioPlayer.duration && isFinite(audioPlayer.duration)) audioDuration = audioPlayer.duration;
+                        resolve();
+                    }, { once: true });
+                    setTimeout(() => { // 超时回退
+                        if (!audioDuration && audioPlayer.duration && isFinite(audioPlayer.duration)) audioDuration = audioPlayer.duration;
+                        resolve();
+                    }, 2000);
+                }
+            });
+            loadPromises.push(audioReadyPromise);
 
-            console.log("Initialization complete. Waiting for start button click."); // Keep init log
-
-            // 检查加载结果
-            if (results[0].status === 'rejected' || lyricsData.length === 0) {
-                console.warn(`Main lyrics data missing or failed to load from ${LYRICS_FILE}.`);
-                if (lyricsContainer) lyricsContainer.innerHTML = '无法加载主歌词';
-            }
-            if (results[1].status === 'rejected' || secondaryLyricsData.length === 0) {
-                console.warn(`Secondary text data missing or failed to load from ${SECONDARY_LYRICS_FILE}.`);
-                const errorMsg = '无法加载次要文本';
-                if (secondaryTextTop) secondaryTextTop.innerHTML = errorMsg;
-                if (secondaryTextBottom) secondaryTextBottom.innerHTML = errorMsg;
-            }
-
-            // 确保在初始化时设置音量条的初始值（以防loadedmetadata在DOMContentLoad之后触发）
-            if (volumeSlider && audioPlayer.readyState > 0) { // Check if elements exist and metadata is loaded
-                volumeSlider.value = audioPlayer.volume;
-            }
-            // 初始化时清空容器，准备显示第一个时间点的文本
+            await Promise.allSettled(loadPromises);
+            console.log("[初始化] 所有资源加载尝试完毕。等待开始按钮点击。");
+            if (lyricsData.length === 0 && lyricsContainer) lyricsContainer.innerHTML = '无法加载主歌词';
+            if (audioDuration > 0 && volumeSlider && audioPlayer.readyState > 0) volumeSlider.value = audioPlayer.volume;
+            // Update clearing section
             if (lyricsContainer) lyricsContainer.innerHTML = '';
             if (secondaryTextTop) secondaryTextTop.innerHTML = '';
             if (secondaryTextBottom) secondaryTextBottom.innerHTML = '';
+            // VVV ADD THIS VVV
+            if (thirdTextTopSpan) { thirdTextTopSpan.textContent = ''; thirdTextTopSpan.style.animation = 'none'; }
+            if (thirdTextBottomSpan) { thirdTextBottomSpan.textContent = ''; thirdTextBottomSpan.style.animation = 'none'; }
+            currentThirdTopText = "";
+            currentThirdBottomText = "";
+            if (lyricsData.length === 0 && lyricsContainer) lyricsContainer.innerHTML = '无法加载主歌词';
+            if (audioDuration > 0 && volumeSlider && audioPlayer.readyState > 0) volumeSlider.value = audioPlayer.volume;
+
+            // 初始化时清空文本显示区域
+            if (lyricsContainer) lyricsContainer.innerHTML = ''; if (secondaryTextTop) secondaryTextTop.innerHTML = ''; if (secondaryTextBottom) secondaryTextBottom.innerHTML = '';
         }
 
+        // DOM加载完成后执行初始化
         document.addEventListener('DOMContentLoaded', initialize);
-
     </script>
-
 </body>
 
 </html>
