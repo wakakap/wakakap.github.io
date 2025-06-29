@@ -245,18 +245,15 @@ a:hover {
 
 .project-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* 每行最多四个项目 */
-    grid-gap: 0px;
-    /* 设置项目之间的间距 */
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* More responsive */
+    gap: 10px; /* Replaces grid-gap, a more modern standard */
+    padding: 10px; /* Add some padding around the container */
+    justify-content: center; /* Center the grid items */
 }
 
 .project {
-    flex: 0 0 auto;
-    /* prevent items from stretching to fill width */
-    margin: 20px;
+    /* flex property is not needed for grid layout */
+    margin: 0; /* Margin is now controlled by 'gap' in the container */
     width: 250px;
     height: 350px;
     background-size: cover;
@@ -264,7 +261,6 @@ a:hover {
     position: relative;
     cursor: pointer;
     border: 2px solid rgb(255, 221, 159);
-
 }
 
 .project::before {
@@ -532,13 +528,14 @@ a:hover {
         flex-direction: column;
         align-items: center;
         overflow-x: hidden;
+        gap: 15px; /* Spacing for mobile view */
     }
 
     .project {
         width: 80%;
         max-width: 300px;
         height: 250px;
-        margin: 10px 0;
+        margin: 0; /* Reset margin */
     }
 
     .project::before {
