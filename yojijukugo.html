@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四字熟語カード</title>
+    <style>
+        :root {
+            --card-bg-color: rgba(255, 255, 255, 0.85);
+            --text-color: #333;
+            --container-height: 160px;
+            --card-height: 120px;
+            --connector-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-image: url('media/go.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+        }
+
+        #main-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .idiom-container {
+            width: 90%;
+            max-width: 800px;
+            height: var(--container-height);
+            margin: 10px 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card {
+            position: absolute;
+            height: var(--card-height);
+            top: calc((var(--container-height) - var(--card-height)) / 2);
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+            transition: box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .idiom-container:hover .card {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .left-card {
+            width: 40%;
+            left: 5%;
+            font-size: 2.2em;
+            text-align: center;
+        }
+
+        .right-card {
+            width: 40%;
+            left: 55%;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        
+        .right-card p {
+            margin: 0;
+        }
+        
+        .right-card .source {
+            font-size: 0.8em;
+            color: #555;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        ruby {
+            ruby-align: center;
+        }
+
+        rt {
+            font-size: 0.4em;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .connector {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .error-message {
+            color: white; 
+            background-color: rgba(200, 0, 0, 0.8); 
+            padding: 20px; 
+            border-radius: 10px; 
+            text-align: center;
+            max-width: 800px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-content"></div>
+
+    <script>
+        // --- データ処理関数 ---
+        function parseAndSortData(rawData) {
+            const lines = rawData.split('\n').filter(line => line.includes(','));
+            const idioms = lines.map(line => {
+                const cleanLine = line.replace(/\\s*/, '');
+                const [kanji, reading, meaning, source] = cleanLine.split(',');
+                return { kanji, reading, meaning, source };
+            });
+            idioms.sort((a, b) => a.kanji.localeCompare(b.kanji, 'ja'));
+            return idioms;
+        }
+
+        // --- Rubyタグ生成関数 ---
+        function createRubyHTML(kanji, reading) {
+            const readings = reading.split('|');
+            const kanjiChars = [...kanji];
+            let html = '';
+            for (let i = 0; i < kanjiChars.length; i++) {
+                html += `<ruby>${kanjiChars[i]}<rt>${readings[i] || ''}</rt></ruby>`;
+            }
+            return html;
+        }
+        
+        // --- 物理演算とアニメーション ---
+        function setupPhysicsForContainer(container) {
+            const leftCard = container.querySelector('.left-card');
+            const rightCard = container.querySelector('.right-card');
+            const svg = container.querySelector('svg');
+            const line = svg.querySelector('line');
+            
+            const state = {
+                left: { el: leftCard, x: 0, y: 0, vx: 0, vy: 0, anchorX: leftCard.offsetLeft, anchorY: leftCard.offsetTop },
+                right: { el: rightCard, x: 0, y: 0, vx: 0, vy: 0, anchorX: rightCard.offsetLeft, anchorY: rightCard.offsetTop },
+                mouse: { x: null, y: null, active: false }
+            };
+            
+            state.left.x = state.left.anchorX;
+            state.left.y = state.left.anchorY;
+            state.right.x = state.right.anchorX;
+            state.right.y = state.right.anchorY;
+
+            container.addEventListener('mouseenter', () => state.mouse.active = true);
+            container.addEventListener('mouseleave', () => {
+                state.mouse.active = false;
+                state.mouse.x = null;
+                state.mouse.y = null;
+            });
+            container.addEventListener('mousemove', (e) => {
+                if (state.mouse.active) {
+                    const rect = container.getBoundingClientRect();
+                    state.mouse.x = e.clientX - rect.left;
+                    state.mouse.y = e.clientY - rect.top;
+                }
+            });
+
+            function update() {
+                const spring = 0.02, damping = 0.85, mouseAttract = 0.005, linkSpring = 0.01;
+                
+                let forceLX = (state.left.anchorX - state.left.x) * spring;
+                let forceLY = (state.left.anchorY - state.left.y) * spring;
+                let forceRX = (state.right.anchorX - state.right.x) * spring;
+                let forceRY = (state.right.anchorY - state.right.y) * spring;
+
+                if (state.mouse.active && state.mouse.x !== null) {
+                    forceLX += (state.mouse.x - (state.left.x + state.left.el.offsetWidth / 2)) * mouseAttract;
+                    forceLY += (state.mouse.y - (state.left.y + state.left.el.offsetHeight / 2)) * mouseAttract;
+                    forceRX += (state.mouse.x - (state.right.x + state.right.el.offsetWidth / 2)) * mouseAttract;
+                    forceRY += (state.mouse.y - (state.right.y + state.right.el.offsetHeight / 2)) * mouseAttract;
+                }
+                
+                const linkDX = (state.right.x + state.right.el.offsetWidth/2) - (state.left.x + state.left.el.offsetWidth/2);
+                const stretch = linkDX - (state.right.anchorX - state.left.anchorX);
+                forceLX += stretch * linkSpring;
+                forceRX -= stretch * linkSpring;
+
+                state.left.vx = (state.left.vx + forceLX) * damping;
+                state.left.vy = (state.left.vy + forceLY) * damping;
+                state.right.vx = (state.right.vx + forceRX) * damping;
+                state.right.vy = (state.right.vy + forceRY) * damping;
+
+                state.left.x += state.left.vx;
+                state.left.y += state.left.vy;
+                state.right.x += state.right.vx;
+                state.right.y += state.right.vy;
+
+                const boundaryPadding = 5;
+                state.left.y = Math.max(boundaryPadding, Math.min(state.left.y, container.offsetHeight - state.left.el.offsetHeight - boundaryPadding));
+                state.right.y = Math.max(boundaryPadding, Math.min(state.right.y, container.offsetHeight - state.right.el.offsetHeight - boundaryPadding));
+                state.left.x = Math.max(boundaryPadding, Math.min(state.left.x, container.offsetWidth - state.left.el.offsetWidth - boundaryPadding));
+                state.right.x = Math.max(boundaryPadding, Math.min(state.right.x, container.offsetWidth - state.right.el.offsetWidth - boundaryPadding));
+
+                state.left.el.style.transform = `translate(${state.left.x - state.left.anchorX}px, ${state.left.y - state.left.anchorY}px)`;
+                state.right.el.style.transform = `translate(${state.right.x - state.right.anchorX}px, ${state.right.y - state.right.anchorY}px)`;
+
+                line.setAttribute('x1', state.left.x + state.left.el.offsetWidth * 0.9);
+                line.setAttribute('y1', state.left.y + state.left.el.offsetHeight / 2);
+                line.setAttribute('x2', state.right.x + state.right.el.offsetWidth * 0.1);
+                line.setAttribute('y2', state.right.y + state.right.el.offsetHeight / 2);
+
+                requestAnimationFrame(update);
+            }
+            update();
+        }
+        
+        // --- メイン処理 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContent = document.getElementById('main-content');
+            
+            // ファイルをfetchで読み込む
+            fetch('data/四字熟語.txt')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}, ファイルが見つからないか、読み込めません。`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const sortedIdioms = parseAndSortData(data);
+                    sortedIdioms.forEach(idiom => {
+                        const container = document.createElement('div');
+                        container.className = 'idiom-container';
+                        
+                        const leftCard = document.createElement('div');
+                        leftCard.className = 'card left-card';
+                        leftCard.innerHTML = createRubyHTML(idiom.kanji, idiom.reading);
+
+                        const rightCard = document.createElement('div');
+                        rightCard.className = 'card right-card';
+                        rightCard.innerHTML = `<p>${idiom.meaning}</p><p class="source">${idiom.source}</p>`;
+
+                        const connector = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                        connector.setAttribute('class', 'connector');
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('stroke', 'var(--connector-color)');
+                        line.setAttribute('stroke-width', '2');
+                        line.setAttribute('stroke-dasharray', '5, 5');
+                        connector.appendChild(line);
+
+                        container.appendChild(connector);
+                        container.appendChild(leftCard);
+                        container.appendChild(rightCard);
+                        
+                        mainContent.appendChild(container);
+
+                        setupPhysicsForContainer(container);
+                    });
+                })
+                .catch(error => {
+                    console.error('ファイルの読み込みに失敗しました:', error);
+                    mainContent.innerHTML = `
+                        <div class="error-message">
+                            <strong>ファイルの読み込みに失敗しました。</strong><br><br>
+                            1. HTMLファイルと同じ階層に <code>data</code> フォルダを作成し、その中に <code>四字熟語.txt</code> があるか確認してください。<br>
+                            2. このページはローカルサーバー経由で開く必要があります。下記の【実行方法】を参照してください。
+                        </div>
+                    `;
+                });
+        });
+    </script>
+
+</body>
+</html>
